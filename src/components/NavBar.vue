@@ -9,6 +9,7 @@
         <div class="flex items-center absolute inset-y-0 right-0">
             <div class="flex font-medium font-bold items-center">
                 <router-link to="/" class="px-4 py-7">Home</router-link>
+                <router-link to="/team" class="px-4 py-7">Team</router-link>
                 <router-link to="/about" class="px-4 py-7">About</router-link>
                 <p class="border-r-2 border-gray-300 h-5 w-1 my-auto mx-5"></p>
                 <div class="cursor-pointer">
