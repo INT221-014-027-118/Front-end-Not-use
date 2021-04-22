@@ -3,3 +3,7 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.bg-darkteme {
+    @apply dark:bg-gray-900 dark:text-gray-300 bg-gray-100 transition-colors duration-700 ease-out
+}
