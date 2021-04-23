@@ -1,50 +1,30 @@
 {
-    "product": [
-        {
-            "id": 1,
-            "brand": "Logitech",
-            "type": "Headset ",
-            "name": "G431",
-            "price": 1690,
-            "colors": [
-                "#071d49",
-                "#00fff9",
-                "#fff"
-            ],
-            "description": "ไดเวอร์ 50 มม. ได้ยินเสียงที่ดังและฟังชัด มาพร้อมกับ DTS HEADPHONE:X 2.0 ชุดหูฟังเดียว ครอบคลุมทุกแพลตฟอร์ม สร้างมาเพื่อความสะดวกสบายและความทนทาน"
-        },
-        {
-            "id": 2,
-            "brand": "Logitech",
-            "type": "Keyboard",
-            "name": "USB Keyboard LOGITECH K120 Black",
-            "price": 270,
-            "colors": [
-                "#ff0c93",
-                "#00fff9",
-                "#071d49"
-            ],
-            "description": "ไดเวอร์ 50 มม. ได้ยินเสียงที่ดังและฟังชัด มาพร้อมกับ DTS HEADPHONE:X 2.0 ชุดหูฟังเดียว ครอบคลุมทุกแพลตฟอร์ม สร้างมาเพื่อความสะดวกสบายและความทนทาน"
-        }
-    ],
-    "team": [
-        {
-            "id": 1,
-            "studentId": "62130500014",
-            "name": "Jakkapong Praditthanachot",
-            "role": ["Frontend","DataBase","Network"]
-        },
-        {
-            "id": 2,
-            "studentId": "62130500027",
-            "name": "Traitawat Jitchana",
-            "role": ["Frontend","DataBase","Backend"]
-        },
-        {
-            "id": 3,
-            "studentId": "62130500118",
-            "name": "Apisit kaewnongsaeng",
-            "role": ["Frontend","DataBase","Devops"]
-        }
-    ]
+  "product": [
+    {
+      "brand": "Logitech",
+      "type": "Headset ",
+      "name": "G431",
+      "price": 1690,
+      "colors": [
+        "#071d49",
+        "#00fff9",
+        "#fff"
+      ],
+      "description": "ไดเวอร์ 50 มม. ได้ยินเสียงที่ดังและฟังชัด มาพร้อมกับ DTS HEADPHONE:X 2.0 ชุดหูฟังเดียว ครอบคลุมทุกแพลตฟอร์ม สร้างมาเพื่อความสะดวกสบายและความทนทาน",
+      "id": 1
+    },
+    {
+      "brand": "Logitech",
+      "type": "Keyboard",
+      "name": "USB Keyboard LOGITECH K120 Black",
+      "price": 270,
+      "colors": [
+        "#ff0c93",
+        "#00fff9",
+        "#071d49"
+      ],
+      "description": "ไดเวอร์ 50 มม. ได้ยินเสียงที่ดังและฟังชัด มาพร้อมกับ DTS HEADPHONE:X 2.0 ชุดหูฟังเดียว ครอบคลุมทุกแพลตฟอร์ม สร้างมาเพื่อความสะดวกสบายและความทนทาน",
+      "id": 2
+    }
+  ]
 }
