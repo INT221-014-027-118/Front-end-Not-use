@@ -4,6 +4,7 @@ import {
 } from 'vue-router'
 import Home from '../views/Home.vue'
 import Team from '../views/Team.vue'
+import Form from '../views/Form.vue'
 
 const routes = [{
     path: '/',
@@ -14,6 +15,11 @@ const routes = [{
     path: '/team',
     name: 'Team',
     component: Team
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: Form
   },
   {
     path: '/about',

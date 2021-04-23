@@ -9,7 +9,7 @@
           </div>
         <div>
           <div class="flex items-center absolute inset-y-0 right-0">
-              <div class="flex font-medium font-bold items-center">
+              <div class="flex font-bold items-center">
                   <router-link to="/" class="px-4 py-7 hover:text-indigo-500">Home</router-link>
                   <router-link to="/team" class="px-4 py-7 hover:text-indigo-500">Team</router-link>
                   <router-link to="/about" class="px-4 py-7 hover:text-indigo-500">About</router-link>
