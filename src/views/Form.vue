@@ -67,8 +67,11 @@
             <label class="label-css" for="previewImage">color</label>
             <div class="input-css">
               <div class="flex flex-row ">
-                <div v-for="color in colors" :key="color">
-                  <base-color :color="color" />
+                <div v-for="(color, index) in colors" :key="color.color">
+                  <base-color
+                    :color="color.color"
+                    @active-color="active($event, index)"
+                  />
                 </div>
               </div>
             </div>
@@ -129,19 +132,26 @@ export default {
       previewImage: null,
       activeClose: false,
       colors: [
-        "#000000",
-        "#fffff0",
-        "#c9c9c9",
-        "#ffa5b5",
-        "#57bfff",
-        "#365aad",
-        "#008972",
-        "#6857ab",
+        { active: Boolean, color: "#000000" },
+        { active: Boolean, color: "#fffff0" },
+        { active: Boolean, color: "#c9c9c9" },
+        { active: Boolean, color: "#ffa5b5" },
+        { active: Boolean, color: "#57bfff" },
+        { active: Boolean, color: "#365aad" },
+        { active: Boolean, color: "#008972" },
+        { active: Boolean, color: "#6857ab" },
       ],
     };
   },
   methods: {
     submitForm() {
+      let colorsAdd = this.colors
+        .filter((color) => {
+          return color.active === true;
+        })
+        .map((color) => {
+          return color.color;
+        });
       fetch(this.url, {
         method: "POST",
         headers: {
@@ -152,6 +162,7 @@ export default {
           type: this.type,
           name: this.name,
           price: this.price,
+          colors: colorsAdd,
           description: this.description,
           img: this.img,
         }),
@@ -176,6 +187,10 @@ export default {
     removeImage() {
       this.previewImage = null;
       this.activeClose = !this.activeClose;
+    },
+
+    active(active, index) {
+      this.colors[index].active = active;
     },
   },
 };
