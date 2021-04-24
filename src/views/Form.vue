@@ -88,6 +88,7 @@
         </form>
       </div>
 
+
       <div class="lg:w-full px-3 mb-6 md:mb-0">
         <label class="label-css" for="previewImage">Preview</label>
         <div class="input-css relative">
@@ -161,4 +162,5 @@ export default {
 .btn {
   @apply bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4;
 }
+
 </style>
