@@ -26,33 +26,59 @@
               </div>
           </div>
 
-          <div class="absolute top-0 left-0 w-8 h-full z-50 bg-red-600 sm:hidden border border-yellow-500">
-              <div class="bg-green-700 ">test1 
-                
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
-                <div class=" ">test</div>
+          <div class="absolute top-0 left-0 w-8 h-full z-50 sm:hidden">
+                            
+                <div class="relative py-3 sm:max-w-xl mx-auto">
+                    <nav x-data="{ open: false }">
+                        <button class="w-10 h-10 relative focus:outline-none " @click="open = !open , menulist = !menulist">
+                            <span class="sr-only">Open main menu</span>
+                            <div class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'rotate-45': open,' -translate-y-1.5': !open }"></span>
+                                <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'opacity-0': open } "></span>
+                                <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out" :class="{'-rotate-45': open, ' translate-y-1.5': !open}"></span>
+                            </div>
+                        </button>
+                    </nav>
+                </div>
+
+                <div :class="[ !menulist ?  'invisible' : 'w-screen absolute transform transition duration-500 ease-in-out top-0 translate-y-16' ]">
+                  <div class="flex flex-col bg-gray-200 dark:bg-gray-900 w-full">
+                    <router-link to="/" class="px-4 py-7 hover:text-indigo-500 text-center" @click="menulist =!menulist" >Home</router-link>
+                    <router-link to="/team" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >Team</router-link>
+                    <router-link to="/about" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >About</router-link>
+                    <router-link to="/form" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >Add</router-link>
+                  </div>
+                </div>
+              
+          </div>
+
+          <div class="cursor-pointer absolute top-0 right-6 w-8 h-full z-50 sm:hidden flex items-center ">
+              <div :class="{ hidden: !change }" @click="switchMode" class="p-4 hover:text-indigo-500">
+                  <i class="material-icons">light_mode</i>
               </div>
-             
+              <div :class="{ hidden: change }"  @click="switchMode" class="p-4 hover:text-indigo-500">
+                  <i class="material-icons">dark_mode</i>
+              </div>
           </div>
 
 
         </div>
     </div>
   </div>
+  
 </template>
 
 <script>
+
 export default {
   props: {
     change: Boolean,
+  },
+  data() {
+    return {
+      open: false,
+      menulist: false
+    }
   },
   methods: {
     switchMode() {
