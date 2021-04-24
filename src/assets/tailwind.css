@@ -7,3 +7,4 @@
 .bg-darkteme {
     @apply bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-300 transition-colors duration-300 ease-out
 }
+
