@@ -94,12 +94,6 @@
           value="Add Product"
           class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded absolute bottom-4 right-4"
         />
-
-        <input
-          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-          id="file"
-          type="file"
-        />
       </form>
     </div>
   </div>
@@ -129,7 +123,8 @@ export default {
           type: this.type,
           name: this.name,
           price: this.price,
-          description: this.description
+          description: this.description,
+          previewImage: null,
         }),
       });
     },
@@ -137,4 +132,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+img {
+  width: 30%;
+  margin: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+</style>
