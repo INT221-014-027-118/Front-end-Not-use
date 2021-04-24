@@ -1,14 +1,13 @@
 <template>
-  <div class="mt-28">
-    <div
-      class="bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 grid sm:grid-cols-2 max-w-6xl mx-auto relative"
-    >
-      <div>
-        <form @submit.prevent="submitForm">
+  <div class="mt-24 lg:mt-28">
+    <form @submit.prevent="submitForm">
+      <div
+        class="bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-6 pb-16 grid sm:grid-cols-2 max-w-6xl mx-auto relative"
+      >
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ L ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div>
           <div class="lg:w-full px-3 mb-6 md:mb-0">
-            <label class="label-css" for="brand">
-              Brand
-            </label>
+            <label class="label-css" for="brand">Brand</label>
             <input
               v-model.trim="brand"
               class="input-css"
@@ -19,9 +18,7 @@
           </div>
 
           <div class="lg:w-full px-3 mb-6 md:mb-0">
-            <label class="label-css" for="name">
-              Name
-            </label>
+            <label class="label-css" for="name">Name</label>
             <input
               v-model.trim="name"
               class="input-css"
@@ -30,11 +27,10 @@
               placeholder=""
             />
           </div>
+
           <div class="lg:w-full flex flex-row">
             <div class="w-1/2 px-3 mb-6 md:mb-0">
-              <label class="label-css" for="price">
-                Price
-              </label>
+              <label class="label-css" for="price">Price</label>
               <input
                 v-model="price"
                 class="input-css"
@@ -45,9 +41,7 @@
             </div>
 
             <div class="w-1/2 px-3">
-              <label class="label-css" for="grid-state">
-                Type
-              </label>
+              <label class="label-css" for="grid-state">Type</label>
               <div class="relative">
                 <select class="input-css" id="type" v-model="type">
                   <option value="Keyboard">Keyboard</option>
@@ -59,9 +53,7 @@
           </div>
 
           <div class="lg:w-full px-3 mb-6 md:mb-0">
-            <label class="label-css" for="description">
-              Description
-            </label>
+            <label class="label-css" for="description">Description</label>
             <textarea
               class="input-css h-36"
               id="description"
@@ -70,6 +62,28 @@
               placeholder=""
             />
           </div>
+
+          <div class="lg:w-full md:mb-0">
+            <label class="label-css" for="previewImage">color</label>
+            <div class="input-css">
+              <div class="flex flex-row ">
+                <div v-for="color in colors" :key="color">
+                  <base-color :color="color" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input
+            type="submit"
+            value="Add Product"
+            class="btn absolute bottom-4 right-4 cursor-pointer rounded z-10 shadow-md"
+          />
+        </div>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Right ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+        <div>
           <div class="lg:w-full px-3 mb-6 md:mb-0">
             <label class="label-css" for="description">File</label>
             <input
@@ -80,30 +94,30 @@
             />
           </div>
 
-          <input
-            type="submit"
-            value="Add Product"
-            class="btn absolute bottom-4 right-4 cursor-pointer rounded z-10 shadow-md"
-          />
-        </form>
-      </div>
-
-
-      <div class="lg:w-full px-3 mb-6 md:mb-0">
-        <label class="label-css" for="previewImage">Preview</label>
-        <div class="input-css relative">
-          <img :src="previewImage" alt="" />
-          <span class="material-icons absolute top-2 right-2 cursor-pointer" @click="removeImage">
-            close
-          </span>
+          <div
+            class="lg:w-full px-3 mb-6 md:mb-0"
+            :class="{ hidden: !activeClose }"
+          >
+            <label class="label-css" for="previewImage">Preview</label>
+            <div class="input-css relative">
+              <span
+                class="material-icons absolute top-2 right-2 cursor-pointer p-1 rounded-full bg-blue-700 text-white"
+                @click="removeImage()"
+                >close</span
+              >
+              <img :src="previewImage" alt="Preview Image" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
+import BaseColor from "../components/BaseColor.vue";
 export default {
+  components: { BaseColor },
   data() {
     return {
       brand: "",
@@ -113,6 +127,17 @@ export default {
       description: "",
       url: "http://localhost:5000/product",
       previewImage: null,
+      activeClose: false,
+      colors: [
+        "#000000",
+        "#fffff0",
+        "#c9c9c9",
+        "#ffa5b5",
+        "#57bfff",
+        "#365aad",
+        "#008972",
+        "#6857ab",
+      ],
     };
   },
   methods: {
@@ -127,15 +152,19 @@ export default {
           type: this.type,
           name: this.name,
           price: this.price,
-          description: this.description
+          description: this.description,
+          img: this.img,
         }),
       });
     },
+
     onFileChange(event) {
       let files = event.target.files || event.dataTransfer.files;
       if (!files.length) return;
       this.createImage(files[0]);
+      this.activeClose = true;
     },
+
     createImage(file) {
       let reader = new FileReader();
       reader.onload = (event) => {
@@ -143,8 +172,10 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+
     removeImage() {
       this.previewImage = null;
+      this.activeClose = !this.activeClose;
     },
   },
 };
@@ -162,5 +193,4 @@ export default {
 .btn {
   @apply bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4;
 }
-
 </style>
