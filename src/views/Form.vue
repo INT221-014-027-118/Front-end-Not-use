@@ -1,9 +1,7 @@
 <template>
-  <div class="mt-24 lg:mt-28">
+  <div class="mt-24 lg:mt-24">
     <form @submit.prevent="submitForm">
-      <div
-        class="bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-6 pb-16 grid sm:grid-cols-2 max-w-6xl mx-auto relative"
-      >
+      <div class="bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-4 pb-14 grid sm:grid-cols-2 max-w-6xl mx-auto relative" >
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ L ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div>
           <div class="lg:w-full px-3 mb-6 md:mb-0">
@@ -63,10 +61,10 @@
             />
           </div>
 
-          <div class="lg:w-full md:mb-0">
+          <div class="lg:w-full px-3 mb-6 md:mb-0">
             <label class="label-css" for="previewImage">color</label>
             <div class="input-css">
-              <div class="flex flex-row ">
+              <div class="flex flex-wrap">
                 <div v-for="(color, index) in colors" :key="color.color">
                   <base-color
                     :color="color.color"
@@ -108,7 +106,7 @@
                 @click="removeImage()"
                 >close</span
               >
-              <img :src="previewImage" alt="Preview Image" />
+              <img :src="previewImage" alt="Preview Image" class="max-h-96" />
             </div>
           </div>
         </div>
