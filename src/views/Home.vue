@@ -1,52 +1,185 @@
 <template>
 
-<div class="flex items-center h-screen ">
+<div class="flex items-center lg:h-screen lg:mt-0 -mt-5 sm:mt-0 md:mt-28 ">
   <div class="w-4/5 mx-auto mt-24 sm:mt-44 md:mt-0">
     <div class="flex flex-col items-stretch md:flex-row">
       
-      <div class="md:w-1/3 p-4 md:p-3 lg:p-7 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"  >
-        <div class="h-28 md:h-36 rounded-t-lg bg-contain bg-white bg-no-repeat bg-top" :style="{'background-image': 'url(' + require('@/assets/headset.svg') + ')'}"></div>
-        <div class="flex justify-center items-center p-3 sm:p-6 rounded-b-lg shadow-2xl text-center bg-blue-200 dark:bg-blue-900" >
-              <i class="material-icons p-3 md:p-3 lg:p-6 rounded-full bg-blue-700 text-white mr-3">headset_mic</i>
-              <span class="text-xl font-mono uppercase">headset</span>
-        </div>
-      </div>
-      
-
-      <div class="md:w-1/3 p-4 md:p-3 lg:p-7 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"  >
-        <div class="h-28 md:h-36 rounded-t-lg bg-contain bg-white bg-no-repeat bg-top" :style="{'background-image': 'url(' + require('@/assets/keyboard.svg') + ')'}"></div>
-        <div class="flex justify-center items-center p-3 sm:p-6 rounded-b-lg shadow-2xl text-center bg-blue-200 dark:bg-blue-900" >
-              <i class="material-icons p-3 md:p-3 lg:p-6 rounded-full bg-blue-700 text-white mr-3">keyboard</i>
-              <span class="text-xl font-mono uppercase">keyboard</span>
-        </div>
-      </div>
-
-      <div class="md:w-1/3 p-4 md:p-3 lg:p-7 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"  >
-        <div class="h-28 md:h-36 rounded-t-lg bg-contain bg-white bg-no-repeat bg-top" :style="{'background-image': 'url(' + require('@/assets/mouse.svg') + ')'}"></div>
-        <div class="flex justify-center items-center p-3 sm:p-6 rounded-b-lg shadow-2xl text-center bg-blue-200 dark:bg-blue-900" >
-              <i class="material-icons p-3 md:p-3 lg:p-6 rounded-full bg-blue-700 text-white mr-3">mouse</i>
-              <span class="text-xl font-mono uppercase">mouse</span>
-        </div>
-      </div>
+    <item-type v-for="item in itemType" :key="item.img" :item="item" ></item-type>
 
     </div>
   </div>
 </div>
+
+  <div class="h-screen bg-red-600 mt-52">
+    <div class="h-full items-center mx-auto max-w-6xl bg-yellow-400">
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="container p-2 mx-auto grid grid-cols-2 gap-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+
+      
+      <div class="flex flex-col border border-green-400 shadow-md">
+        <div class="bg-white overflow-hidden w-full relative pb-96" >
+          <img 
+            src="@/assets/headset.svg"
+            class="absolute h-full w-full object-cover object-center p-2 rounded-lg "
+            alt=""
+          />
+        </div>
+        <div class="z-10 w-full">
+          <div class="bg-white shadow-lg py-5 px-5">
+            <h1 class="font-bold text-gray-800 text-lg">Geek Pizza</h1>
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <p class="font-bold text-gray-800 text-lg">Geek Pizza</p>
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600 font-light">Size : Regular</div>
+
+              <div class="text-2xl text-red-600 font-bold">$ 8.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center shadow-md">
+        <div
+          class="bg-white overflow-hidden rounded-lg w-full relative pb-36"
+        >
+          <img
+            src="https://source.unsplash.com/MNtag_eXMKw/1600x900"
+            class="absolute h-full w-full object-cover object-center"
+            alt=""
+          />
+        </div>
+        <div class="z-10 -mt-12 px-6 w-full">
+          <div class="bg-white shadow-lg rounded-lg py-5 px-5">
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600 font-light">Size : Regular</div>
+              <div class="text-2xl text-red-600 font-bold">$ 8.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center shadow-md">
+        <div
+          class="bg-white overflow-hidden rounded-lg w-full relative pb-36"
+        >
+          <img
+            src="https://source.unsplash.com/MNtag_eXMKw/1600x900"
+            class="absolute h-full w-full object-cover object-center"
+            alt=""
+          />
+        </div>
+        <div class="z-10 -mt-12 px-6 w-full">
+          <div class="bg-white shadow-lg rounded-lg py-5 px-5">
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600 font-light">Size : Regular</div>
+              <div class="text-2xl text-red-600 font-bold">$ 8.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center shadow-md">
+        <div
+          class="bg-white overflow-hidden rounded-lg w-full relative pb-36"
+        >
+          <img
+            src="https://source.unsplash.com/MNtag_eXMKw/1600x900"
+            class="absolute h-full w-full object-cover object-center"
+            alt=""
+          />
+        </div>
+        <div class="z-10 -mt-12 px-6 w-full">
+          <div class="bg-white shadow-lg rounded-lg py-5 px-5">
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600 font-light">Size : Regular</div>
+              <div class="text-2xl text-red-600 font-bold">$ 8.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center shadow-md">
+        <div
+          class="bg-white overflow-hidden rounded-lg w-full relative pb-36"
+        >
+          <img
+            src="https://source.unsplash.com/MNtag_eXMKw/1600x900"
+            class="absolute h-full w-full object-cover object-center"
+            alt=""
+          />
+        </div>
+        <div class="z-10 -mt-12 px-6 w-full">
+          <div class="bg-white shadow-lg rounded-lg py-5 px-5">
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600 font-light">Size : Regular</div>
+              <div class="text-2xl text-red-600 font-bold">$ 8.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center shadow-md">
+        <div
+          class="bg-white overflow-hidden rounded-lg w-full relative pb-36"
+        >
+          <img
+            src="https://source.unsplash.com/MNtag_eXMKw/1600x900"
+            class="absolute h-full w-full object-cover object-center"
+            alt=""
+          />
+        </div>
+        <div class="z-10 -mt-12 px-6 w-full">
+          <div class="bg-white shadow-lg rounded-lg py-5 px-5">
+            <span class="font-bold text-gray-800 text-lg">Geek Pizza</span>
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-600 font-light">Size : Regular</div>
+              <div class="text-2xl text-red-600 font-bold">$ 8.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    </div>
+  </div>
+
 </template>
 
 <script>
+import ItemType from "@/components/ItemType.vue"
+import headset from "@/assets/headset.svg"
+import keyboard from "@/assets/keyboard.svg"
+import mouse from "@/assets/mouse.svg"
 
 export default {
   name: 'Home',
   components: {
-    
+    ItemType
   },
   data() {
     return {
-      itme:[
+      itemType:[
         {
           itmeName:"headset",
-        }
+          image: headset,
+          icon:"headset_mic",
+          text:"headset"  
+        },
+        {
+          itmeName:"headset",
+          image: keyboard,
+          icon:"keyboard",
+          text:"keyboard"  
+        },
+        {
+          itmeName:"headset",
+          image: mouse,
+          icon:"mouse",
+          text:"mouse"  
+        },
       ]
     }
   },
