@@ -1,15 +1,13 @@
 <template>
 
-<div class="flex items-center lg:h-screen lg:mt-0 -mt-5 sm:mt-0 md:mt-28 ">
+<div class="flex items-center md:h-screen lg:mt-0 -mt-5">
     <div class="w-4/5 mx-auto mt-24 sm:mt-44 md:mt-0">
         <div class="flex flex-col items-stretch md:flex-row">
             <item-type v-for="item in itemType" :key="item.img" :item="item" ></item-type>
         </div>
     </div>
-    
 </div>
 
-  <list-items></list-items>
 </template>
 
 <script>

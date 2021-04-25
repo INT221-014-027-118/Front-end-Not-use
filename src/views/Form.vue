@@ -116,9 +116,7 @@
 </template>
 
 <script>
-import BaseColor from "../components/BaseColor.vue";
 export default {
-  components: { BaseColor },
   data() {
     return {
       brand: "",

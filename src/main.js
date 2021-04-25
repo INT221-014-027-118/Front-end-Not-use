@@ -10,6 +10,6 @@ import ListItems from '@/components/ListItem.vue'
 const app = createApp(App);
 
 app.use(router);
-app.component(ListItems,'list-items')
-app.component(BaseColor,'base-color')
+app.component('list-items',ListItems)
+app.component('base-color',BaseColor)
 app.mount('#app')
