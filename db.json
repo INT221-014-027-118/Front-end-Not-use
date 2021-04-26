@@ -27,7 +27,7 @@
       "id": 2
     }
   ],
-  "colors":[
+  "colors": [
     {
       "colorId": 1,
       "colorName": "Black",
@@ -42,16 +42,41 @@
       "colorId": 3,
       "colorName": "Gray79",
       "hexColor": "#c9c9c9"
-    }
-  ],
-  "brands":[
-    {
-      "brandId":1,
-      "brandName":"Asus"
     },
     {
-      "brandId":2,
-      "brandName":"Acer"
+      "colorId": 4,
+      "colorName": "Pink",
+      "hexColor": "#ffa5b5"
+    },
+    {
+      "colorId": 5,
+      "colorName": "Light blue",
+      "hexColor": "#57bfff"
+    },
+    {
+      "colorId": 6,
+      "colorName": "Blue",
+      "hexColor": "#365aad"
+    },
+    {
+      "colorId": 7,
+      "colorName": "Green",
+      "hexColor": "#008972"
+    },
+    {
+      "colorId": 8,
+      "colorName": "Purple",
+      "hexColor": "#6857ab"
+    }
+  ],
+  "brands": [
+    {
+      "brandId": 1,
+      "brandName": "Asus"
+    },
+    {
+      "brandId": 2,
+      "brandName": "Acer"
     }
   ]
 }

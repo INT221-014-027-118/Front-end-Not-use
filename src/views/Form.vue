@@ -121,7 +121,7 @@ export default {
       price: 0,
       type: "",
       description: "",
-      url: "http://localhost:5000/product",
+      url: "http://localhost:5000/products",
       previewImage: null,
       activeClose: false,
       colors: [],
@@ -134,7 +134,7 @@ export default {
           return color.active === true;
         })
         .map((color) => {
-          return color.color;
+          return color.hexColor;
         });
       fetch(this.url, {
         method: "POST",
@@ -142,13 +142,12 @@ export default {
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          brand: this.brand,
+          brand: this.brandAdd,
           type: this.type,
           name: this.name,
           price: this.price,
           colors: colorsAdd,
-          description: this.description,
-          img: this.img,
+          description: this.description
         }),
       });
     },
