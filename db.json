@@ -1,5 +1,5 @@
 {
-  "product": [
+  "products": [
     {
       "brand": "Logitech",
       "type": "Headset ",
@@ -25,19 +25,33 @@
       ],
       "description": "ไดเวอร์ 50 มม. ได้ยินเสียงที่ดังและฟังชัด มาพร้อมกับ DTS HEADPHONE:X 2.0 ชุดหูฟังเดียว ครอบคลุมทุกแพลตฟอร์ม สร้างมาเพื่อความสะดวกสบายและความทนทาน",
       "id": 2
+    }
+  ],
+  "colors":[
+    {
+      "colorId": 1,
+      "colorName": "Black",
+      "hexColor": "#000000"
     },
     {
-      "brand": "",
-      "type": "",
-      "name": "",
-      "price": 0,
-      "colors": [
-        "#ffa5b5",
-        "#57bfff",
-        "#365aad"
-      ],
-      "description": "",
-      "id": 3
+      "colorId": 2,
+      "colorName": "Ivory",
+      "hexColor": "#fffff0"
+    },
+    {
+      "colorId": 3,
+      "colorName": "Gray79",
+      "hexColor": "#c9c9c9"
+    }
+  ],
+  "brands":[
+    {
+      "brandId":1,
+      "brandName":"Asus"
+    },
+    {
+      "brandId":2,
+      "brandName":"Acer"
     }
   ]
 }

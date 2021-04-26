@@ -6,13 +6,9 @@
         <div>
           <div class="lg:w-full px-3 mb-6 md:mb-0">
             <label class="label-css" for="brand">Brand</label>
-            <input
-              v-model.trim="brand"
-              class="input-css"
-              id="brand"
-              type="text"
-              placeholder=""
-            />
+              <select class="input-css" id="type" v-model="brandAdd">
+                  <option v-for="brand in brands" :key="brand.brandId" :value="brand.brandName">{{brand.brandName}}</option>
+              </select>
           </div>
 
           <div class="lg:w-full px-3 mb-6 md:mb-0">
@@ -65,9 +61,9 @@
             <label class="label-css" for="previewImage">color</label>
             <div class="input-css">
               <div class="flex flex-wrap">
-                <div v-for="(color, index) in colors" :key="color.color">
+                <div v-for="(color, index) in colors" :key="color.colorId">
                   <base-color
-                    :color="color.color"
+                    :color="color.hexColor"
                     @active-color="active($event, index)"
                   />
                 </div>
@@ -119,7 +115,8 @@
 export default {
   data() {
     return {
-      brand: "",
+      brands: [],
+      brandAdd:'',
       name: "",
       price: 0,
       type: "",
@@ -127,16 +124,7 @@ export default {
       url: "http://localhost:5000/product",
       previewImage: null,
       activeClose: false,
-      colors: [
-        { active: Boolean, color: "#000000" },
-        { active: Boolean, color: "#fffff0" },
-        { active: Boolean, color: "#c9c9c9" },
-        { active: Boolean, color: "#ffa5b5" },
-        { active: Boolean, color: "#57bfff" },
-        { active: Boolean, color: "#365aad" },
-        { active: Boolean, color: "#008972" },
-        { active: Boolean, color: "#6857ab" },
-      ],
+      colors: [],
     };
   },
   methods: {
@@ -188,6 +176,18 @@ export default {
     active(active, index) {
       this.colors[index].active = active;
     },
+  },
+  async created() {
+        fetch('http://localhost:5000/colors')
+        .then((res) => res.json())
+        .then((data) => this.colors = data)
+        .then(()=>this.colors.forEach((color) => color['active']=false))
+        .catch((error) => console.log(error));
+
+        fetch('http://localhost:5000/brands')
+        .then((res) => res.json())
+        .then((data) => this.brands = data)
+        .catch((error) => console.log(error));
   },
 };
 </script>
