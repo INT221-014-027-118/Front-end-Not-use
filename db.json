@@ -25,6 +25,30 @@
       ],
       "description": "ไดเวอร์ 50 มม. ได้ยินเสียงที่ดังและฟังชัด มาพร้อมกับ DTS HEADPHONE:X 2.0 ชุดหูฟังเดียว ครอบคลุมทุกแพลตฟอร์ม สร้างมาเพื่อความสะดวกสบายและความทนทาน",
       "id": 2
+    },
+    {
+      "brand": "Asus",
+      "type": "Keyboard",
+      "name": "jakkapong",
+      "price": "54",
+      "colors": [
+        null,
+        null
+      ],
+      "description": "31rfgternh",
+      "id": 3
+    },
+    {
+      "brand": "Asus",
+      "type": "Keyboard",
+      "name": "jakkapong",
+      "price": "25",
+      "colors": [
+        "#000000",
+        "#fffff0"
+      ],
+      "description": "5325",
+      "id": 4
     }
   ],
   "colors": [
