@@ -1,7 +1,7 @@
 <template>
   <div class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center" 
     :style="{ backgroundColor: color }" @click="activeColor">
-    <span class="material-icons ring-4 rounded-md ring-offset-gray-100 ring-offset-2 cursor-not-allowed" v-show="active" :class="{ 'ring-blue-400 text-blue-500' :active}">
+    <span class="material-icons ring-4 rounded-md ring-offset-gray-100 ring-offset-2" v-show="active" :class="{ 'ring-blue-400 text-blue-500' :active}">
       done
     </span>
   </div>
