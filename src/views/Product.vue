@@ -30,7 +30,7 @@ export default {
   },
   props: {
     type: String,
-    resetPage:Boolean
+    resetPage: Boolean,
   },
   data() {
     return {
@@ -43,7 +43,9 @@ export default {
       .then((data) => (this.items = data))
       .then(() => {
         if (!this.resetPage) {
-          this.items = this.items.filter((item)=>{return item.type.toLowerCase() === this.type.toLowerCase()})
+          this.items = this.items.filter((item) => {
+            return item.type.toLowerCase() === this.type.toLowerCase();
+          });
         }
       })
       .catch((error) => console.log(error));

@@ -1,13 +1,14 @@
 <template>
-  <div class="mt-24 lg:mt-24">
+  <div class="mt-20 lg:mt-24">
     <form @submit.prevent="submitForm">
-      <div class="bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-4 pb-14 grid sm:grid-cols-2 max-w-6xl mx-auto relative" >
+      <div class="bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-4 pb-10 grid sm:grid-cols-2 max-w-6xl mx-auto relative" >
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ L ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div>
           <div class="lg:w-full px-3 mb-6 md:mb-0">
             <label class="label-css" for="brand">Brand</label>
-              <select class="input-css" id="type" v-model="brandAdd">
-                  <option v-for="brand in brands" :key="brand.brandId" :value="brand.brandName">{{brand.brandName}}</option>
+              <select class="input-css" id="type" v-model="brandAdd" required>
+                  <option value="" disabled selected>[ Select Brand ]</option>
+                  <option v-for="brand in brands" :key="brand.brandId" :value="brand.brandName"  class="text-lg ">{{brand.brandName}}</option>
               </select>
           </div>
 
@@ -18,7 +19,8 @@
               class="input-css"
               id="name"
               type="text"
-              placeholder=""
+              placeholder="product name"
+              required
             />
           </div>
 
@@ -31,13 +33,17 @@
                 id="price"
                 type="number"
                 placeholder=""
+                min="1" 
+                max="9999999"
+                required
               />
             </div>
 
             <div class="w-1/2 px-3">
               <label class="label-css" for="grid-state">Type</label>
               <div class="relative">
-                <select class="input-css" id="type" v-model="type">
+                <select class="input-css" id="type" v-model="type" required>
+                  <option value="" disabled selected>[ Select Type ]</option>
                   <option value="Keyboard">Keyboard</option>
                   <option value="Mouse">Mouse</option>
                   <option value="Headset">Headset</option>
@@ -46,20 +52,22 @@
             </div>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0">
-            <label class="label-css" for="description">Description</label>
+          <div class="lg:w-full px-3 mb-6 md:mb-0 relative">
+            <label class="label-css" for="description" >Description</label>
             <textarea
               class="input-css h-44"
               id="description"
               v-model="description"
               type="text"
               placeholder=""
+              :class="{ 'ring ring-red-400' : invalid_Description}"
             />
+              <span v-if="invalid_Description" class="text-red-500 font-mono absolute left-8 bottom-2 p-3 ">Please input description</span>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0">
+          <div class="lg:w-full px-3 mb-6 md:mb-0 relative">
             <label class="label-css" for="previewImage">color</label>
-            <div class="input-css">
+            <div class="input-css " :class="{ 'ring ring-red-400' : invalid_Color}">
               <div class="flex flex-wrap">
                 <div v-for="(color, index) in colors" :key="color.colorId">
                   <base-color
@@ -69,6 +77,7 @@
                 </div>
               </div>
             </div>
+              <span v-if="invalid_Color" class="text-red-500 font-mono absolute left-8 -bottom-3 p-3 ">Please select product color</span>
           </div>
 
           <input
@@ -85,7 +94,8 @@
 
           <div class="lg:w-full px-3 mb-6 md:mb-0">
             <label class="label-css" for="previewImage">Launch date</label>
-              <input type="date" class="input-css" v-model="launchDate"/>
+              <input type="date" class="input-css" v-model="launchDate" required/>
+              
           </div>
 
           <div class="lg:w-full px-3 mb-6 md:mb-0">
@@ -154,21 +164,28 @@ export default {
       previewImage: null,
       activeClose: false,
       colors: [],
+      colorsAdd: [],
+      invalid_brand: false,
+      invalid_Color: false,
+      invalid_Description: false
     };
   },
   methods: {
     validating(){
+        this.invalid_Color = this.colorsAdd.length === 0 ? true : false;
+        setTimeout(() => {
+          this.invalid_Color = false
+        }, 5000);
+        this.invalid_Description = this.description === "" ? true : false;
+        setTimeout(() => {
+          this.invalid_Description = false
+        }, 5000);
 
+        
     },
 
     submitForm() {
-      let colorsAdd = this.colors
-        .filter((color) => {
-          return color.active === true;
-        })
-        .map((color) => {
-          return {colorId:color.colorId,colorName:color.colorName,hexColor:color.hexColor};
-        });
+
       fetch(this.url, {
         method: "POST",
         headers: {
@@ -179,7 +196,7 @@ export default {
           type: this.type,
           name: this.name,
           price: this.price,
-          colors: colorsAdd,
+          colors: this.colorsAdd,
           description: this.description,
           warranty: this.warranty,
           launchDate: this.launchDate,
@@ -209,6 +226,13 @@ export default {
 
     active(active, index) {
       this.colors[index].active = active;
+      this.colorsAdd = this.colors
+        .filter((color) => {
+          return color.active === true;
+        })
+        .map((color) => {
+          return {colorId:color.colorId,colorName:color.colorName,hexColor:color.hexColor};
+        });
     },
   },
   async created() {
@@ -228,7 +252,7 @@ export default {
 
 <style scoped>
 .input-css {
-  @apply w-full border border-gray-500 focus:outline-none rounded py-3 px-4 mb-3 bg-gray-100 dark:bg-gray-600;
+  @apply w-full border border-gray-500 focus:outline-none rounded py-3 px-5 mb-3 bg-gray-100 dark:bg-gray-600;
 }
 
 .label-css {
