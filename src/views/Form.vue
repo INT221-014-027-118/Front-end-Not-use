@@ -116,7 +116,7 @@
             </div>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0" >
+          <div class="lg:w-full px-3 mb-6 md:mb-0"  :class="{ hidden : activeClose }">
             <label class="label-css" for="description">File</label>
             <input
               class="input-css"
@@ -137,7 +137,7 @@
                 @click="removeImage()"
                 >close</span
               >
-              <img :src="previewImage" alt="Preview Image" class="max-h-64" />
+              <img :src="previewImage" alt="Preview Image" class="max-h-80" />
             </div>
           </div>
 
