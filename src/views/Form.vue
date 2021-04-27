@@ -134,7 +134,7 @@ export default {
           return color.active === true;
         })
         .map((color) => {
-          return color.hexColor;
+          return {colorId:color.colorId,colorName:color.colorName,hexColor:color.hexColor};
         });
       fetch(this.url, {
         method: "POST",
