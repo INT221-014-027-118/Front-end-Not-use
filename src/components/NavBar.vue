@@ -10,7 +10,7 @@
         <div>
           <div class="flex items-center absolute inset-y-0 right-0 invisible sm:visible">
               <div class="flex font-bold items-center">
-                  <router-link to="/product" class="px-4 py-7 hover:text-indigo-500">Product</router-link>
+                  <router-link :to="{name: 'Product' ,params: { resetPage: true }}" class="px-4 py-7 hover:text-indigo-500">Product</router-link>
                   <router-link to="/form" class="px-4 py-7 hover:text-indigo-500">Add</router-link>
                   <router-link to="/team" class="px-4 py-7 hover:text-indigo-500">Team</router-link>
                   <router-link to="/about" class="px-4 py-7 hover:text-indigo-500">About</router-link>

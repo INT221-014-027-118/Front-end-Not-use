@@ -31,13 +31,13 @@ export default {
           text:"headset"  
         },
         {
-          itmeName:"headset",
+          itmeName:"keyboard",
           image: keyboard,
           icon:"keyboard",
           text:"keyboard"  
         },
         {
-          itmeName:"headset",
+          itmeName:"mouse",
           image: mouse,
           icon:"mouse",
           text:"mouse"  
