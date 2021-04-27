@@ -49,7 +49,7 @@
           <div class="lg:w-full px-3 mb-6 md:mb-0">
             <label class="label-css" for="description">Description</label>
             <textarea
-              class="input-css h-36"
+              class="input-css h-44"
               id="description"
               v-model="description"
               type="text"
@@ -72,6 +72,7 @@
           </div>
 
           <input
+            @click="validating"
             type="submit"
             value="Add Product"
             class="btn absolute bottom-4 right-4 cursor-pointer rounded z-10 shadow-md"
@@ -81,7 +82,31 @@
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Right ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
         <div>
+
           <div class="lg:w-full px-3 mb-6 md:mb-0">
+            <label class="label-css" for="previewImage">Launch date</label>
+              <input type="date" class="input-css" v-model="launchDate"/>
+          </div>
+
+          <div class="lg:w-full px-3 mb-6 md:mb-0">
+            <label class="label-css">Warranty</label>
+            <div class="flex flex-col md:flex-row input-css">
+              <div class="flex items-center mr-7">
+                <input type="radio" id="0" name="warranty" v-model="warranty" value="0" class="mr-3 h-5 w-4">
+                <label for="0">none</label>
+              </div>
+              <div class="flex items-center mr-7">
+                <input type="radio" id="3" name="warranty" v-model="warranty" value="3" class="mr-3 h-5 w-4">
+                <label for="3">3 year</label>
+              </div>
+              <div class="flex items-center mr-7">
+                <input type="radio" id="5" name="warranty" v-model="warranty" value="5" class="mr-3 h-5 w-4">
+                <label for="5">5 year</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:w-full px-3 mb-6 md:mb-0" >
             <label class="label-css" for="description">File</label>
             <input
               class="input-css"
@@ -102,9 +127,11 @@
                 @click="removeImage()"
                 >close</span
               >
-              <img :src="previewImage" alt="Preview Image" class="max-h-96" />
+              <img :src="previewImage" alt="Preview Image" class="max-h-64" />
             </div>
           </div>
+
+
         </div>
       </div>
     </form>
@@ -119,6 +146,8 @@ export default {
       brandAdd:'',
       name: "",
       price: 0,
+      warranty: 0,
+      launchDate: "",
       type: "",
       description: "",
       url: "http://localhost:5000/products",
@@ -128,6 +157,10 @@ export default {
     };
   },
   methods: {
+    validating(){
+
+    },
+
     submitForm() {
       let colorsAdd = this.colors
         .filter((color) => {
@@ -147,7 +180,9 @@ export default {
           name: this.name,
           price: this.price,
           colors: colorsAdd,
-          description: this.description
+          description: this.description,
+          warranty: this.warranty,
+          launchDate: this.launchDate,
         }),
       });
     },
@@ -193,7 +228,7 @@ export default {
 
 <style scoped>
 .input-css {
-  @apply block w-full border border-gray-500 focus:outline-none rounded py-3 px-4 mb-3 bg-gray-100 dark:bg-gray-600;
+  @apply w-full border border-gray-500 focus:outline-none rounded py-3 px-4 mb-3 bg-gray-100 dark:bg-gray-600;
 }
 
 .label-css {
