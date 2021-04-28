@@ -30,30 +30,47 @@ export default {
   },
   props: {
     type: String,
-    resetPage: Boolean,
+    getAll: String,
   },
   data() {
     return {
       items: [],
+      brandsObjs: [],
     };
   },
   methods: {
-    getProducts() {
-      fetch("http://localhost:5000/products")
+    async getProducts() {
+      await fetch("http://localhost:5000/products")
         .then((res) => res.json())
-        .then((data) => (this.items = data))
-        .then(() => {
-          if (!this.resetPage) {
-            this.items = this.items.filter((item) => {
-              return item.type.toLowerCase() === this.type.toLowerCase();
-            });
-          }
-        })
+        .then(
+          (data) =>
+            (this.items = data.sort((a, b) => {
+              if (a.brand > b.brand) return 1;
+              if (a.brand < b.brand) return -1;
+              return 0;
+            }))
+        )
         .catch((error) => console.log(error));
     },
   },
   async created() {
-    this.getProducts();
+    await this.getProducts();
+
+    let brands = new Set(
+      this.items.map((item) => {
+        return item.brand;
+      })
+    );
+    brands = Array.from(brands);
+
+    brands.forEach((brand) => {
+      this.brandsObjs.push({
+        brand: brand,
+        item: this.items.filter((item) => {
+          return item.brand === brand;
+        }),
+      });
+    });
   },
 };
 </script>
