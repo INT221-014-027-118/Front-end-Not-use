@@ -19,8 +19,10 @@ export default {
       this.changeMode = !this.changeMode;
       if (this.changeMode == false) {
         localStorage.theme = "light";
+        document.getElementById('light')
       } else {
         localStorage.theme = "dark";
+        document.getElementById('dark')
       }
       this.mode();
     },
@@ -43,4 +45,13 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+.dark:root {
+  color-scheme: dark;
+}
+.light:root {
+  color-scheme: light;
+}
+
+</style>
