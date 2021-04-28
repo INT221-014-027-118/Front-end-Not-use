@@ -6,9 +6,16 @@
         class="absolute h-full w-full object-cover object-center p-1 rounded-lg bg-white"
         alt=""
       />
+    <div class=" absolute -mt-4 w-full p-1 bottom-0 bg-gray-500 opacity-60 h-8 rounded-b-lg" />
+    <div class=" absolute -mt-4 w-full p-1 bottom-0">
+      <div class="flex flex-row-reverse">
+          <div class="w-4 h-4 m-1 rounded-md" v-for="color in product.colors" :key="color.colorId" :style="{ backgroundColor: color.hexColor }"></div>
+      </div>
+    </div>
     </div>
     <div class="z-10 w-full ">
-      <div class="py-5 px-5">
+      <div class="py-4 px-5">
+
         <h1 class="font-bold text-lg">{{ product.name }}</h1>
         <div class="flex items-center justify-between">
           <div class="text-sm font-light">Size : Regular</div>
