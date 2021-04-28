@@ -249,6 +249,23 @@
       ],
       "description": "7 MACRO KEYS\n7 BACKLIGHTING MODE\nHUANO SWITCH TECHNOLOGY (10 MILLION CLICKS)\nSUNPLUS 6651B SENSOR TECHNOLOGY\nONBOARD MEMORY INSIDE 8K\nDPI SWITCHING TECHNOLOGY WITH 200-6400 DPI\nRGB 16.8 MILLION COLORS BACKLIGHTING\nNYLON CORD WITH GOLD USB 2.0 PORT\nCORD LENGTH 1.8 M.\nPLUG & PLAY",
       "id": 13
+    },
+    {
+      "brand": "Sony",
+      "type": "Mouse",
+      "name": "4wy46je6",
+      "price": "3",
+      "colors": [
+        {
+          "colorId": 5,
+          "colorName": "Light blue",
+          "hexColor": "#57bfff"
+        }
+      ],
+      "description": "",
+      "warranty": 0,
+      "launchDate": "2021-04-08",
+      "id": 14
     }
   ],
   "colors": [

@@ -1,19 +1,13 @@
 <template>
-  <div
-    class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-10 mt-24"
-  >
-    <div
-      class="text-center bg-blue-200 dark:bg-blue-800 px-2 py-3 text-xl font-mono tracking-wider rounded-md"
-    >
-      test Title
+  <div class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-10 mt-24" v-for="brand in brandsObjs" :key="brand.brand">
+    <div class="text-center bg-blue-200 dark:bg-blue-800 px-2 py-3 text-xl font-mono tracking-wider rounded-md">
+      {{brand.brand}}
     </div>
 
-    <div
-      class="container p-2 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-    >
+    <div class="container p-2 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" >
       <base-item
         :product="item"
-        v-for="item in items"
+        v-for="item in brand.items"
         :key="item.id"
       ></base-item>
     </div>
@@ -66,7 +60,7 @@ export default {
     brands.forEach((brand) => {
       this.brandsObjs.push({
         brand: brand,
-        item: this.items.filter((item) => {
+        items: this.items.filter((item) => {
           return item.brand === brand;
         }),
       });
