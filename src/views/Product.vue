@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full items-center mx-auto max-w-6xl bg-gray-200 dark:bg-gray-700 rounded-md mb-10 mt-20"
+    class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-10 mt-24"
   >
     <div
       class="text-center bg-blue-200 dark:bg-blue-800 px-2 py-3 text-xl font-mono tracking-wider rounded-md"
@@ -37,18 +37,23 @@ export default {
       items: [],
     };
   },
+  methods: {
+    getProducts() {
+      fetch("http://localhost:5000/products")
+        .then((res) => res.json())
+        .then((data) => (this.items = data))
+        .then(() => {
+          if (!this.resetPage) {
+            this.items = this.items.filter((item) => {
+              return item.type.toLowerCase() === this.type.toLowerCase();
+            });
+          }
+        })
+        .catch((error) => console.log(error));
+    },
+  },
   async created() {
-    fetch("http://localhost:5000/products")
-      .then((res) => res.json())
-      .then((data) => (this.items = data))
-      .then(() => {
-        if (!this.resetPage) {
-          this.items = this.items.filter((item) => {
-            return item.type.toLowerCase() === this.type.toLowerCase();
-          });
-        }
-      })
-      .catch((error) => console.log(error));
+    this.getProducts();
   },
 };
 </script>

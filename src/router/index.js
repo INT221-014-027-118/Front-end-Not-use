@@ -33,7 +33,8 @@ const routes = [{
   {
     path: '/product',
     name: 'Product',
-    component: Product
+    component: Product,
+    props: true
   },
   {
     path: '/product/:type',
