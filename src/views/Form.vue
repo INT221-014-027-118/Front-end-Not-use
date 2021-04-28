@@ -1,31 +1,34 @@
 <template>
   <div class="mt-20 lg:mt-24">
     <form @submit.prevent="submitForm">
-      <div class="bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-4 pb-10 grid sm:grid-cols-2 max-w-6xl mx-auto relative" >
+      <div class="relative grid max-w-6xl px-8 pt-4 pb-10 mx-auto bg-white rounded shadow-md dark:bg-gray-700 sm:grid-cols-2" >
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ L ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <div>
-          <div class="lg:w-full px-3 mb-6 md:mb-0">
+          <div class="relative px-3 mb-6 lg:w-full md:mb-0" >
             <label class="label-css" for="brand">Brand</label>
-              <select class="input-css" id="type" v-model="brandAdd" required>
+              <select class="input-css" id="type" v-model="brandAdd" required :class="{ 'ring ring-red-400' : invalid_brand }">
                   <option value="" disabled selected>[ Select Brand ]</option>
                   <option v-for="brand in brands" :key="brand.brandId" :value="brand.brandName"  class="text-lg ">{{brand.brandName}}</option>
               </select>
+              <span v-if="invalid_brand" class="absolute -bottom-1 left-9 p-3 font-mono text-red-500 ">Please select Brand</span>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0">
-            <label class="label-css" for="name">Name</label>
+          <div class="px-3 mb-6 lg:w-full md:mb-0 relative">
+            <label class="label-css" for="">Name</label>
             <input
               v-model.trim="name"
               class="input-css"
-              id="name"
+              id=""
               type="text"
               placeholder="product name"
               required
+              :class="{ 'ring ring-red-400' : invalid_name }"
             />
+            <span v-if="invalid_name" class="absolute -bottom-1 left-9 p-3 font-mono text-red-500 ">Please input name</span>
           </div>
 
-          <div class="lg:w-full flex flex-row">
-            <div class="w-1/2 px-3 mb-6 md:mb-0">
+          <div class="flex flex-col md:flex-row lg:w-full">
+            <div class="md:w-1/2 px-3 mb-6 md:mb-0 relative">
               <label class="label-css" for="price">Price</label>
               <input
                 v-model="price"
@@ -36,23 +39,27 @@
                 min="1" 
                 max="9999999"
                 required
+                :class="{ 'ring ring-red-400' : invalid_price }"
               />
+              <span v-if="invalid_price" class="absolute -bottom-1 left-9 p-3 font-mono text-red-500 ">Please select Brand</span>
             </div>
 
-            <div class="w-1/2 px-3">
+            <div class="md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="label-css" for="grid-state">Type</label>
-              <div class="relative">
-                <select class="input-css" id="type" v-model="type" required>
+              <div class="relative ">
+                <select class="input-css" id="type" v-model="type" required :class="{ 'ring ring-red-400' : invalid_type }">
                   <option value="" disabled selected>[ Select Type ]</option>
                   <option value="Keyboard">Keyboard</option>
                   <option value="Mouse">Mouse</option>
                   <option value="Headset">Headset</option>
                 </select>
+                 <span v-if="invalid_type" class="absolute -bottom-1 left-5 p-3 font-mono text-red-500 ">Please select type</span>
               </div>
+              
             </div>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0 relative">
+          <div class="relative px-3 mb-6 lg:w-full md:mb-0">
             <label class="label-css" for="description" >Description</label>
             <textarea
               class="input-css h-44"
@@ -60,12 +67,10 @@
               v-model="description"
               type="text"
               placeholder=""
-              :class="{ 'ring ring-red-400' : invalid_Description}"
             />
-              <span v-if="invalid_Description" class="text-red-500 font-mono absolute left-8 bottom-2 p-3 ">Please input description</span>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0 relative">
+          <div class="relative px-3 mb-6 lg:w-full md:mb-0">
             <label class="label-css" for="previewImage">color</label>
             <div class="input-css " :class="{ 'ring ring-red-400' : invalid_Color}">
               <div class="flex flex-wrap">
@@ -77,14 +82,14 @@
                 </div>
               </div>
             </div>
-              <span v-if="invalid_Color" class="text-red-500 font-mono absolute left-8 -bottom-3 p-3 ">Please select product color</span>
+            <span v-if="invalid_Color" class="absolute p-3 font-mono text-red-500 left-7 -bottom-3 ">Please select product color</span>
           </div>
 
           <input
             @click="validating"
             type="submit"
             value="Add Product"
-            class="btn absolute bottom-4 right-4 cursor-pointer rounded z-10 shadow-md"
+            class="absolute z-10 rounded shadow-md cursor-pointer btn bottom-4 right-4"
           />
         </div>
 
@@ -92,48 +97,51 @@
 
         <div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0">
+          <div class="px-3 mb-6 lg:w-full md:mb-0 relative">
             <label class="label-css" for="previewImage">Launch date</label>
-              <input type="date" class="input-css" v-model="launchDate" required/>
-              
+            <input type="date" class="input-css" v-model="launchDate" required :class="{ 'ring ring-red-400' : invalid_date}" @blur="invalid_date = launchDate === '' ? true : false"/>
+            <span v-if="invalid_date" class="absolute p-3 font-mono text-red-500 left-7 -bottom-1">Please input date</span>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0">
+          <div class="px-3 mb-6 lg:w-full md:mb-0">
             <label class="label-css">Warranty</label>
             <div class="flex flex-col md:flex-row input-css">
               <div class="flex items-center mr-7">
-                <input type="radio" id="0" name="warranty" v-model="warranty" value="0" class="mr-3 h-5 w-4">
+                <input type="radio" id="0" name="warranty" v-model="warranty" value="0" class="w-4 h-5 mr-2">
                 <label for="0">none</label>
               </div>
               <div class="flex items-center mr-7">
-                <input type="radio" id="3" name="warranty" v-model="warranty" value="3" class="mr-3 h-5 w-4">
+                <input type="radio" id="3" name="warranty" v-model="warranty" value="3" class="w-4 h-5 mr-2">
                 <label for="3">3 year</label>
               </div>
               <div class="flex items-center mr-7">
-                <input type="radio" id="5" name="warranty" v-model="warranty" value="5" class="mr-3 h-5 w-4">
+                <input type="radio" id="5" name="warranty" v-model="warranty" value="5" class="w-4 h-5 mr-2">
                 <label for="5">5 year</label>
               </div>
             </div>
           </div>
 
-          <div class="lg:w-full px-3 mb-6 md:mb-0"  :class="{ hidden : activeClose }">
+          <div class="px-3 mb-6 lg:w-full md:mb-0 relative"  :class="{ hidden : activeClose }">
             <label class="label-css" for="description">File</label>
             <input
               class="input-css"
               id="file"
               v-on:change="onFileChange($event)"
               type="file"
+              required
+              :class="{ 'ring ring-red-400' : invalid_img}" 
             />
+             <span v-if="invalid_img" class="absolute p-3 font-mono text-red-500 left-7 -bottom-1 ">Please select product color</span>
           </div>
 
           <div
-            class="lg:w-full px-3 mb-6 md:mb-0"
+            class="px-3 mb-6 lg:w-full md:mb-0"
             :class="{ hidden: !activeClose }"
           >
             <label class="label-css" for="previewImage">Preview</label>
-            <div class="input-css relative">
+            <div class="relative input-css">
               <span
-                class="material-icons absolute top-2 right-2 cursor-pointer p-1 rounded-full bg-blue-700 text-white"
+                class="absolute p-1 text-white bg-blue-700 rounded-full cursor-pointer material-icons top-2 right-2"
                 @click="removeImage()"
                 >close</span
               >
@@ -153,7 +161,7 @@ export default {
   data() {
     return {
       brands: [],
-      brandAdd:'',
+      brandAdd: "",
       name: "",
       price: 0,
       warranty: 0,
@@ -166,19 +174,48 @@ export default {
       colors: [],
       colorsAdd: [],
       invalid_brand: false,
+      invalid_name: false,
+      invalid_price: false,
+      invalid_type: false,
+      invalid_Description: false,
       invalid_Color: false,
-      invalid_Description: false
+      invalid_date: false,
+      invalid_img: false,
     };
   },
   methods: {
     validating(){
+        this.invalid_brand = this.brandAdd === "" ? true : false;
+        setTimeout(() => {
+          this.invalid_brand = false
+        }, 5000);
+        this.invalid_name = this.name === "" ? true : false;
+        setTimeout(() => {
+          this.invalid_name = false
+        }, 5000);
+        this.invalid_price = this.price === 0 ? true : false;
+        setTimeout(() => {
+          this.invalid_price = false
+        }, 5000);
+        this.invalid_type = this.type === "" ? true : false;
+        setTimeout(() => {
+          this.invalid_type = false
+        }, 5000);
+        this.invalid_Description = this.description === "" ? true : false;
+        setTimeout(() => {
+        this.invalid_Description = false
+        }, 5000);
         this.invalid_Color = this.colorsAdd.length === 0 ? true : false;
         setTimeout(() => {
           this.invalid_Color = false
         }, 5000);
-        this.invalid_Description = this.description === "" ? true : false;
+        this.invalid_date = this.launchDate === "" ? true : false;
         setTimeout(() => {
-          this.invalid_Description = false
+          this.invalid_date = false
+        }, 5000);
+        this.invalid_img = this.previewImage === null ? true : false;
+        setTimeout(() => {
+          this.invalid_img = false
         }, 5000);
 
         
