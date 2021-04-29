@@ -6,6 +6,7 @@ import Home from '../views/Home.vue'
 import Team from '../views/Team.vue'
 import Form from '../views/Form.vue'
 import Product from '../views/Product.vue'
+import Item from '../views/Item.vue'
 
 const routes = [{
     path: '/',
@@ -40,7 +41,13 @@ const routes = [{
     path: '/product/:type',
     name: 'ProductType',
     component: Product,
-    props: true
+    props: true,
+    children: [{
+      path: ':itemName',
+      name: 'Item',
+      props: true,
+      component: Item
+    }],
   },
 ]
 

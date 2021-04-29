@@ -20,15 +20,17 @@
           :key="item.id"
         ></base-item>
       </div>
+       <router-view class="fixed top-0 z-40"/>
     </div>
   </div>
+
 </template>
 
 <script>
 import BaseItem from "@/components/BaseItem.vue";
 
 export default {
-  name: "Home",
+  name: "Product",
   components: {
     BaseItem,
   },

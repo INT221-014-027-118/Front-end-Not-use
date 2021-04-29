@@ -42,3 +42,24 @@
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+  name: "Item",
+  components: {
+  },
+  props: {
+    item: String,
+  },
+  data() {
+    return {
+    };
+  },
+  methods: {
+  },
+  created() {
+    console.log(this.item)
+  },
+};
+</script>

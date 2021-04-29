@@ -2,7 +2,7 @@
   "products": [
     {
       "brand": "HP",
-      "type": "Headset",
+      "type": "headset",
       "name": "H100",
       "price": "280",
       "colors": [
@@ -17,7 +17,7 @@
     },
     {
       "brand": "HP",
-      "type": "Headset",
+      "type": "headset",
       "name": "H500",
       "price": "749",
       "colors": [
@@ -42,7 +42,7 @@
     },
     {
       "brand": "HP",
-      "type": "Headset",
+      "type": "headset",
       "name": "H300",
       "price": "625",
       "colors": [
@@ -67,7 +67,7 @@
     },
     {
       "brand": "HP",
-      "type": "Headset",
+      "type": "headset",
       "name": "H220",
       "price": "330",
       "colors": [
@@ -87,7 +87,7 @@
     },
     {
       "brand": "HyperX",
-      "type": "Headset",
+      "type": "headset",
       "name": "HyperX Cloud Stinger",
       "price": "1790",
       "colors": [
@@ -102,7 +102,7 @@
     },
     {
       "brand": "HyperX",
-      "type": "Headset",
+      "type": "headset",
       "name": "HyperX Cloud Alpha S",
       "price": "3990",
       "colors": [
@@ -127,7 +127,7 @@
     },
     {
       "brand": "Razer",
-      "type": "Keyboard",
+      "type": "keyboard",
       "name": "KEYBOARD RAZER CYNOSA V2",
       "price": "1490",
       "colors": [
@@ -142,7 +142,7 @@
     },
     {
       "brand": "Razer",
-      "type": "Keyboard",
+      "type": "keyboard",
       "name": "KEYBOARD RAZER ORNATA V2",
       "price": "2490",
       "colors": [
@@ -167,7 +167,7 @@
     },
     {
       "brand": "Ducky",
-      "type": "Keyboard",
+      "type": "keyboard",
       "name": "One 2 Horizon TKL Mechanical",
       "price": "3490",
       "colors": [
@@ -182,7 +182,7 @@
     },
     {
       "brand": "Logitech",
-      "type": "Keyboard",
+      "type": "keyboard",
       "name": "G915 TKL",
       "price": "6990",
       "colors": [
@@ -202,7 +202,7 @@
     },
     {
       "brand": "Logitech",
-      "type": "Mouse",
+      "type": "mouse",
       "name": "G102",
       "price": "690",
       "colors": [
@@ -222,7 +222,7 @@
     },
     {
       "brand": "Logitech",
-      "type": "Mouse",
+      "type": "mouse",
       "name": "G603",
       "price": "2990",
       "colors": [
@@ -237,7 +237,7 @@
     },
     {
       "brand": "Signo",
-      "type": "Mouse",
+      "type": "mouse",
       "name": "GM-951",
       "price": "390",
       "colors": [
@@ -252,7 +252,7 @@
     },
     {
       "brand": "Sony",
-      "type": "Mouse",
+      "type": "mouse",
       "name": "4wy46je6",
       "price": "3",
       "colors": [

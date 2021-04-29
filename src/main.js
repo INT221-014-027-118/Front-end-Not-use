@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './assets/tailwind.css'
 import BaseColor from './components/BaseColor.vue'
-import Item from '@/components/Item.vue'
+import Item from '@/views/Item.vue'
 
 // createApp(App).use(router).mount('#app')
 
