@@ -1,12 +1,12 @@
 <template>
 
-<div class="flex flex-col h-screen justify-center my-20 md:my-0">
-    <div class="w-4/5 mx-auto mt-24 sm:mt-44 md:mt-0">
+<div class="flex flex-col sm:h-screen justify-center my-20 sm:my-0">
+    <div class="w-4/5 mx-auto ">
         <div class="flex flex-col items-stretch md:flex-row">
             <item-type v-for="item in itemType" :key="item.img" :item="item" ></item-type>
         </div>
     </div>
-    <div class="flex justify-center mt-5 md:mt-20">
+    <div class="flex justify-center my-5 md:mt-20">
       <router-link to="/product" class="px-5 py-2 rounded-lg shadow ring-4  bg-blue-200 dark:bg-blue-900 hover:bg-blue-300 transition duration-200 transform dark:hover:bg-blue-700">All Products</router-link>
     </div>
 </div>

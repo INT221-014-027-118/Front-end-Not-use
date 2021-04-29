@@ -131,7 +131,7 @@
               required
               :class="{ 'ring ring-red-400' : invalid_img}" 
             />
-             <span v-if="invalid_img" class="absolute p-3 font-mono text-red-500 left-7 -bottom-1 ">Please select product color</span>
+             <span v-if="invalid_img" class="absolute p-3 font-mono text-red-500 left-7 -bottom-1 ">Please choose image</span>
           </div>
 
           <div
