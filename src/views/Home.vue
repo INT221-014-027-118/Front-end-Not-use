@@ -6,8 +6,8 @@
             <item-type v-for="item in itemType" :key="item.img" :item="item" ></item-type>
         </div>
     </div>
-    <div class="flex justify-center my-5 md:mt-20">
-      <router-link to="/product" class="px-5 py-2 rounded-lg shadow ring-4  bg-blue-200 dark:bg-blue-900 hover:bg-blue-300 transition duration-200 transform dark:hover:bg-blue-700">All Products</router-link>
+    <div class="flex justify-center my-5 md:mt-16">
+      <router-link to="/product" class="px-9 py-4 ring-2 ring-offset-2 ring-offset-blue-500 rounded-lg shadow-2xl bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 transition duration-200 transform dark:hover:bg-blue-700">All Products</router-link>
     </div>
 </div>
 
