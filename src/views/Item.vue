@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-20 md:mt-24">
-    <div class="h-full items-center mx-auto max-w-6xl mb-10 rounded-md bg-blue-100 dark:bg-gray-700">
+  <div class="fixed">
+    <div class="items-center mx-auto max-w-6xl mb-10 rounded-md bg-blue-100 dark:bg-gray-700">
           <div class="bg-blue-200 dark:bg-blue-800 px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center ">
             <div>Test Title: product name</div>  
             <div class="flex mt-4 md: md:m-0 text-sm">
@@ -11,8 +11,8 @@
                 <span class="material-icons">delete</span>Delete
               </div>
             </div>
-          </div>  
-        
+          </div>
+
 
           <div class="container p-2 pb-5 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2">
 
