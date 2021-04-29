@@ -21,7 +21,8 @@ const routes = [{
   {
     path: '/form',
     name: 'Form',
-    component: Form
+    component: Form,
+    props: true
   },
   {
     path: '/about',
