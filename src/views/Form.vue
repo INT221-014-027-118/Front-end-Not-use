@@ -97,7 +97,7 @@
           <div class="relative px-3 mb-6 lg:w-full md:mb-0">
             <label class="label-css" for="description">Description</label>
             <textarea
-              class="input-css h-44"
+              class="input-css h-40"
               id="description"
               v-model="description"
               type="text"

@@ -26,12 +26,11 @@
         </div>
       </div>
 
-      <div
-        class="container p-2 pb-5 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2"
-      >
-        <div class="flex flex-col">
-          <img :src="itemImgTest" alt="" class="max-h-96 my-5" />
-          <div class="flex items-center justify-center">
+      <div class="container p-2 pb-5 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2" >
+
+        <div class="flex justify-center md:flex-col">
+          <img :src="itemImgTest" alt="" class="max-h-44 md:max-h-96 my-5 bg-white" />
+          <div class="flex flex-col md:flex-row items-center justify-center">
             <div
               class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center"
               v-for="color in item.colors"
@@ -53,8 +52,10 @@
             </div>
           </div>
         </div>
+
       </div>
-    </div>
+
+    </div>    
   </div>
 </template>
 
