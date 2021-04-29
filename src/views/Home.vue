@@ -1,7 +1,7 @@
 <template>
 
-<div class="flex flex-col sm:h-screen justify-center my-20 sm:my-0">
-    <div class="w-4/5 mx-auto ">
+<div class="flex flex-col sm:h-screen justify-center my-20 sm:my-20 md:m-0">
+    <div class="w-4/5 mx-auto">
         <div class="flex flex-col items-stretch md:flex-row">
             <item-type v-for="item in itemType" :key="item.img" :item="item" ></item-type>
         </div>

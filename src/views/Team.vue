@@ -1,5 +1,5 @@
 <template>
-  <div class="w-4/5 mx-auto mt-44">
+  <div class="w-4/5 mx-auto mt-20 md:mt-36 lg:mt-44">
     <div class="flex flex-col items-stretch sm:flex-row">
       
       <div class="sm:w-1/3 p-4" v-for="member in teams" :key="member.studentId">

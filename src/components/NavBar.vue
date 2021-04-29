@@ -2,7 +2,7 @@
   <div class="fixed w-full top-0 z-50 text-blue-900 bg-gray-200 dark:bg-gray-900 dark:text-gray-100">
     <div class="flex relative items-center mx-auto max-w-6xl h-16 md:h-20 px-4">
           <div class="mx-auto sm:m-0">
-              <router-link to="/"  class="flex items-center hover:text-indigo-500 cursor-pointer p-2">
+              <router-link to="/"  class="flex items-center hover:text-indigo-500 cursor-pointer transform duration-200 p-2">
                 <i class="material-icons text-5xl md:text-7xl">sports_esports</i> 
                 <span class="font-mono p-2 font-bold text-2xl tracking-tighter animate-pulse hidden md:inline-flex">Refun Guarntee</span>
               </router-link>       
@@ -12,6 +12,7 @@
               <div class="flex font-bold items-center">
                   <!-- <router-link :to="{name: 'Product' ,params: { getAll:true }}" class="px-4 py-7 hover:text-indigo-500">Product</router-link> -->
                   <!-- <router-link to="/" class="px-4 py-7 hover:text-indigo-500">Product</router-link> -->
+                  <router-link to="/" class="px-4 py-7 hover:text-indigo-500">Home</router-link>
                   <router-link to="/form" class="px-4 py-7 hover:text-indigo-500">Add</router-link>
                   <router-link to="/team" class="px-4 py-7 hover:text-indigo-500">Team</router-link>
                   <router-link to="/about" class="px-4 py-7 hover:text-indigo-500">About</router-link>

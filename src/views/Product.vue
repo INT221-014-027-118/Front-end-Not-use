@@ -1,5 +1,5 @@
 <template>
-  <router-view class="z-40 h-screen w-full backdrop-filter backdrop-blur-3xl"/>
+  <router-view class="z-40 h-screen w-full backdrop-filter backdrop-blur-xl"/>
   <div class="mt-16 md:mt-20 mb-60">
     <div class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-8 relative"
       v-for="brand in brandsObjs" :key="brand.brand" >
