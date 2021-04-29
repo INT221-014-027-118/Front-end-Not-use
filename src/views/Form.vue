@@ -81,9 +81,9 @@
                   :class="{ 'ring ring-red-400': invalid_type }"
                 >
                   <option value="" disabled selected>[ Select Type ]</option>
-                  <option value="Keyboard">Keyboard</option>
-                  <option value="Mouse">Mouse</option>
-                  <option value="Headset">Headset</option>
+                  <option value="keyboard">Keyboard</option>
+                  <option value="mouse">Mouse</option>
+                  <option value="headset">Headset</option>
                 </select>
                 <span
                   v-if="invalid_type"
@@ -114,9 +114,8 @@
               <div class="flex flex-wrap">
                 <div v-for="(color, index) in colors" :key="color.colorId">
                   <base-color
-                    :color="color.hexColor"
+                    :color="color"
                     @active-color="active($event, index)"
-                    :isActive="color.active"
                   />
                 </div>
               </div>
@@ -302,22 +301,34 @@ export default {
     },
 
     submitForm() {
-      fetch(this.url, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          brand: this.brandAdd,
-          type: this.type,
-          name: this.name,
-          price: this.price,
-          colors: this.colorsAdd,
-          description: this.description,
-          warranty: this.warranty,
-          launchDate: this.launchDate,
-        }),
+      let body = JSON.stringify({
+        brand: this.brandAdd,
+        type: this.type,
+        name: this.name,
+        price: this.price,
+        colors: this.colorsAdd,
+        description: this.description,
+        warranty: this.warranty,
+        launchDate: this.launchDate,
       });
+
+      if (this.itemId) {
+        fetch(`${this.url}/${this.itemId}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: body,
+        }).catch((error) => console.log(error));
+      } else {
+        fetch(this.url, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: body,
+        }).catch((error) => console.log(error));
+      }
     },
 
     onFileChange(event) {
@@ -355,32 +366,26 @@ export default {
         });
     },
     async getDataToEdit() {
-      fetch("http://localhost:5000/products/" + this.itemId)
+      fetch(`${this.url}/${this.itemId}`)
         .then((res) => res.json())
         .then((data) => {
-          this.brandAdd  = data.brand
-          this.type = data.type
-          this.name = data.name
-          this.price = data.price
-          this.description = data.description
-          this.warranty = data.warranty
-          this.launchDate = data.launchDate
-          // this.colors.forEach((color,index)=>{
-          //   if(data.colors[index].colorId==color.colorId){
-          //     color.active = true
-          //   }
-          // })
-          // this.colors.map((color2)=>{
-          //   if(data.colors.some((color)=>{return color.colorId === color2.colorId})){
-          //     color.active = true
-          //   }
-          // })
-          // for(let i =0; i < this.colors.length ; i++){
-          //   if(data.colors.some((color)=>{return color.colorId === this.colors[i].colorId}))
-          //   this.colors[i].active = true
-
-          // }
-
+          this.brandAdd = data.brand;
+          this.type = data.type;
+          this.name = data.name;
+          this.price = data.price;
+          this.description = data.description;
+          this.warranty = data.warranty;
+          this.launchDate = data.launchDate;
+          for (let i = 0; i < this.colors.length; i++) {
+            if (
+              data.colors.some((color) => {
+                return color.colorId === this.colors[i].colorId;
+              })
+            ) {
+              this.colors[i].active = true;
+            }
+          }
+          console.log(this.colors);
         })
         .catch((error) => console.log(error));
     },
@@ -389,7 +394,8 @@ export default {
     fetch("http://localhost:5000/colors")
       .then((res) => res.json())
       .then((data) => (this.colors = data))
-      .then(() => {this.colors.forEach((color) => (color["active"] = true))
+      .then(() => {
+        this.colors.forEach((color) => (color["active"] = false));
       })
       .catch((error) => console.log(error));
 
@@ -397,7 +403,7 @@ export default {
       .then((res) => res.json())
       .then((data) => (this.brands = data))
       .catch((error) => console.log(error));
-    
+
     this.getDataToEdit();
   },
 };

@@ -1,13 +1,13 @@
 <template>
   <div
     class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center"
-    :style="{ backgroundColor: color }"
+    :style="{ backgroundColor: color.hexColor }"
     @click="activeColor"
   >
     <span
       class="material-icons ring-4 rounded-md ring-offset-gray-100 ring-offset-2"
-      v-show="active"
-      :class="{ 'ring-blue-400 text-blue-500': active }"
+      v-show="color.active"
+      :class="{ 'ring-blue-400 text-blue-500': color.active }"
     >
       done
     </span>
@@ -18,16 +18,11 @@
 export default {
   data() {
     return {
-      active: true,
     };
   },
   props: {
     color: {
-      type: String,
-      required: true,
-    },
-    isActive: {
-      type: Boolean,
+      type: Object,
     },
   },
   methods: {
@@ -37,8 +32,8 @@ export default {
     },
   },
   async created() {
-     this.active = await Boolean(this.isActive);
-    console.log(this.active)
+     this.active = await this.color.active;
+     console.log(this.active)
   },
 };
 </script>
