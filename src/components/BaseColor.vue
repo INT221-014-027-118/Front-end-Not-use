@@ -31,10 +31,6 @@ export default {
       this.$emit("active-color", this.active);
     },
   },
-  async created() {
-     this.active = await this.color.active;
-     console.log(this.active)
-  },
 };
 </script>
 

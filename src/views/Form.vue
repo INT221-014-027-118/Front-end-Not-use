@@ -54,6 +54,7 @@
               <label class="label-css" for="price">Price</label>
               <input
                 v-model="price"
+                step="0.01"
                 class="input-css"
                 id="price"
                 type="number"
@@ -172,24 +173,24 @@
               <div class="flex items-center mr-7">
                 <input
                   type="radio"
-                  id="3"
+                  id="1"
                   name="warranty"
                   v-model="warranty"
-                  value="3"
+                  value="1"
                   class="w-4 h-5 mr-2"
                 />
-                <label for="3">3 year</label>
+                <label for="1">1 year</label>
               </div>
               <div class="flex items-center mr-7">
                 <input
                   type="radio"
-                  id="5"
+                  id="2"
                   name="warranty"
                   v-model="warranty"
-                  value="5"
+                  value="2"
                   class="w-4 h-5 mr-2"
                 />
-                <label for="5">5 year</label>
+                <label for="2">2 year</label>
               </div>
             </div>
           </div>
@@ -286,7 +287,9 @@ export default {
       setTimeout(() => {
         this.invalid_Description = false;
       }, 5000);
-      this.invalid_Color = this.colorsAdd.length === 0 ? true : false;
+      this.invalid_Color =  !this.colors.some((color) => {
+        return color.active === true;
+      });
       setTimeout(() => {
         this.invalid_Color = false;
       }, 5000);
@@ -298,6 +301,8 @@ export default {
       setTimeout(() => {
         this.invalid_img = false;
       }, 5000);
+
+      console.log(this.colorsAdd);
     },
 
     submitForm() {
@@ -311,7 +316,7 @@ export default {
         warranty: this.warranty,
         launchDate: this.launchDate,
       });
-
+      console.log(body);
       if (this.itemId) {
         fetch(`${this.url}/${this.itemId}`, {
           method: "PUT",
@@ -366,32 +371,45 @@ export default {
         });
     },
     async getDataToEdit() {
-      fetch(`${this.url}/${this.itemId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          this.brandAdd = data.brand;
-          this.type = data.type;
-          this.name = data.name;
-          this.price = data.price;
-          this.description = data.description;
-          this.warranty = data.warranty;
-          this.launchDate = data.launchDate;
-          for (let i = 0; i < this.colors.length; i++) {
-            if (
-              data.colors.some((color) => {
-                return color.colorId === this.colors[i].colorId;
-              })
-            ) {
-              this.colors[i].active = true;
+      if (this.itemId != null) {
+        fetch(`${this.url}/${this.itemId}`)
+          .then((res) => res.json())
+          .then((data) => {
+            this.brandAdd = data.brand;
+            this.type = data.type;
+            this.name = data.name;
+            this.price = data.price;
+            this.description = data.description;
+            this.warranty = data.warranty;
+            this.launchDate = data.launchDate;
+            for (let i = 0; i < this.colors.length; i++) {
+              if (
+                data.colors.some((color) => {
+                  return color.colorId === this.colors[i].colorId;
+                })
+              ) {
+                this.colors[i].active = true;
+                this.colorsAdd = this.colors[i].active = true;
+                console.log((this.colors[i].active = true));
+              }
             }
-          }
-          console.log(this.colors);
-        })
-        .catch((error) => console.log(error));
+            // console.log(this.itemId);
+          })
+          .catch((error) => console.log(error));
+      } else {
+        this.brandAdd = "";
+        this.name = "";
+        this.price = 0;
+        this.warranty = 0;
+        this.launchDate = "";
+        this.type = "";
+        this.description = "";
+        this.colorsAdd = [];
+      }
     },
   },
   async created() {
-    fetch("http://localhost:5000/colors")
+    await fetch("http://localhost:5000/colors")
       .then((res) => res.json())
       .then((data) => (this.colors = data))
       .then(() => {
@@ -399,12 +417,12 @@ export default {
       })
       .catch((error) => console.log(error));
 
-    fetch("http://localhost:5000/brands")
+    await fetch("http://localhost:5000/brands")
       .then((res) => res.json())
       .then((data) => (this.brands = data))
       .catch((error) => console.log(error));
 
-    this.getDataToEdit();
+    await this.getDataToEdit();
   },
 };
 </script>
