@@ -1,5 +1,5 @@
 <template>
-<router-link :to="{name: 'Item' ,params: {type:product.type,itemName:product.name ,item:product }}" class="hover:text-blue-500 rounded-lg ">
+<router-link :to="{name: 'Item' ,params: {type:product.type,itemName:product.name ,itemId:product.id,itemImgTest:image }}" class="hover:text-indigo-500">
   <div class="flex flex-col rounded-lg shadow-md">
     <div class=" overflow-hidden w-full relative pb-72">
       <img
