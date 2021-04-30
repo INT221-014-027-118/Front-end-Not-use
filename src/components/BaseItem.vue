@@ -3,6 +3,7 @@
     class="flex flex-col rounded-lg shadow-md "
     @mouseenter="showED = !showED"
     @mouseleave="showED = !showED"
+    v-show="!isDeleted"
   >
     <div class="overflow-hidden w-full relative pb-72">
       <div
@@ -109,6 +110,7 @@ export default {
       showED: false,
       more: false,
       urlItem: "http://localhost:5000/products/" + this.product.id,
+      isDeleted: false
     };
   },
   methods: {
@@ -124,6 +126,7 @@ export default {
           })
           .catch((error) => console.log(error));
       }
+      this.isDeleted = true
     },
   },
 
