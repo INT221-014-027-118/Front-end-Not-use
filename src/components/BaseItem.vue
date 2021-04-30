@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col rounded-lg shadow-md "
+    class="flex flex-col rounded-lg shadow-xl "
     @mouseenter="showED = !showED"
     @mouseleave="showED = !showED"
     v-show="!isDeleted"
@@ -41,12 +41,12 @@
       </div>
       <img
         :src="image"
-        class="absolute h-full w-full object-cover object-center p-1 rounded-lg bg-white"
+        class="absolute h-full w-full object-cover object-center p-1 rounded-t-lg bg-white"
         alt=""
         :class="{ ' sm:opacity-50': showED }"
       />
       <div
-        class=" absolute -mt-4 w-full p-1 bottom-0 bg-gray-600 opacity-60 h-8 rounded-b-lg"
+        class=" absolute -mt-4 w-full p-1 bottom-0 bg-gray-600 opacity-60 h-8"
       />
       <div class=" absolute -mt-4 w-full p-1 bottom-0">
         <div class="flex flex-row-reverse">
@@ -74,7 +74,7 @@
       @mouseleave="more = !more"
     >
       <div class="z-10 w-full relative">
-        <div class="pt-4 pb-8 px-5 ">
+        <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
           <h1
             class="font-bold text-lg underline sm:no-underline"
             :class="{ underline: more }"
@@ -89,10 +89,13 @@
               ฿ {{ product.price }}
             </div>
           </div>
-          <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">{{ product.description }}
-          <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-100 pointer-events-none"></div>
-
-
+          <div
+            class="h-24 p-2 overflow-hidden text-black dark:text-white relative"
+          >
+            {{ product.description }}
+            <div
+              class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600  pointer-events-none"
+            ></div>
           </div>
         </div>
         <div
