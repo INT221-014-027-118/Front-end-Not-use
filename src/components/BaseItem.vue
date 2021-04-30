@@ -8,7 +8,7 @@
     <div class="overflow-hidden w-full relative pb-72">
       <div
         v-show="showED"
-        class="flex invisible sm:visible space-x-8 absolute z-10 top-1/2 right-1/2 transform  translate-x-2/4"
+        class="flex invisible sm:visible space-x-8 absolute z-10 top-1/2 right-1/2 transform translate-x-2/4"
       >
         <div
           class=" bg-green-500 py-4 px-5 cursor-pointer rounded-full text-white shadow-2xl"
@@ -23,7 +23,9 @@
           <span class="material-icons text-4xl">delete</span>
         </div>
       </div>
-      <div class="flex visible sm:invisible space-x-8 absolute z-10 right-1/2 transform  translate-x-2/4">
+      <div
+        class="flex visible sm:invisible space-x-8 absolute z-10 right-1/2 transform  translate-x-2/4"
+      >
         <div
           class=" flex items-center bg-green-500 py-1 px-5 cursor-pointer rounded-md text-white shadow-2xl"
           @click="editItem"
@@ -44,7 +46,7 @@
         :class="{ ' sm:opacity-50': showED }"
       />
       <div
-        class=" absolute -mt-4 w-full p-1 bottom-0 bg-gray-500 opacity-60 h-8 rounded-b-lg"
+        class=" absolute -mt-4 w-full p-1 bottom-0 bg-gray-600 opacity-60 h-8 rounded-b-lg"
       />
       <div class=" absolute -mt-4 w-full p-1 bottom-0">
         <div class="flex flex-row-reverse">
@@ -72,7 +74,7 @@
       @mouseleave="more = !more"
     >
       <div class="z-10 w-full relative">
-        <div class="py-4 px-5">
+        <div class="pt-4 pb-8 px-5 ">
           <h1
             class="font-bold text-lg underline sm:no-underline"
             :class="{ underline: more }"
@@ -80,18 +82,24 @@
             {{ product.name }}
           </h1>
           <div class="flex items-center justify-between">
-            <div class="text-sm font-light text-black dark:text-white ">Warranty : [ ]</div>
+            <div class="text-sm font-light text-black dark:text-white ">
+              Warranty : [ ]
+            </div>
             <div class="text-2xl text-red-600 font-bold">
               ฿ {{ product.price }}
             </div>
           </div>
+          <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">{{ product.description }}
+          <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-100 pointer-events-none"></div>
+
+
+          </div>
         </div>
-        <p
-          class="absolute right-1/2 transform underline translate-x-1/2 bottom-1"
-          v-show="more"
+        <div
+          class="absolute right-1/2 transform underline translate-x-1/2 bottom-1 z-10"
         >
           Show More
-        </p>
+        </div>
       </div>
     </router-link>
   </div>
@@ -108,9 +116,8 @@ export default {
       ],
       image: "",
       showED: false,
-      more: false,
       urlItem: "http://localhost:5000/products/" + this.product.id,
-      isDeleted: false
+      isDeleted: false,
     };
   },
   methods: {
@@ -125,8 +132,8 @@ export default {
             this.close();
           })
           .catch((error) => console.log(error));
+        this.isDeleted = true;
       }
-      this.isDeleted = true
     },
   },
 
