@@ -3,9 +3,8 @@
     class="flex flex-col rounded-lg shadow-md "
     @mouseenter="showED = !showED"
     @mouseleave="showED = !showED"
-    
   >
-    <div class=" overflow-hidden w-full relative pb-72">
+    <div class="overflow-hidden w-full relative pb-72">
       <div
         v-show="showED"
         class="flex  space-x-8 absolute z-10 top-1/2 right-1/2 transform  translate-x-2/4"
@@ -54,18 +53,21 @@
           itemImgTest: image,
         },
       }"
-      class="hover:text-indigo-500"
+      class="hover:text-blue-600"
+      @mouseenter="more = !more"
+      @mouseleave="more = !more"
     >
-      <div class="z-10 w-full ">
+      <div class="z-10 w-full relative">
         <div class="py-4 px-5">
-          <h1 class="font-bold text-lg">{{ product.name }}</h1>
+          <h1 class="font-bold text-lg underline sm:no-underline" :class="{'underline': more }" >{{ product.name }}</h1>
           <div class="flex items-center justify-between">
-            <div class="text-sm font-light">Warranty : [ ]</div>
+            <div class="text-sm font-light text-black">Warranty : [ ]</div>
             <div class="text-2xl text-red-600 font-bold">
-              $ {{ product.price }}
+              ฿ {{ product.price }}
             </div>
           </div>
         </div>
+        <p class="absolute right-1/2 transform underline translate-x-1/2 bottom-1" v-show="more">Show More</p>
       </div>
     </router-link>
   </div>
@@ -82,6 +84,7 @@ export default {
       ],
       image: "",
       showED: false,
+      more: false,
     };
   },
   methods: {
