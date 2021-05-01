@@ -21,6 +21,7 @@
                     :product="item"
                     v-for="item in brand.items"
                     :key="item.id"
+                    @del-item="deleteItem"
                 />
             </div>
         </div>
@@ -46,6 +47,10 @@ export default {
         };
     },
     methods: {
+        deleteItem(index) {
+            console.log(this.brandsObjs);
+            console.log(index);
+        },
         async getProducts() {
             await fetch("http://localhost:5000/products")
                 .then((res) => res.json())

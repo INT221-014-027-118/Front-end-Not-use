@@ -151,6 +151,7 @@ export default {
                     .catch((error) => console.log(error));
                 this.isDeleted = true;
             }
+                this.$emit("del-item", this.product.id);
         },
     },
 
