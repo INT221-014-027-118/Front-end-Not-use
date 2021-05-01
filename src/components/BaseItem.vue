@@ -97,8 +97,7 @@ export default {
             ],
             image: "",
             hoverEditer: false,
-            btnEditer: false,
-            urlItem: "http://localhost:5000/products/" + this.product.productId,
+            btnEditer: false
         };
     },
     methods: {

@@ -3,7 +3,7 @@
         <div class="items-center mx-auto max-w-6xl mb-10 rounded-md bg-blue-100 dark:bg-gray-700 ">
             <div class="bg-blue-200 dark:bg-blue-800 px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center relative">
                 <div>
-                    <span class="text-2xl">{{ item.brand }}: </span>{{ item.name }}
+                    <span class="text-2xl">{{ item.brand.brandName }}: </span>{{ item.productName }}
                 </div>
                 <div class="flex mt-4 md: md:m-0 text-sm">
                     <div class="flex items-center bg-green-600 p-1 mx-3 px-3 cursor-pointer rounded-md text-white" @click="editItem"><span class="material-icons">edit</span>Edit</div>
@@ -54,7 +54,7 @@ export default {
     data() {
         return {
             item: Object,
-            urlItem: "http://localhost:8081/product/" + this.itemId,
+            urlItem: "http://localhost:9091/product"
         };
     },
     methods: {
@@ -64,25 +64,24 @@ export default {
         async deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
-                fetch(this.urlItem, { method: "DELETE" })
+                fetch(`${this.urlItem}/delete/${this.item.productId}`, { method: "DELETE" })
                     .then(() => {
                         this.close();
                     })
                     .catch((error) => console.log(error));
             }
-            console.log(this.product);
             this.$emit("del-test", this.product);
         },
         editItem() {
             this.$router.push({
                 name: "Form",
-                params: { itemId: this.item.id },
+                params: { itemId: this.item.productId },
             });
         },
     },
     async created() {
         if (this.itemId != null) {
-            fetch(this.urlItem)
+            fetch(`${this.urlItem}/${Number(this.itemId)}`)
                 .then((res) => res.json())
                 .then((data) => (this.item = data))
                 .catch((error) => console.log(error));
