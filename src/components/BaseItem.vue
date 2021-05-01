@@ -42,9 +42,9 @@
             :to="{
                 name: 'Item',
                 params: {
-                    type: product.type,
-                    itemName: product.name,
-                    itemId: product.id,
+                    type: product.type.typeName,
+                    itemName: product.productName,
+                    itemId: product.productId,
                     itemImgTest: image,
                 },
             }"
@@ -56,11 +56,11 @@
             <div class="z-10 w-full relative">
                 <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
                     <h1 class="font-bold text-lg underline sm:no-underline" :class="{ underline: more }">
-                        {{ product.name }}
+                        {{ product.productName }}
                     </h1>
                     <div class="flex items-center justify-between">
                         <div class="text-sm font-light text-black dark:text-white">
-                            Warranty : [ ]
+                            Warranty : {{product.warranty}}
                         </div>
                         <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
                     </div>
@@ -98,7 +98,7 @@ export default {
             image: "",
             hoverEditer: false,
             btnEditer: false,
-            urlItem: "http://localhost:5000/products/" + this.product.id,
+            urlItem: "http://localhost:5000/products/" + this.product.productId,
         };
     },
     methods: {
@@ -108,7 +108,7 @@ export default {
         editItem() {
             this.$router.push({
                 name: "Form",
-                params: { itemId: this.product.id },
+                params: { itemId: this.product.productId},
             });
         },
         deleteItem() {
@@ -125,7 +125,7 @@ export default {
     },
     created() {
         this.image = this.forTestImg.find((item) => {
-            return this.product.type.toLowerCase() === item.type.toLowerCase();
+            return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();
         }).img;
     },
 };

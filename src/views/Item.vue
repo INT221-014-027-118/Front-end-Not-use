@@ -54,7 +54,7 @@ export default {
     data() {
         return {
             item: Object,
-            urlItem: "http://localhost:5000/products/" + this.itemId,
+            urlItem: "http://localhost:8081/product/" + this.itemId,
         };
     },
     methods: {
