@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <router-link
+        <!-- <router-link
             :to="{
                 name: 'Item',
                 params: {
@@ -52,7 +52,7 @@
             @mouseenter="more = !more"
             @mouseleave="more = !more"
             @del-test="deletetest"
-        >
+        > -->
             <div class="z-10 w-full relative">
                 <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
                     <h1 class="font-bold text-lg underline sm:no-underline" :class="{ underline: more }">
@@ -73,7 +73,7 @@
                     Show More
                 </div>
             </div>
-        </router-link>
+        <!-- </router-link> -->
     </div>
 </template>
 
@@ -113,7 +113,7 @@ export default {
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
-                fetch(this.urlItem, { method: "DELETE" }).catch((error) => console.log(error));
+                fetch(`http://localhost:9091/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
                 this.$emit("del-item", this.product);
             }
         },
