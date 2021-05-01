@@ -1,20 +1,9 @@
 <template>
     <div class="flex flex-col rounded-lg shadow-xl" v-show="!isDeleted">
         <div class="overflow-hidden w-full relative pb-72">
-            <div
-                v-show="btnEditer"
-                class="flex space-x-2 sm:space-x-8 absolute z-10 top-1/4 right-1/2 transform translate-x-2/4 translate-y-1/2"
-            >
-                <div
-                    class="bg-green-500 py-4 px-5 cursor-pointer rounded-full text-white shadow-2xl flex items-center"
-                    @click="editItem"
-                >
-                    <span class="material-icons text-4xl">edit</span>Edit
-                </div>
-                <div
-                    class="bg-red-600 py-4 px-5 cursor-pointer rounded-full text-white shadow-2xl flex items-center"
-                    @click="deleteItem"
-                >
+            <div v-show="btnEditer" class="flex space-x-2 sm:space-x-8 absolute z-10 top-1/4 right-1/2 transform translate-x-2/4 translate-y-1/2">
+                <div class="bg-green-500 py-4 px-5 cursor-pointer rounded-full text-white shadow-2xl flex items-center" @click="editItem"><span class="material-icons text-4xl">edit</span>Edit</div>
+                <div class="bg-red-600 py-4 px-5 cursor-pointer rounded-full text-white shadow-2xl flex items-center" @click="deleteItem">
                     <span class="material-icons text-4xl">delete</span>Delete
                 </div>
             </div>
@@ -34,15 +23,8 @@
                     close
                 </div>
             </div>
-            <img
-                :src="image"
-                class="absolute h-full w-full object-cover object-center p-1 rounded-t-lg bg-white"
-                alt="img product"
-                :class="[btnEditer ? ' opacity-50' : '']"
-            />
-            <div
-                class="absolute -mt-4 w-full p-1 bottom-0 bg-gray-600 opacity-60 h-8"
-            />
+            <img :src="image" class="absolute h-full w-full object-cover object-center p-1 rounded-t-lg bg-white" alt="img product" :class="[btnEditer ? ' opacity-50' : '']" />
+            <div class="absolute -mt-4 w-full p-1 bottom-0 bg-gray-600 opacity-60 h-8" />
             <div class="absolute -mt-4 w-full p-1 bottom-0">
                 <div class="flex flex-row-reverse">
                     <div
@@ -64,44 +46,31 @@
                     itemName: product.name,
                     itemId: product.id,
                     itemImgTest: image,
+                    product: product,
                 },
             }"
             class="hover:text-blue-600"
             @mouseenter="more = !more"
             @mouseleave="more = !more"
+            @del-test="deletetest"
         >
             <div class="z-10 w-full relative">
-                <div
-                    class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md"
-                >
-                    <h1
-                        class="font-bold text-lg underline sm:no-underline"
-                        :class="{ underline: more }"
-                    >
+                <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
+                    <h1 class="font-bold text-lg underline sm:no-underline" :class="{ underline: more }">
                         {{ product.name }}
                     </h1>
                     <div class="flex items-center justify-between">
-                        <div
-                            class="text-sm font-light text-black dark:text-white"
-                        >
+                        <div class="text-sm font-light text-black dark:text-white">
                             Warranty : [ ]
                         </div>
-                        <div class="text-2xl text-red-600 font-bold">
-                            ฿ {{ product.price }}
-                        </div>
+                        <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
                     </div>
-                    <div
-                        class="h-24 p-2 overflow-hidden text-black dark:text-white relative"
-                    >
+                    <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">
                         {{ product.description }}
-                        <div
-                            class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"
-                        ></div>
+                        <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"></div>
                     </div>
                 </div>
-                <div
-                    class="absolute right-1/2 transform underline translate-x-1/2 bottom-1 z-10"
-                >
+                <div class="absolute right-1/2 transform underline translate-x-1/2 bottom-1 z-10">
                     Show More
                 </div>
             </div>
@@ -135,6 +104,9 @@ export default {
         };
     },
     methods: {
+        deletetest(i) {
+            console.log(i);
+        },
         editItem() {
             this.$router.push({
                 name: "Form",
@@ -151,7 +123,7 @@ export default {
                     .catch((error) => console.log(error));
                 this.isDeleted = true;
             }
-                this.$emit("del-item", this.product.id);
+            this.$emit("del-item", this.product);
         },
     },
 
