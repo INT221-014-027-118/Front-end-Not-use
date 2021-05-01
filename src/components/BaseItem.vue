@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col rounded-lg shadow-xl" v-show="!isDeleted">
+    <div class="flex flex-col rounded-lg shadow-xl">
         <div class="overflow-hidden w-full relative pb-72">
             <div v-show="btnEditer" class="flex space-x-2 sm:space-x-8 absolute z-10 top-1/4 right-1/2 transform translate-x-2/4 translate-y-1/2">
                 <div class="bg-green-500 py-4 px-5 cursor-pointer rounded-full text-white shadow-2xl flex items-center" @click="editItem"><span class="material-icons text-4xl">edit</span>Edit</div>
@@ -46,7 +46,6 @@
                     itemName: product.name,
                     itemId: product.id,
                     itemImgTest: image,
-                    product: product,
                 },
             }"
             class="hover:text-blue-600"
@@ -100,7 +99,6 @@ export default {
             hoverEditer: false,
             btnEditer: false,
             urlItem: "http://localhost:5000/products/" + this.product.id,
-            isDeleted: false,
         };
     },
     methods: {
@@ -116,14 +114,9 @@ export default {
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
-                fetch(this.urlItem, { method: "DELETE" })
-                    .then(() => {
-                        this.close();
-                    })
-                    .catch((error) => console.log(error));
-                this.isDeleted = true;
+                fetch(this.urlItem, { method: "DELETE" }).catch((error) => console.log(error));
+                this.$emit("del-item", this.product);
             }
-            this.$emit("del-item", this.product);
         },
     },
 

@@ -23,7 +23,6 @@ export default {
     },
     props: {
         type: String,
-        getAll: String,
     },
     data() {
         return {
@@ -32,9 +31,17 @@ export default {
         };
     },
     methods: {
-        deleteItem(index) {
-            console.log(this.brandsObjs);
-            console.log(index);
+        deleteItem(product) {
+            let brandDeleted = this.brandsObjs.findIndex((item) => {
+                return product.brand === item.brand;
+            });
+            let itemDeleted = this.brandsObjs[brandDeleted].items.findIndex((item) => {
+                return item.id === product.id;
+            });
+            this.brandsObjs[brandDeleted].items.splice(itemDeleted, 1);
+            if (this.brandsObjs[brandDeleted].items.length == 0) {
+                this.brandsObjs.splice(brandDeleted, 1);
+            }
         },
         async getProducts() {
             await fetch("http://localhost:5000/products")
@@ -47,11 +54,9 @@ export default {
                     });
                 })
                 .then(() => {
-                    if (!this.resetPage) {
-                        this.items = this.items.filter((item) => {
-                            return item.type.toLowerCase() === this.type.toLowerCase();
-                        });
-                    }
+                    this.items = this.items.filter((item) => {
+                        return item.type.toLowerCase() === this.type.toLowerCase();
+                    });
                 })
                 .catch((error) => console.log(error));
         },

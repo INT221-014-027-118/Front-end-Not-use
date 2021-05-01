@@ -71,7 +71,7 @@ export default {
                     .catch((error) => console.log(error));
             }
             console.log(this.product);
-            // this.$emit("del-test", this.product);
+            this.$emit("del-test", this.product);
         },
         editItem() {
             this.$router.push({
