@@ -69,7 +69,7 @@ export default {
                     }
                 })
                 .catch((error) => console.log(error));
-                this.isLoad = false;
+            this.isLoad = false;
         },
         sortProduct() {
             let brandsShow = [];
