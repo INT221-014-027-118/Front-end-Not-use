@@ -38,42 +38,38 @@
                 </div>
             </div>
         </div>
-        <!-- <router-link
+        <router-link
             :to="{
                 name: 'Item',
                 params: {
                     type: product.type.typeName,
-                    itemName: product.productName,
-                    itemId: product.productId,
+                    productId: product.productId,
                     itemImgTest: image,
                 },
             }"
             class="hover:text-blue-600"
             @mouseenter="more = !more"
             @mouseleave="more = !more"
-            @del-test="deletetest"
-        > -->
-            <div class="z-10 w-full relative">
-                <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
-                    <h1 class="font-bold text-lg underline sm:no-underline" :class="{ underline: more }">
-                        {{ product.productName }}
-                    </h1>
-                    <div class="flex items-center justify-between">
-                        <div class="text-sm font-light text-black dark:text-white">
-                            Warranty : {{product.warranty}}
-                        </div>
-                        <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
-                    </div>
-                    <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">
-                        {{ product.description }}
-                        <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"></div>
-                    </div>
+        >
+        <div class="z-10 w-full relative">
+            <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
+                <h1 class="font-bold text-lg underline sm:no-underline">
+                    {{ product.productName }}
+                </h1>
+                <div class="flex items-center justify-between">
+                    <div class="text-sm font-light text-black dark:text-white">Warranty : {{ product.warranty }}</div>
+                    <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
                 </div>
-                <div class="absolute right-1/2 transform underline translate-x-1/2 bottom-1 z-10">
-                    Show More
+                <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">
+                    {{ product.description }}
+                    <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"></div>
                 </div>
             </div>
-        <!-- </router-link> -->
+            <div class="absolute right-1/2 transform underline translate-x-1/2 bottom-1 z-10">
+                Show More
+            </div>
+        </div>
+        </router-link>
     </div>
 </template>
 
@@ -97,17 +93,17 @@ export default {
             ],
             image: "",
             hoverEditer: false,
-            btnEditer: false
+            btnEditer: false,
         };
     },
+    props: {
+        product: Object,
+    },
     methods: {
-        deletetest(i) {
-            console.log(i);
-        },
         editItem() {
             this.$router.push({
                 name: "Form",
-                params: { itemId: this.product.productId},
+                params: { itemId: this.product.productId },
             });
         },
         deleteItem() {
@@ -118,14 +114,12 @@ export default {
             }
         },
     },
-
-    props: {
-        product: Object,
-    },
-    created() {
+    async created() {
+        //For test
         this.image = this.forTestImg.find((item) => {
             return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();
         }).img;
+        
     },
 };
 </script>

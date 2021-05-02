@@ -7,7 +7,7 @@
         </div>
         <div class="flex justify-center my-5 md:mt-16">
             <router-link
-                to="/product"
+                to="/products"
                 class="px-9 py-4 ring-2 ring-offset-2 ring-offset-blue-500 rounded-lg shadow-2xl bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 transition duration-200 transform dark:hover:bg-blue-700"
                 >All Products</router-link
             >

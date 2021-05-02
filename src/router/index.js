@@ -33,18 +33,18 @@ const routes = [{
     component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/product',
-    name: 'Product',
+    path: '/products',
+    name: 'Products',
     component: Product,
     props: true
   },
   {
-    path: '/product/:type',
-    name: 'ProductType',
+    path: '/products/:type',
+    name: 'ProductTypes',
     component: Product,
     props: true,
     children: [{
-      path: ':itemName',
+      path: ':productId',
       name: 'Item',
       props: true,
       component: Item

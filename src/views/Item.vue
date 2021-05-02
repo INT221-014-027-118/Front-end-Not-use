@@ -1,9 +1,9 @@
 <template>
-    <div class="fixed pt-0 md:pt-3 lg:pt-10 w-screen h-screen overflow-scroll">
+    <div class="fixed pt-0 md:pt-3 lg:pt-10 w-screen h-screen overflow-scroll" v-show="showItem">
         <div class="items-center mx-auto max-w-6xl mb-10 rounded-md bg-blue-100 dark:bg-gray-700 ">
             <div class="bg-blue-200 dark:bg-blue-800 px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center relative">
                 <div>
-                    <span class="text-2xl">{{ item.brand.brandName }}: </span>{{ item.productName }}
+                    <span class="text-2xl">{{ product.brand.brandName }}: </span>{{ product.productName }}
                 </div>
                 <div class="flex mt-4 md: md:m-0 text-sm">
                     <div class="flex items-center bg-green-600 p-1 mx-3 px-3 cursor-pointer rounded-md text-white" @click="editItem"><span class="material-icons">edit</span>Edit</div>
@@ -18,20 +18,20 @@
                     <div class="flex flex-col md:flex-row items-center justify-center">
                         <div
                             class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center"
-                            v-for="color in item.colors"
-                            :key="color.id"
+                            v-for="color in product.colors"
+                            :key="color.colorId"
                             :style="{ backgroundColor: color.hexColor }"
                         />
                     </div>
                 </div>
 
                 <div class="py-3 px-5">
-                    <div class="pb-3 text-2xl">{{ item.name }}</div>
+                    <div class="pb-3 text-2xl">{{ product.productName }}</div>
                     <div class="px-3">
-                        <p>{{ item.description }}</p>
+                        <p>{{ product.description }}</p>
                         <div class="flex justify-between items-center mt-5">
-                            <span class="text-md font-light">Warranty:</span>
-                            <span class="text-2xl text-red-600 font-bold">$ {{ item.price }}</span>
+                            <span class="text-md font-light">Warranty:{{product.warranty}}</span>
+                            <span class="text-2xl text-red-600 font-bold">$ {{ product.price }}</span>
                         </div>
                     </div>
                 </div>
@@ -46,23 +46,24 @@ export default {
     components: {},
     props: {
         type: String,
-        itemName: String,
-        itemId: Number,
+        productId: Number,
         itemImgTest: String,
-        product: Object,
     },
     data() {
         return {
-            item: Object,
-            urlItem: "http://localhost:9091/product"
+            product: Object,
+            showItem:true,
+            urlItem: "http://localhost:9091/product",
         };
     },
     methods: {
         close() {
+            this.showItem = false
             this.$router.go(-1);
         },
         async deleteItem() {
             let confirm = window.confirm("Are you sure?");
+            console.log(this.productId)
             if (confirm) {
                 fetch(`${this.urlItem}/delete/${this.item.productId}`, { method: "DELETE" })
                     .then(() => {
@@ -75,19 +76,15 @@ export default {
         editItem() {
             this.$router.push({
                 name: "Form",
-                params: { itemId: this.item.productId },
+                params: { itemId: this.product.productId },
             });
         },
     },
     async created() {
-        if (this.itemId != null) {
-            fetch(`${this.urlItem}/${Number(this.itemId)}`)
-                .then((res) => res.json())
-                .then((data) => (this.item = data))
-                .catch((error) => console.log(error));
-        } else {
-            this.$router.push("/product/" + this.type);
-        }
+        fetch(`${this.urlItem}/${this.productId}`)
+            .then((res) => res.json())
+            .then((data) => (this.product = data))
+            .catch((error) => console.log(error));
     },
 };
 </script>

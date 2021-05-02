@@ -2,8 +2,8 @@
     <div class="md:w-1/3 p-4 md:p-3 lg:p-4 cursor-pointer transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110">
         <router-link
             :to="{
-                name: 'ProductType',
-                params: { type: type.typeName, typeId: type.typeId },
+                name: 'ProductTypes',
+                params: { type: type.typeName},
             }"
         >
             <div class="h-28 md:h-32 lg:h-52 rounded-t-lg bg-contain bg-white bg-no-repeat bg-top" :style="{ backgroundImage: `url(${forTest.image})` }"></div>

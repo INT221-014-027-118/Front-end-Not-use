@@ -1,7 +1,7 @@
 <template>
     <router-view class="z-40 h-screen w-full backdrop-filter backdrop-blur-xl" />
     <div class="mt-16 md:mt-20 mb-52 md:mb-60">
-        <div class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-8 relative" v-for="brand in brandsObjs" :key="brand.brandName">
+        <div class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-8 relative" v-for="brand in brandsObjs" :key="brand.brand">
             <div class="text-center bg-blue-300 dark:bg-blue-800 px-2 py-3 text-xl font-mono tracking-wider rounded-md sticky top-16 md:top-20 z-30">
                 {{ brand.brand }}
             </div>
@@ -10,6 +10,8 @@
             </div>
         </div>
     </div>
+
+       
 </template>
 
 <script>
@@ -21,8 +23,7 @@ export default {
         BaseItem,
     },
     props: {
-        type: String,
-        typeId: Number,
+        type: String
     },
     data() {
         return {
@@ -54,9 +55,9 @@ export default {
                     });
                 })
                 .then(() => {
-                    if (this.typeId) {
+                    if (this.type) {
                         this.items = this.items.filter((item) => {
-                            return item.type.typeId === Number(this.typeId);
+                            return item.type.typeName === this.type;
                         });
                     }
                 })
