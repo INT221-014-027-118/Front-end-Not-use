@@ -13,9 +13,9 @@
                   <!-- <router-link :to="{name: 'Product' ,params: { getAll:true }}" class="px-4 py-7 hover:text-indigo-500">Product</router-link> -->
                   <!-- <router-link to="/" class="px-4 py-7 hover:text-indigo-500">Product</router-link> -->
                   <router-link to="/" class="px-4 py-7 hover:text-indigo-500">Home</router-link>
-                  <router-link to="/form" class="px-4 py-7 hover:text-indigo-500">Add</router-link>
+                  <!-- <router-link to="/form" class="px-4 py-7 hover:text-indigo-500">Add</router-link> -->
                   <router-link to="/team" class="px-4 py-7 hover:text-indigo-500">Team</router-link>
-                  <router-link to="/about" class="px-4 py-7 hover:text-indigo-500">About</router-link>
+                  <!-- <router-link to="/about" class="px-4 py-7 hover:text-indigo-500">About</router-link> -->
                   <p class="border-r-2 dark:border-gray-300 border-indigo-900 h-5 w-1 my-auto mx-5"></p>
                   <div class="cursor-pointer">
                     <div :class="{ hidden: !change }" @click="switchMode" class="px-4 py-7 hover:text-indigo-500">
@@ -47,8 +47,8 @@
                   <div class="flex flex-col bg-gray-200 dark:bg-gray-900 w-full">
                     <router-link to="/" class="px-4 py-7 hover:text-indigo-500 text-center" @click="menulist =!menulist" >Home</router-link>
                     <router-link to="/team" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >Team</router-link>
-                    <router-link to="/about" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >About</router-link>
-                    <router-link to="/form" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >Add</router-link>
+                    <!-- <router-link to="/about" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >About</router-link> -->
+                    <!-- <router-link to="/form" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >Add</router-link> -->
                   </div>
                 </div>
               

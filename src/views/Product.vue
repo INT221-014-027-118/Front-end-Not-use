@@ -11,8 +11,8 @@
         </div>
     </div>
     <div v-else class="h-screen w-full flex items-center justify-center">
-        <i class="material-icons text-4xl animate-spin" :class="{ hidden: isLoad }"> autorenew </i>
-        <div class="text-4xl font-mono tracking-wide font-bold" :class="{ hidden: !isLoad }">Product Out</div>
+        <i class="material-icons text-4xl animate-spin" v-show="isLoad"> autorenew </i>
+        <div class="text-4xl font-mono tracking-wide font-bold" v-show="!isLoad">Product Out</div>
     </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
         return {
             items: [],
             brandsObjs: [],
-            isLoad: false,
+            isLoad: Boolean,
         };
     },
     methods: {
@@ -49,9 +49,11 @@ export default {
         },
         async getProducts() {
             await fetch("http://localhost:9091/product/list")
-                .then((res) => res.json())
-                .then((data) => {
+                .then((res) => {
                     this.isLoad = true;
+                    return res.json();
+                })
+                .then((data) => {
                     this.items = data.sort((a, b) => {
                         if (a.brand.brandName > b.brand.brandName) return 1;
                         if (a.brand.brandName < b.brand.brandName) return -1;
@@ -66,6 +68,7 @@ export default {
                     }
                 })
                 .catch((error) => console.log(error));
+            this.isLoad = false;
         },
         sortProduct() {
             let brandsShow = [];

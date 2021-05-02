@@ -13,7 +13,7 @@
                     v-show="!btnEditer"
                     @click="btnEditer = !btnEditer"
                 >
-                    edit
+                    more_horiz
                 </div>
                 <div
                     class="material-icons items-center bg-gray-400 py-2 px-3 cursor-pointer absolute z-10 top-2 right-2 rounded-md text-white shadow-2xl"
