@@ -30,7 +30,7 @@
                                 type="number"
                                 placeholder=""
                                 min="1"
-                                max="9999999"
+                                max="99999"
                                 required
                                 :class="{ 'ring ring-red-400': invalid_price }"
                             />

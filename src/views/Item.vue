@@ -14,8 +14,8 @@
 
             <div class="container p-2 pb-5 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2">
                 <div class="flex justify-center md:flex-col">
-                    <img :src="itemImgTest" alt="" class="max-h-44 md:max-h-96 my-5 bg-white" />
-                    <div class="flex flex-col md:flex-row items-center justify-center">
+                    <img :src="itemImgTest" alt="" class="max-h-44 md:max-h-96 md:mt-5 bg-white" />
+                    <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400">
                         <div
                             class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center"
                             v-for="color in product.colors"
@@ -28,11 +28,11 @@
                 <div class="py-3 px-5">
                     <div class="pb-3 text-2xl">{{ product.productName }}</div>
                     <div class="px-3">
-                        <p>{{ product.description }}</p>
-                        <div class="flex justify-between items-center mt-5">
-                            <span class="text-md font-light">Warranty:{{ product.warranty }}</span>
-                            <span class="text-2xl text-red-600 font-bold">$ {{ product.price }}</span>
+                        <div class="flex justify-between items-center mb-5">
+                            <span class="text-md font-light">Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</span>
+                            <span class="text-2xl text-red-500 font-bold">฿ {{ product.price }}</span>
                         </div>
+                        <p>{{ product.description }}</p>
                     </div>
                 </div>
             </div>
