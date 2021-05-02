@@ -194,8 +194,9 @@ export default {
                     return 0;
                 })[0].productId + 1;
             let Id = this.itemId ? this.itemId : newId;
+            console.log(Id);
             let body = JSON.stringify({
-                productId: Id,
+                productId: Number(Id),
                 productName: this.name,
                 brand: this.brands.find((brand) => {
                     return brand.brandName == this.brandAdd;
@@ -212,6 +213,7 @@ export default {
             });
             if (this.itemId) {
                 this.editProduct(body);
+                console.log(body);
             } else {
                 this.addProduct(body);
             }
@@ -227,7 +229,7 @@ export default {
             }).catch((error) => console.log(error));
         },
         editProduct(body) {
-            fetch(`${this.url}/${this.itemId}`, {
+            fetch(`${this.url}/update`, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",
@@ -287,8 +289,8 @@ export default {
                                     return color.colorId === this.colors[i].colorId;
                                 })
                             ) {
-                                this.colors[i].active = true;
-                                this.colorsAdd = this.colors[i].active = true;
+                                // this.colors[i].active = true;
+                                this.active((this.colors[i].active = true), [i]);
                             }
                         }
                     })
