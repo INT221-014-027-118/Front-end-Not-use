@@ -42,9 +42,7 @@
                             <div class="relative ">
                                 <select class="input-css" id="type" v-model="type" required :class="{ 'ring ring-red-400': invalid_type }">
                                     <option value="" disabled selected>[ Select Type ]</option>
-                                    <option value="keyboard">Keyboard</option>
-                                    <option value="mouse">Mouse</option>
-                                    <option value="headset">Headset</option>
+                                    <option v-for="type in types" :key="type.id" :value="type.typeName">{{ type.typeName }}</option>
                                 </select>
                                 <span v-if="invalid_type" class="absolute -bottom-1 left-5 p-3 font-mono text-red-500 ">Please select type</span>
                             </div>
@@ -100,7 +98,7 @@
 
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative" :class="{ hidden: activeClose }">
                         <label class="label-css" for="description">File</label>
-                        <input class="input-css" id="file" v-on:change="onFileChange($event)" type="file" required :class="{ 'ring ring-red-400': invalid_img }" />
+                        <input class="input-css" id="file" v-on:change="onFileChange($event)" type="file" :class="{ 'ring ring-red-400': invalid_img }" />
                         <span v-if="invalid_img" class="absolute p-3 font-mono text-red-500 left-7 -bottom-1 ">Please choose image</span>
                     </div>
 
@@ -127,9 +125,10 @@ export default {
             price: 0,
             warranty: 0,
             launchDate: "",
+            types: [],
             type: "",
             description: "",
-            url: "http://localhost:5000/products",
+            url: "http://localhost:9091/product",
             previewImage: null,
             activeClose: false,
             colors: [],
@@ -142,6 +141,7 @@ export default {
             invalid_Color: false,
             invalid_date: false,
             invalid_img: false,
+            products: [],
         };
     },
     props: {
@@ -179,45 +179,57 @@ export default {
             setTimeout(() => {
                 this.invalid_date = false;
             }, 5000);
-            this.invalid_img = this.previewImage === null ? true : false;
-            setTimeout(() => {
-                this.invalid_img = false;
-            }, 5000);
-
-            console.log(this.colorsAdd);
+            // this.invalid_img = this.previewImage === null ? true : false;
+            // setTimeout(() => {
+            //     this.invalid_img = false;
+            // }, 5000);
+            console.log(this.products.length);
+            console.log(this.products.length);
         },
 
         submitForm() {
+            let newId = this.itemId ? this.itemId : this.products.length + 1;
             let body = JSON.stringify({
-                brand: this.brandAdd,
-                type: this.type,
-                name: this.name,
-                price: this.price,
+                productId: newId,
+                productName: this.name,
+                brand: this.brands.find((brand) => {
+                    return brand.brandName == this.brandAdd;
+                }),
+                type: this.types.find((type) => {
+                    return type.typeName == this.type;
+                }),
+                price: Number(this.price),
                 colors: this.colorsAdd,
                 description: this.description,
-                warranty: this.warranty,
+                warranty: Number(this.warranty),
                 launchDate: this.launchDate,
+                imageUrl: "imageUrl.test",
             });
-            console.log(body);
             if (this.itemId) {
-                fetch(`${this.url}/${this.itemId}`, {
-                    method: "PUT",
-                    headers: {
-                        "content-type": "application/json",
-                    },
-                    body: body,
-                }).catch((error) => console.log(error));
+                this.editProduct(body);
             } else {
-                fetch(this.url, {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json",
-                    },
-                    body: body,
-                }).catch((error) => console.log(error));
+                this.addProduct(body);
             }
         },
 
+        addProduct(body) {
+            fetch(`${this.url}/add`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: body,
+            }).catch((error) => console.log(error));
+        },
+        editProduct(body) {
+            fetch(`${this.url}/${this.itemId}`, {
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: body,
+            }).catch((error) => console.log(error));
+        },
         onFileChange(event) {
             let files = event.target.files || event.dataTransfer.files;
             if (!files.length) return;
@@ -257,9 +269,9 @@ export default {
                 fetch(`${this.url}/${this.itemId}`)
                     .then((res) => res.json())
                     .then((data) => {
-                        this.brandAdd = data.brand;
-                        this.type = data.type;
-                        this.name = data.name;
+                        this.brandAdd = data.brand.brandName;
+                        this.type = data.type.typeName;
+                        this.name = data.productName;
                         this.price = data.price;
                         this.description = data.description;
                         this.warranty = data.warranty;
@@ -272,10 +284,8 @@ export default {
                             ) {
                                 this.colors[i].active = true;
                                 this.colorsAdd = this.colors[i].active = true;
-                                console.log((this.colors[i].active = true));
                             }
                         }
-                        // console.log(this.itemId);
                     })
                     .catch((error) => console.log(error));
             } else {
@@ -302,6 +312,16 @@ export default {
         await fetch("http://localhost:9091/brand/list")
             .then((res) => res.json())
             .then((data) => (this.brands = data))
+            .catch((error) => console.log(error));
+
+        await fetch("http://localhost:9091/type/list")
+            .then((res) => res.json())
+            .then((data) => (this.types = data))
+            .catch((error) => console.log(error));
+
+        await fetch("http://localhost:9091/product/list")
+            .then((res) => res.json())
+            .then((data) => (this.products = data))
             .catch((error) => console.log(error));
 
         await this.getDataToEdit();

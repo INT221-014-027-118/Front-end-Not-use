@@ -57,7 +57,9 @@
                     {{ product.productName }}
                 </h1>
                 <div class="flex items-center justify-between">
-                    <div class="text-sm font-light text-black dark:text-white">Warranty : {{ product.warranty }}</div>
+                    <div class="text-sm font-light text-black dark:text-white">
+                        <p>Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</p>
+                    </div>
                     <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
                 </div>
                 <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">
@@ -106,6 +108,7 @@ export default {
                 params: { itemId: this.product.productId },
             });
         },
+
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
