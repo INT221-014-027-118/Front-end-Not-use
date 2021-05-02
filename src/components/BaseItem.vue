@@ -60,7 +60,7 @@
                     </h1>
                     <div class="flex items-center justify-between">
                         <div class="text-sm font-light text-black dark:text-white">
-                            Warranty : {{product.warranty}}
+                            <p>Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</p>
                         </div>
                         <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
                     </div>
@@ -97,7 +97,7 @@ export default {
             ],
             image: "",
             hoverEditer: false,
-            btnEditer: false
+            btnEditer: false,
         };
     },
     methods: {
@@ -107,7 +107,7 @@ export default {
         editItem() {
             this.$router.push({
                 name: "Form",
-                params: { itemId: this.product.productId},
+                params: { itemId: this.product.productId },
             });
         },
         deleteItem() {

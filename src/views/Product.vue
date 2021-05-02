@@ -63,20 +63,19 @@ export default {
     },
     async created() {
         await this.getProducts();
-        
+
         let brands = await this.items.map((item) => item.brand);
         let brandsShow = [];
 
         let brandsId = new Set(
-         this.items.map((item) => {
+            this.items.map((item) => {
                 return item.brand.brandId;
             })
         );
         brandsId = Array.from(brandsId);
-        brandsId.forEach((brand)=>{
-            brandsShow.push(brands.find((brandObj)=> brandObj.brandId === brand))
-
-        })
+        brandsId.forEach((brand) => {
+            brandsShow.push(brands.find((brandObj) => brandObj.brandId === brand));
+        });
         brandsShow.forEach((brand) => {
             this.brandsObjs.push({
                 brand: brand.brandName,
@@ -85,9 +84,6 @@ export default {
                 }),
             });
         });
-
-     
-
     },
 };
 </script>
