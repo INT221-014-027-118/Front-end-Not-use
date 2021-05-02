@@ -33,7 +33,7 @@ export default {
     methods: {
         deleteItem(product) {
             let brandDeleted = this.brandsObjs.findIndex((item) => {
-                return product.brand === item.brand;
+                return item.brand == product.brand.brandName;
             });
             let itemDeleted = this.brandsObjs[brandDeleted].items.findIndex((item) => {
                 return item.productId === product.productId;
@@ -55,35 +55,36 @@ export default {
                 })
                 .then(() => {
                     this.items = this.items.filter((item) => {
-                        return item.type.typeId === Number(this.typeId);
+                        return item.type.typeName === this.type;
                     });
                 })
                 .catch((error) => console.log(error));
         },
+        sortProduct() {
+            let brandsShow = [];
+            let brands = this.items.map((item) => item.brand);
+            let brandsId = new Set(
+                this.items.map((item) => {
+                    return item.brand.brandId;
+                })
+            );
+            brandsId = Array.from(brandsId);
+            brandsId.forEach((brand) => {
+                brandsShow.push(brands.find((brandObj) => brandObj.brandId === brand));
+            });
+            brandsShow.forEach((brand) => {
+                this.brandsObjs.push({
+                    brand: brand.brandName,
+                    items: this.items.filter((item) => {
+                        return item.brand.brandId === brand.brandId;
+                    }),
+                });
+            });
+        },
     },
     async created() {
         await this.getProducts();
-
-        let brands = await this.items.map((item) => item.brand);
-        let brandsShow = [];
-
-        let brandsId = new Set(
-            this.items.map((item) => {
-                return item.brand.brandId;
-            })
-        );
-        brandsId = Array.from(brandsId);
-        brandsId.forEach((brand) => {
-            brandsShow.push(brands.find((brandObj) => brandObj.brandId === brand));
-        });
-        brandsShow.forEach((brand) => {
-            this.brandsObjs.push({
-                brand: brand.brandName,
-                items: this.items.filter((item) => {
-                    return item.brand.brandId === brand.brandId;
-                }),
-            });
-        });
+        this.sortProduct();
     },
 };
 </script>
