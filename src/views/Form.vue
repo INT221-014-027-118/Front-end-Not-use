@@ -183,14 +183,19 @@ export default {
             // setTimeout(() => {
             //     this.invalid_img = false;
             // }, 5000);
-            console.log(this.products.length);
-            console.log(this.products.length);
+            // console.log(this.products[this.products.length - 1].productId + 1);
         },
 
         submitForm() {
-            let newId = this.itemId ? this.itemId : this.products.length + 1;
+            let newId =
+                this.products.sort((a, b) => {
+                    if (a.productId > b.productId) return -1;
+                    if (a.productId < b.productId) return 1;
+                    return 0;
+                })[0].productId + 1;
+            let Id = this.itemId ? this.itemId : newId;
             let body = JSON.stringify({
-                productId: newId,
+                productId: Id,
                 productName: this.name,
                 brand: this.brands.find((brand) => {
                     return brand.brandName == this.brandAdd;
