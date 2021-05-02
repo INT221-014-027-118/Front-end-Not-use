@@ -30,7 +30,7 @@
                     <div class="px-3">
                         <p>{{ product.description }}</p>
                         <div class="flex justify-between items-center mt-5">
-                            <span class="text-md font-light">Warranty:{{product.warranty}}</span>
+                            <span class="text-md font-light">Warranty:{{ product.warranty }}</span>
                             <span class="text-2xl text-red-600 font-bold">$ {{ product.price }}</span>
                         </div>
                     </div>
@@ -46,32 +46,35 @@ export default {
     components: {},
     props: {
         type: String,
-        productId: Number,
+        productId: String,
         itemImgTest: String,
+        products:[]
     },
     data() {
         return {
-            product: Object,
-            showItem:true,
+            product: null,
+            showItem: true,
             urlItem: "http://localhost:9091/product",
         };
     },
     methods: {
         close() {
-            this.showItem = false
-            this.$router.go(-1);
+            this.showItem = false;
+            this.$router.push({
+                name: "ProductTypes",
+                params: { type: this.product.type.typeName },
+            });
         },
-        async deleteItem() {
+        deleteItem() {
             let confirm = window.confirm("Are you sure?");
-            console.log(this.productId)
             if (confirm) {
-                fetch(`${this.urlItem}/delete/${this.item.productId}`, { method: "DELETE" })
+                fetch(`${this.urlItem}/delete/${this.product.productId}`, { method: "DELETE" })
                     .then(() => {
                         this.close();
                     })
                     .catch((error) => console.log(error));
             }
-            this.$emit("del-test", this.product);
+            this.$emit("deleted-item", this.product);
         },
         editItem() {
             this.$router.push({
@@ -79,12 +82,14 @@ export default {
                 params: { itemId: this.product.productId },
             });
         },
+        async getProduct(id) {
+            return fetch(`${this.urlItem}/${id}`)
+                .then((res) => res.json())
+                .catch((error) => console.log(error));
+        },
     },
     async created() {
-        fetch(`${this.urlItem}/${this.productId}`)
-            .then((res) => res.json())
-            .then((data) => (this.product = data))
-            .catch((error) => console.log(error));
+        this.product = await this.getProduct(this.productId);
     },
 };
 </script>

@@ -51,26 +51,26 @@
             @mouseenter="more = !more"
             @mouseleave="more = !more"
         >
-        <div class="z-10 w-full relative">
-            <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
-                <h1 class="font-bold text-lg underline sm:no-underline">
-                    {{ product.productName }}
-                </h1>
-                <div class="flex items-center justify-between">
-                    <div class="text-sm font-light text-black dark:text-white">
-                        <p>Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</p>
+            <div class="z-10 w-full relative">
+                <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
+                    <h1 class="font-bold text-lg underline sm:no-underline">
+                        {{ product.productName }}
+                    </h1>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm font-light text-black dark:text-white">
+                            <p>Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</p>
+                        </div>
+                        <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
                     </div>
-                    <div class="text-2xl text-red-600 font-bold">฿ {{ product.price }}</div>
+                    <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">
+                        {{ product.description }}
+                        <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"></div>
+                    </div>
                 </div>
-                <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">
-                    {{ product.description }}
-                    <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"></div>
+                <div class="absolute right-1/2 transform underline translate-x-1/2 bottom-1 z-10">
+                    Show More
                 </div>
             </div>
-            <div class="absolute right-1/2 transform underline translate-x-1/2 bottom-1 z-10">
-                Show More
-            </div>
-        </div>
         </router-link>
     </div>
 </template>
@@ -113,7 +113,7 @@ export default {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
                 fetch(`http://localhost:9091/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
-                this.$emit("del-item", this.product);
+                this.$emit("deleted-item", this.product);
             }
         },
     },
@@ -122,7 +122,6 @@ export default {
         this.image = this.forTestImg.find((item) => {
             return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();
         }).img;
-        
     },
 };
 </script>
