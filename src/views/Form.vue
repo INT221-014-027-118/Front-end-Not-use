@@ -340,7 +340,7 @@ export default {
 
 <style scoped>
 .input-css {
-    @apply w-full border border-gray-500 focus:outline-none rounded py-3 px-5 mb-3 bg-gray-100 dark:bg-gray-600;
+    @apply w-full border border-gray-500 focus:outline-none rounded focus:bg-gray-50 dark:focus:bg-gray-500 py-3 px-5 mb-3 bg-gray-100 dark:bg-gray-600;
 }
 
 .label-css {
