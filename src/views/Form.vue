@@ -141,7 +141,7 @@ export default {
             invalid_Color: false,
             invalid_date: false,
             invalid_img: false,
-            products: [],
+            productIds: [],
         };
     },
     props: {
@@ -188,14 +188,12 @@ export default {
 
         submitForm() {
             let newId =
-                this.products.sort((a, b) => {
-                    if (a.productId > b.productId) return -1;
-                    if (a.productId < b.productId) return 1;
+                this.productIds.sort((a, b) => {
+                    if (a > b) return -1;
+                    if (a < b) return 1;
                     return 0;
-                })[0].productId + 1;
-            console.log(newId);
+                })[0] + 1;
             let Id = this.itemId ? this.itemId : newId;
-            console.log(Id);
             let body = JSON.stringify({
                 productId: Number(Id),
                 productName: this.name,
@@ -214,10 +212,10 @@ export default {
             });
             if (this.itemId) {
                 this.editProduct(body);
-                console.log(body);
+                // console.log(body);
             } else {
                 this.addProduct(body);
-                console.log(body);
+                // console.log(body);
             }
         },
 
@@ -328,9 +326,9 @@ export default {
             .then((data) => (this.types = data))
             .catch((error) => console.log(error));
 
-        await fetch("http://localhost:9091/product/list")
+        await fetch("http://localhost:9091/product/id/list")
             .then((res) => res.json())
-            .then((data) => (this.products = data))
+            .then((data) => (this.productIds = data))
             .catch((error) => console.log(error));
 
         await this.getDataToEdit();
