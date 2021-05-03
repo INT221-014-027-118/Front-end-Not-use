@@ -2,54 +2,52 @@ import {
   createRouter,
   createWebHistory
 } from 'vue-router'
-import Home from '../views/Home.vue'
-import Team from '../views/Team.vue'
-import Form from '../views/Form.vue'
-import Product from '../views/Product.vue'
-import Item from '../views/Item.vue'
 
 const routes = [{
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import( /* webpackChunkName: "home" */ '../views/Home.vue')
   },
   {
     path: '/team',
     name: 'Team',
-    component: Team
+    component: () => import( /* webpackChunkName: "team" */ '../views/Team.vue')
   },
   {
     path: '/form',
     name: 'Form',
-    component: Form,
+    component: () => import( /* webpackChunkName: "form" */ '../views/Form.vue'),
+    props: true
+  },
+  {
+    path: '/edit/:itemId',
+    name: 'FormEdit',
+    component: () => import( /* webpackChunkName: "form" */ '../views/Form.vue'),
     props: true
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/products',
     name: 'Products',
-    component: Product,
+    component: () => import( /* webpackChunkName: "products" */ '../views/Product.vue'),
     props: true
   },
   {
     path: '/products/:type',
     name: 'ProductTypes',
-    component: Product,
+    component: () => import( /* webpackChunkName: "productTypes" */ '../views/Product.vue'),
     props: true,
     children: [{
       path: ':productId',
       name: 'Item',
       props: true,
-      component: Item
+      component: () => import( /* webpackChunkName: "item" */ '../views/Item.vue')
     }],
-  },
+  }
 ]
 
 const router = createRouter({

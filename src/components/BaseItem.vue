@@ -48,6 +48,7 @@
                 },
             }"
             class="hover:text-blue-600"
+            @click="passingProduct"
             @mouseenter="more = !more"
             @mouseleave="more = !more"
         >
@@ -116,8 +117,12 @@ export default {
                 this.$emit("deleted-item", this.product);
             }
         },
+
+        passingProduct(){
+            this.$emit("passing-product", this.product);
+        }
     },
-    async created() {
+    created() {
         //For test
         this.image = this.forTestImg.find((item) => {
             return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();

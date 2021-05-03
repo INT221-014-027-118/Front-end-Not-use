@@ -53,14 +53,14 @@ export default {
         type: String,
         productId: String,
         itemImgTest: String,
-        products: [],
+        productPassing: null,
     },
     data() {
         return {
-            product: null,
             showItem: true,
             urlItem: "http://localhost:9091/product",
             showText: "",
+            product: Object
         };
     },
     methods: {
@@ -82,8 +82,8 @@ export default {
                         this.close();
                     })
                     .catch((error) => console.log(error));
+                this.$emit("deleted-item", this.product);
             }
-            this.$emit("deleted-item", this.product);
         },
         editItem() {
             this.$router.push({
@@ -98,7 +98,10 @@ export default {
         },
     },
     async created() {
-        this.product = await this.getProduct(this.productId);
+        this.product = this.productPassing
+        if (this.productPassing === null) {
+            this.product = this.getProduct(this.productId);
+        }
     },
 };
 </script>
