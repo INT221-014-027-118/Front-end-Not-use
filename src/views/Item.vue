@@ -87,8 +87,8 @@ export default {
         },
         editItem() {
             this.$router.push({
-                name: "Form",
-                params: { itemId: this.product.productId },
+                name: "Edit",
+                params: { itemId: this.product.productId , edit:`-${this.product.productName}-${this.product.type.typeName}`},
             });
         },
         async getProduct(id) {

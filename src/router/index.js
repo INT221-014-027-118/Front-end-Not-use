@@ -26,6 +26,12 @@ const routes = [{
     props: true
   },
   {
+    path: '/edit/:itemId:edit',
+    name: 'Edit',
+    component: Form,
+    props: true
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
@@ -47,7 +53,7 @@ const routes = [{
       props: true,
       component: () => import( /* webpackChunkName: "item" */ '../views/Item.vue')
     }],
-  }
+  },
 ]
 
 const router = createRouter({
