@@ -25,6 +25,12 @@ const routes = [{
     props: true
   },
   {
+    path: '/edit/:itemId:edit',
+    name: 'Edit',
+    component: Form,
+    props: true
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -50,6 +56,7 @@ const routes = [{
       component: Item
     }],
   },
+
 ]
 
 const router = createRouter({
