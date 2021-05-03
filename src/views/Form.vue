@@ -1,11 +1,11 @@
 <template>
-    <div class="mt-20 lg:mt-24">
+    <div class="mt-20 lg:mt-24" v-show="!isLoad">
         <form @submit.prevent="submitForm">
             <div class="relative grid max-w-6xl px-8 pt-4 pb-10 mx-auto bg-white rounded shadow-md dark:bg-gray-700 sm:grid-cols-2">
                 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ L ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
                 <div>
                     <div class="relative px-3 mb-6 lg:w-full md:mb-0">
-                        <label class="label-css" for="brand">Brand</label>
+                        <label class="label-css" for="brand">Brand *</label>
                         <select class="input-css" id="brandAdd" v-model="brandAdd" required :class="{ 'ring ring-red-400': invalid_brand }">
                             <option value="" disabled selected>[ Select Brand ]</option>
                             <option v-for="brand in brands" :key="brand.brandId" :value="brand.brandName" class="text-lg ">{{ brand.brandName }}</option>
@@ -14,31 +14,20 @@
                     </div>
 
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative">
-                        <label class="label-css" for="">Name</label>
+                        <label class="label-css" for="">Name *</label>
                         <input v-model.trim="name" class="input-css" id="" type="text" placeholder="product name" required :class="{ 'ring ring-red-400': invalid_name }" />
                         <span v-if="invalid_name" class="absolute -bottom-1 left-9 p-3 font-mono text-red-500 ">Please input name</span>
                     </div>
 
                     <div class="flex flex-col md:flex-row lg:w-full">
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0 relative">
-                            <label class="label-css" for="price">Price</label>
-                            <input
-                                v-model="price"
-                                step="0.01"
-                                class="input-css"
-                                id="price"
-                                type="number"
-                                placeholder=""
-                                min="1"
-                                max="99999"
-                                required
-                                :class="{ 'ring ring-red-400': invalid_price }"
-                            />
+                            <label class="label-css" for="price">Price *</label>
+                            <input v-model="price" step="0.01" class="input-css" id="price" type="number" placeholder="" min="1" max="99999" required :class="{ 'ring ring-red-400': invalid_price }" />
                             <span v-if="invalid_price" class="absolute -bottom-1 left-9 p-3 font-mono text-red-500 ">Please select Brand</span>
                         </div>
 
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="label-css" for="grid-state">Type</label>
+                            <label class="label-css" for="grid-state">Type *</label>
                             <div class="relative ">
                                 <select class="input-css" id="type" v-model="type" required :class="{ 'ring ring-red-400': invalid_type }">
                                     <option value="" disabled selected>[ Select Type ]</option>
@@ -55,7 +44,7 @@
                     </div>
 
                     <div class="relative px-3 mb-6 lg:w-full md:mb-0">
-                        <label class="label-css" for="previewImage">color</label>
+                        <label class="label-css" for="previewImage">color *</label>
                         <div class="input-css " :class="{ 'ring ring-red-400': invalid_Color }">
                             <div class="flex flex-wrap">
                                 <div v-for="(color, index) in colors" :key="color.colorId">
@@ -73,8 +62,8 @@
 
                 <div>
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative">
-                        <label class="label-css" for="previewImage">Launch date</label>
-                        <input type="date" class="input-css" v-model="launchDate" required :class="{ 'ring ring-red-400': invalid_date }" @blur="invalid_date = launchDate === '' ? true : false" />
+                        <label class="label-css" for="previewImage">Launch date *</label>
+                        <input type="date" class="input-css" v-model="launchDate" required :class="{ 'ring ring-red-400': invalid_date }" />
                         <span v-if="invalid_date" class="absolute p-3 font-mono text-red-500 left-7 -bottom-1">Please input date</span>
                     </div>
 
@@ -97,7 +86,7 @@
                     </div>
 
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative" :class="{ hidden: activeClose }">
-                        <label class="label-css" for="description">File</label>
+                        <label class="label-css" for="description">File *</label>
                         <input class="input-css" id="file" v-on:change="onFileChange($event)" type="file" :class="{ 'ring ring-red-400': invalid_img }" />
                         <span v-if="invalid_img" class="absolute p-3 font-mono text-red-500 left-7 -bottom-1 ">Please choose image</span>
                     </div>
@@ -112,6 +101,9 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div v-show="isLoad" class="h-screen w-full flex items-center justify-center">
+        <i class="material-icons text-4xl animate-spin" v-show="isLoad"> autorenew </i>
     </div>
 </template>
 
@@ -137,11 +129,11 @@ export default {
             invalid_name: false,
             invalid_price: false,
             invalid_type: false,
-            invalid_Description: false,
             invalid_Color: false,
             invalid_date: false,
             invalid_img: false,
             productIds: [],
+            isLoad: Boolean,
         };
     },
     props: {
@@ -150,73 +142,81 @@ export default {
     methods: {
         validating() {
             this.invalid_brand = this.brandAdd === "" ? true : false;
+            this.invalid_name = this.name === "" ? true : false;
+            this.invalid_price = this.price === 0 ? true : false;
+            this.invalid_type = this.type === "" ? true : false;
+            this.invalid_Color = this.colorsAdd.length === 0 ? true : false;
+            this.invalid_date = this.launchDate === "" ? true : false;
+            this.invalid_img = this.previewImage === null ? true : false;
             setTimeout(() => {
                 this.invalid_brand = false;
             }, 5000);
-            this.invalid_name = this.name === "" ? true : false;
             setTimeout(() => {
                 this.invalid_name = false;
             }, 5000);
-            this.invalid_price = this.price === 0 ? true : false;
             setTimeout(() => {
                 this.invalid_price = false;
             }, 5000);
-            this.invalid_type = this.type === "" ? true : false;
             setTimeout(() => {
                 this.invalid_type = false;
             }, 5000);
-            this.invalid_Description = this.description === "" ? true : false;
-            setTimeout(() => {
-                this.invalid_Description = false;
-            }, 5000);
-            this.invalid_Color = !this.colors.some((color) => {
-                return color.active === true;
-            });
             setTimeout(() => {
                 this.invalid_Color = false;
             }, 5000);
-            this.invalid_date = this.launchDate === "" ? true : false;
             setTimeout(() => {
                 this.invalid_date = false;
             }, 5000);
-            // this.invalid_img = this.previewImage === null ? true : false;
-            // setTimeout(() => {
-            //     this.invalid_img = false;
-            // }, 5000);
-            // console.log(this.products[this.products.length - 1].productId + 1);
+            setTimeout(() => {
+                this.invalid_img = false;
+            }, 5000);
         },
 
         submitForm() {
-            let newId =
-                this.productIds.sort((a, b) => {
-                    if (a > b) return -1;
-                    if (a < b) return 1;
-                    return 0;
-                })[0] + 1;
-            let Id = this.itemId ? this.itemId : newId;
-            let body = JSON.stringify({
-                productId: Number(Id),
-                productName: this.name,
-                brand: this.brands.find((brand) => {
-                    return brand.brandName == this.brandAdd;
-                }),
-                type: this.types.find((type) => {
-                    return type.typeName == this.type;
-                }),
-                price: Number(this.price),
-                colors: this.colorsAdd,
-                description: this.description,
-                warranty: Number(this.warranty),
-                launchDate: this.launchDate,
-                imageUrl: "imageUrl.test",
-            });
-            if (this.itemId) {
-                this.editProduct(body);
-                // console.log(body);
-            } else {
-                this.addProduct(body);
-                // console.log(body);
+            if (this.brandAdd !== "" && this.name !== "" && this.price !== 0 && this.type !== "" && this.colorsAdd.length !== 0 && this.launchDate !== "" && this.previewImage == null) {
+                let newId =
+                    this.productIds.sort((a, b) => {
+                        if (a > b) return -1;
+                        if (a < b) return 1;
+                        return 0;
+                    })[0] + 1;
+                let Id = this.itemId ? this.itemId : newId;
+                let body = JSON.stringify({
+                    productId: Number(Id),
+                    productName: this.name,
+                    brand: this.brands.find((brand) => {
+                        return brand.brandName == this.brandAdd;
+                    }),
+                    type: this.types.find((type) => {
+                        return type.typeName == this.type;
+                    }),
+                    price: Number(this.price),
+                    colors: this.colorsAdd,
+                    description: this.description,
+                    warranty: Number(this.warranty),
+                    launchDate: this.launchDate,
+                    imageUrl: "imageUrl.test",
+                });
+                if (this.itemId) {
+                    this.editProduct(body);
+                    this.restart();
+                    // console.log(body);
+                } else {
+                    this.addProduct(body);
+                    this.restart();
+                    // console.log(body);
+                }
             }
+        },
+
+        restart() {
+            this.brandAdd = "";
+            this.name = "";
+            this.price = 0;
+            this.warranty = 0;
+            this.launchDate = "";
+            this.type = "";
+            this.description = "";
+            this.colors.forEach((color) => (color["active"] = false));
         },
 
         addProduct(body) {
@@ -274,7 +274,9 @@ export default {
         async getDataToEdit() {
             if (this.itemId != null) {
                 fetch(`${this.url}/${this.itemId}`)
-                    .then((res) => res.json())
+                    .then((res) => {
+                        return res.json();
+                    })
                     .then((data) => {
                         this.brandAdd = data.brand.brandName;
                         this.type = data.type.typeName;
@@ -289,27 +291,28 @@ export default {
                                     return color.colorId === this.colors[i].colorId;
                                 })
                             ) {
-                                // this.colors[i].active = true;
-                                this.active((this.colors[i].active = true), [i]);
+                                this.active((this.colors[i].active = true), i);
                             }
                         }
                     })
                     .catch((error) => console.log(error));
             } else {
-                this.brandAdd = "";
-                this.name = "";
-                this.price = 0;
-                this.warranty = 0;
-                this.launchDate = "";
-                this.type = "";
-                this.description = "";
-                this.colorsAdd = [];
+                this.restart();
+                this.isLoad = false;
             }
         },
     },
     async created() {
-        await fetch("http://localhost:9091/color/list")
+        await fetch("http://localhost:9091/product/list")
             .then((res) => res.json())
+            .then((data) => (this.productIds = data.map((pid)=>{ return pid.productId })))
+            .catch((error) => console.log(error));
+            
+        await fetch("http://localhost:9091/color/list")
+            .then((res) => {
+                this.isLoad = true;
+                return res.json();
+            })
             .then((data) => (this.colors = data))
             .then(() => {
                 this.colors.forEach((color) => (color["active"] = false));
@@ -322,14 +325,13 @@ export default {
             .catch((error) => console.log(error));
 
         await fetch("http://localhost:9091/type/list")
-            .then((res) => res.json())
+            .then((res) => {
+                this.isLoad = false;
+                return res.json();
+            })
             .then((data) => (this.types = data))
             .catch((error) => console.log(error));
 
-        await fetch("http://localhost:9091/product/id/list")
-            .then((res) => res.json())
-            .then((data) => (this.productIds = data))
-            .catch((error) => console.log(error));
 
         await this.getDataToEdit();
     },
