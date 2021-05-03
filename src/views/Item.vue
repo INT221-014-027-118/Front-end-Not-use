@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed pt-0 md:pt-3 lg:pt-10 w-screen h-screen overflow-scroll" v-show="showItem">
+    <div class="fixed pt-0 md:pt-7 lg:pt-10 w-screen h-screen overflow-scroll " v-show="showItem">
         <div class="items-center mx-auto max-w-6xl mb-10 rounded-md bg-blue-100 dark:bg-gray-700 ">
             <div class="bg-blue-200 dark:bg-blue-800 px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center relative">
                 <div>
@@ -12,9 +12,9 @@
                 </div>
             </div>
 
-            <div class="container p-2 pb-5 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2">
+            <div class="p-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2">
                 <div class="flex justify-center md:flex-col">
-                    <img :src="itemImgTest" alt="" class="max-h-44 md:max-h-96 md:mt-5 bg-white" />
+                    <img :src="itemImgTest" alt="" class=" sm:max-h-96 bg-white" />
                     <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400">
                         <div
                             class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center"
@@ -25,8 +25,8 @@
                     </div>
                 </div>
 
-                <div class="py-3 px-5">
-                    <div class="pb-3 text-2xl">{{ product.productName }}</div>
+                <div class="pb-8 sm:py-5 px-5">
+                    <div class="pb-3 text-2xl border-b b mb-3">{{ product.productName }}</div>
                     <div class="px-3">
                         <div class="flex justify-between items-center mb-5">
                             <span class="text-md font-light">Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</span>

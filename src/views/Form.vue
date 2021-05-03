@@ -193,6 +193,7 @@ export default {
                     if (a.productId < b.productId) return 1;
                     return 0;
                 })[0].productId + 1;
+            console.log(newId);
             let Id = this.itemId ? this.itemId : newId;
             console.log(Id);
             let body = JSON.stringify({
@@ -216,6 +217,7 @@ export default {
                 console.log(body);
             } else {
                 this.addProduct(body);
+                console.log(body);
             }
         },
 
