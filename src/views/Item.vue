@@ -15,13 +15,18 @@
             <div class="p-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2">
                 <div class="flex justify-center md:flex-col">
                     <img :src="itemImgTest" alt="" class=" sm:max-h-96 bg-white" />
-                    <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400">
+                    <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400 relative">
                         <div
-                            class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center"
+                            class="w-7 h-7 m-2 text-center rounded-md cursor-pointer flex items-center justify-center "
                             v-for="color in product.colors"
                             :key="color.colorId"
                             :style="{ backgroundColor: color.hexColor }"
-                        />
+                            @mouseover="showTextColor(`${color.colorName}  ${color.hexColor}`)"
+                            @mouseleave="showTextColor('')"
+                        ></div>
+                        <div v-show="showText" class="absolute -top-11 text-black">
+                            <div class="bg-gray-500 text-white rounded-md px-3 py-2 opacity-80">{{ showText }}</div>
+                        </div>
                     </div>
                 </div>
 
@@ -48,13 +53,14 @@ export default {
         type: String,
         productId: String,
         itemImgTest: String,
-        products:[]
+        products: [],
     },
     data() {
         return {
             product: null,
             showItem: true,
             urlItem: "http://localhost:9091/product",
+            showText: "",
         };
     },
     methods: {
@@ -64,6 +70,9 @@ export default {
                 name: "ProductTypes",
                 params: { type: this.product.type.typeName },
             });
+        },
+        showTextColor(color) {
+            this.showText = `${color}`;
         },
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
