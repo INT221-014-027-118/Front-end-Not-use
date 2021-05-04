@@ -172,7 +172,7 @@ export default {
         },
 
         submitForm() {
-            if (this.brandAdd !== "" && this.name !== "" && this.price !== 0 && this.type !== "" && this.colorsAdd.length !== 0 && this.launchDate !== "" && this.previewImage == null) {
+            if (this.brandAdd !== "" && this.name !== "" && this.price !== 0 && this.type !== "" && this.colorsAdd.length !== 0 && this.launchDate !== "" && this.previewImage !== null) {
                 let newId =
                     this.productIds.sort((a, b) => {
                         if (a > b) return -1;
@@ -198,11 +198,17 @@ export default {
                 });
                 if (this.itemId) {
                     this.editProduct(body);
-                    this.restart();
+                    setTimeout(() => {
+                        this.restart();
+                    }, 1000);
+                    // this.$router.push("/");
                     // console.log(body);
                 } else {
                     this.addProduct(body);
-                    this.restart();
+                    setTimeout(() => {
+                        this.restart();
+                    }, 1000);
+                    // this.$router.push("/");
                     // console.log(body);
                 }
             }
@@ -217,6 +223,8 @@ export default {
             this.type = "";
             this.description = "";
             this.colors.forEach((color) => (color["active"] = false));
+            this.previewImage = null;
+            this.activeClose = !this.activeClose;
         },
 
         addProduct(body) {
@@ -305,9 +313,14 @@ export default {
     async created() {
         await fetch("http://localhost:9091/product/list")
             .then((res) => res.json())
-            .then((data) => (this.productIds = data.map((pid)=>{ return pid.productId })))
+            .then(
+                (data) =>
+                    (this.productIds = data.map((pid) => {
+                        return pid.productId;
+                    }))
+            )
             .catch((error) => console.log(error));
-            
+
         await fetch("http://localhost:9091/color/list")
             .then((res) => {
                 this.isLoad = true;
@@ -331,7 +344,6 @@ export default {
             })
             .then((data) => (this.types = data))
             .catch((error) => console.log(error));
-
 
         await this.getDataToEdit();
     },
