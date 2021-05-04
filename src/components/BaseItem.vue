@@ -123,10 +123,11 @@ export default {
         },
     },
     created() {
+        this.image = `http://localhost:9091/image/get/${this.product.imageUrl}`
         //For test
-        this.image = this.forTestImg.find((item) => {
-            return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();
-        }).img;
+        // this.image = this.forTestImg.find((item) => {
+        //     return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();
+        // }).img;
     },
 };
 </script>

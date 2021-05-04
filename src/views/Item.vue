@@ -16,7 +16,7 @@
 
             <div class="pt-40 md:pt-0 px-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2">
                 <div class="flex justify-center md:justify-start md:flex-col my-3">
-                    <img :src="itemImgTest" alt="" class=" sm:max-h-96 bg-white" />
+                    <img :src="image" alt="" class=" sm:max-h-96 bg-white" />
                     <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400 relative">
                         <div
                             class="w-7 h-7 m-2 text-center md:text-left rounded-md cursor-pointer flex items-center justify-center "
@@ -65,6 +65,7 @@ export default {
             product: [],
             marginTop: false,
             brandName: "",
+            image:''
         };
     },
     methods: {
@@ -109,9 +110,11 @@ export default {
     async created() {
         if (typeof this.productPassing == "function") {
             await this.getProduct();
+            this.image = `http://localhost:9091/image/get/${this.product.imageUrl}`
         } else {
             this.product = this.productPassing;
             this.brandName = this.product.brand.brandName;
+            this.image = `http://localhost:9091/image/get/${this.productPassing.imageUrl}`
         }
     },
 };
