@@ -63,7 +63,7 @@
                         </div>
                         <div class="text-2xl text-red-500 font-bold">฿ {{ product.price }}</div>
                     </div>
-                    <div class="h-24 p-2 overflow-hidden text-black dark:text-white relative">
+                    <div class="h-20 p-2 overflow-hidden text-black dark:text-white relative">
                         {{ product.description }}
                         <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"></div>
                     </div>
@@ -105,8 +105,8 @@ export default {
     methods: {
         editItem() {
             this.$router.push({
-                name: "Edit",
-                params: { itemId: this.product.productId , edit:`-${this.product.productName}-${this.product.type.typeName}`},
+                name: "FormEdit",
+                params: { itemId: this.product.productId },
             });
         },
 
@@ -118,9 +118,9 @@ export default {
             }
         },
 
-        passingProduct(){
+        passingProduct() {
             this.$emit("passing-product", this.product);
-        }
+        },
     },
     created() {
         //For test

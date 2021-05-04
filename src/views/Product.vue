@@ -1,21 +1,20 @@
 <template>
-    <router-view class="z-40 h-screen w-full bg-gray-100 dark:bg-gray-800" :productPassing="item"  @deleted-item="deleteItem" />
     <div class="mt-16 md:mt-20 mb-52 md:mb-24" v-if="brandsObjs.length > 0">
+        <router-view class="z-40 fixed w-full bg-gray-100 dark:bg-gray-800 " :productPassing="item" @deleted-item="deleteItem"></router-view>
         <div class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-8 relative" v-for="brand in brandsObjs" :key="brand.brand">
             <div class="text-center bg-blue-300 dark:bg-blue-800 px-2 py-3 text-xl font-mono tracking-wider rounded-md sticky top-16 md:top-20 z-30">
                 {{ brand.brand }}
             </div>
             <div class="container p-2 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                <base-item :product="item" v-for="item in brand.items" :key="item.productId" @deleted-item="deleteItem" @passing-product="passingData"/>
+                <base-item :product="item" v-for="item in brand.items" :key="item.productId" @deleted-item="deleteItem" @passing-product="passingData" />
             </div>
         </div>
     </div>
-    
+
     <div v-else class="h-screen w-full flex items-center justify-center">
         <i class="material-icons text-4xl animate-spin" v-show="isLoad"> autorenew </i>
         <div class="text-4xl font-mono tracking-wide font-bold" v-show="!isLoad">Product Out</div>
-    </div> 
-    
+    </div>
 </template>
 
 <script>
@@ -34,7 +33,7 @@ export default {
             items: [],
             brandsObjs: [],
             isLoad: Boolean,
-            item:Object
+            item: Object,
         };
     },
     methods: {
@@ -54,7 +53,8 @@ export default {
             await fetch("http://localhost:9091/product/list")
                 .then((res) => {
                     this.isLoad = true;
-                    return res.json()})
+                    return res.json();
+                })
                 .then((data) => {
                     this.items = data.sort((a, b) => {
                         if (a.brand.brandName > b.brand.brandName) return 1;
@@ -94,10 +94,9 @@ export default {
             });
             this.isLoad = false;
         },
-        passingData(obj){
-            this.item = obj
-        }
-
+        passingData(obj) {
+            this.item = obj;
+        },
     },
     async created() {
         await this.getProducts();
