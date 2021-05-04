@@ -7,7 +7,7 @@
                 </div>
                 <div class="flex mt-4 md: md:m-0 text-sm">
                     <div class="flex items-center bg-green-600 p-1 mx-3 px-3 cursor-pointer rounded-md text-white select-none" @click="editItem"><span class="material-icons">edit</span>Edit</div>
-                    <div class="flex items-center bg-red-600 p-1 mx-3 px-3 md:mr-10 cursor-pointer rounded-md text-white select-none" @click="deleteItem">
+                    <div class="flex items-center bg-red-600 p-1 mx-3 px-3 md:mr-16 cursor-pointer rounded-md text-white select-none" @click="deleteItem">
                         <span class="material-icons">delete</span>Delete
                     </div>
                     <span class="material-icons p-2 bg-white text-black rounded-full cursor-pointer absolute top-2 right-2 select-none" @click="close">close</span>
@@ -89,7 +89,6 @@ export default {
                     .catch((error) => console.log(error));
                 this.$emit("deleted-item", this.product);
             }
-            console.log(this.brandName);
         },
         editItem() {
             this.$router.push({
@@ -101,18 +100,15 @@ export default {
             return fetch(`${this.urlItem}/${this.productId}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
                     this.product = data;
                     this.brandName = data.brand.brandName;
                 })
-
                 .catch((error) => console.log(error));
         },
     },
     async created() {
         if (typeof this.productPassing == "function") {
             await this.getProduct();
-            console.log('fetch');
         } else {
             this.product = this.productPassing;
             this.brandName = this.product.brand.brandName;
