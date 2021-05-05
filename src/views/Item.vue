@@ -62,7 +62,7 @@ export default {
     data() {
         return {
             showItem: true,
-            urlItem: "http://localhost:9091/product",
+            urlItem: "http://137.116.145.41:9091/product",
             showText: "",
             product: [],
             marginTop: false,
@@ -86,8 +86,9 @@ export default {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
                 fetch(`${this.urlItem}/delete/${this.product.productId}`, { method: "DELETE" })
-                    .catch((error) => console.log(error));
-                 fetch(`http://localhost:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" })
+                    .then(response => console.log(response + "ok") )
+                    .catch(error => console.log(error) );
+                 fetch(`http://137.116.145.41:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" })
                     .catch((error) => console.log(error));
                 this.close()
                 this.$emit("deleted-item", this.product);
@@ -112,11 +113,11 @@ export default {
     async created() {
         if (typeof this.productPassing == "function") {
             await this.getProduct();
-            this.image = `http://localhost:9091/image/get/${this.product.imageUrl}`
+            this.image = `http://137.116.145.41:9091/image/get/${this.product.imageUrl}`
         } else {
             this.product = this.productPassing;
             this.brandName = this.product.brand.brandName;
-            this.image = `http://localhost:9091/image/get/${this.productPassing.imageUrl}`
+            this.image = `http://137.116.145.41:9091/image/get/${this.productPassing.imageUrl}`
         }
     },
 };

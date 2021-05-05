@@ -122,7 +122,7 @@ export default {
             launchDate: "",
             typeAdd: "",
             description: "",
-            url: "http://localhost:9091/product",
+            url: "http://137.116.145.41:9091/product",
             previewImage: null,
             activeClose: true,
             productIds: [],
@@ -243,7 +243,7 @@ export default {
                 },
                 body: body,
             }).catch((error) => console.log(error));
-            fetch("http://localhost:9091/image/add", {
+            fetch("http://137.116.145.41:9091/image/add", {
                 method: "POST",
                 body: this.uploadImage(),
             }).catch((error) => console.log(error));
@@ -256,7 +256,7 @@ export default {
                 },
                 body: body,
             }).catch((error) => console.log(error));
-            fetch(`http://localhost:9091/image/update/${this.oldImage}`, {
+            fetch(`http://137.116.145.41:9091/image/update/${this.oldImage}`, {
                 method: "PUT",
                 body: this.uploadImage(),
             }).catch((error) => console.log(error));
@@ -314,7 +314,7 @@ export default {
                         this.warranty = data.warranty;
                         this.launchDate = data.launchDate;
                         this.oldImage = data.imageUrl
-                        this.previewImage = `http://localhost:9091/image/get/${data.imageUrl}`
+                        this.previewImage = `http://137.116.145.41:9091/image/get/${data.imageUrl}`
                         for (let i = 0; i < this.colors.length; i++) {
                             if (
                                 data.colors.some((color) => {
@@ -339,7 +339,7 @@ export default {
         },
     },
     async created() {
-        await fetch("http://localhost:9091/product/list")
+        await fetch("http://137.116.145.41:9091/product/list")
             .then((res) => res.json())
             .then(
                 (data) =>
@@ -349,7 +349,7 @@ export default {
             )
             .catch((error) => console.log(error));
 
-        await fetch("http://localhost:9091/color/list")
+        await fetch("http://137.116.145.41:9091/color/list")
             .then((res) => {
                 this.isLoad = true;
                 return res.json();
@@ -360,12 +360,12 @@ export default {
             })
             .catch((error) => console.log(error));
 
-        await fetch("http://localhost:9091/brand/list")
+        await fetch("http://137.116.145.41:9091/brand/list")
             .then((res) => res.json())
             .then((data) => (this.brands = data))
             .catch((error) => console.log(error));
 
-        await fetch("http://localhost:9091/type/list")
+        await fetch("http://137.116.145.41:9091/type/list")
             .then((res) => {
                 this.isLoad = false;
                 return res.json();
