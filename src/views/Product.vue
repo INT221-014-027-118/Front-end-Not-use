@@ -1,106 +1,132 @@
 <template>
-    <div class="mt-16 mb-52 md:my-20" v-if="brandsObjs.length > 0">
-        <router-view class="z-40 fixed w-screen h-full md:h-screen backdrop-filter backdrop-blur-3xl -mt-16 md:-my-20" :productPassing="item" @deleted-item="deleteItem"></router-view>
-        <div class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-8 relative" v-for="brand in brandsObjs" :key="brand.brand">
-            <div class="text-center bg-blue-300 dark:bg-blue-800 px-2 py-3 text-xl font-mono tracking-wider rounded-md sticky top-16 md:top-20 z-30">
-                {{ brand.brand }}
+    <div class="flex items-center" v-show="showItem">
+        <div class="mx-auto w-full h-full md:h-auto lg:mt-0 md:w-full lg:w-5/6 rounded-md bg-blue-100 dark:bg-gray-700 shadow-lg overflow-scroll md:overflow-hidden">
+            <div
+                class="fixed md:relative z-50 w-full mt-16 md:mt-0 bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center"
+            >
+                <div>
+                    <span class="text-2xl font-bold text-center md:text-left">{{ brandName }} </span>
+                    <span class="hidden md:inline-flex tracking-wider">: </span>
+                    <span class="text-xl line">{{ product.productName }}</span>
+                </div>
+                <div class="flex mt-4 md: md:m-0 text-lg">
+                    <div class="flex items-center bg-green-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-green-700 cursor-pointer rounded-full text-white select-none" @click="editItem">
+                        <span class="material-icons">edit</span>Edit
+                    </div>
+                    <div
+                        class="flex items-center bg-red-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-red-700 md:mr-16 cursor-pointer rounded-full text-white select-none"
+                        @click="deleteItem"
+                    >
+                        <span class="material-icons">delete</span>Delete
+                    </div>
+                    <span class="material-icons p-2 bg-white hover:bg-gray-300 text-black rounded-full cursor-pointer absolute top-1/4 right-5 -translate-y-1/2 select-none" @click="close">close</span>
+                </div>
             </div>
-            <div class="container p-2 mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                <base-item :product="item" v-for="item in brand.items" :key="item.productId" @deleted-item="deleteItem" @passing-product="passingData" />
+
+            <div class="mt-52 md:mt-0 p-2 md:px-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 md:w-full h-full lg:h-5/6">
+                <div class="flex justify-center md:justify-start md:flex-col m-2 md:my-5 ">
+                    <div class="flex justify-center items-center bg-gray-400">
+                        <img :src="image" alt="" class="object-cover object-center md:max-h-96" />
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center justify-center bg-gray-500 relative">
+                        <div
+                            class="w-7 h-7 m-2 text-center md:text-left rounded-md cursor-pointer flex items-center justify-center "
+                            v-for="color in product.colors"
+                            :key="color.colorId"
+                            :style="{ backgroundColor: color.hexColor }"
+                            @mouseover="showTextColor(`${color.colorName}  ${color.hexColor}`)"
+                            @mouseleave="showTextColor('')"
+                        ></div>
+                        <div v-show="showText" class="absolute bottom-3 right-12 md:-top-11 md:right-auto md:bottom-auto text-black">
+                            <div class="bg-gray-500 text-white rounded-md px-3 py-2 opacity-80">{{ showText }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pb-8 sm:py-5 sm:px-5 ">
+                    <div class="pb-3 text-2xl border-b border-black dark:border-gray-100 mb-3">{{ product.productName }}</div>
+                    <div class="px-0 sm:px-3">
+                        <div class="flex justify-between items-center mb-5">
+                            <span class="text-md font-light px-2">Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</span>
+                            <span class="text-2xl text-red-500 font-bold">฿ {{ product.price }}</span>
+                        </div>
+                        <p class="font-light tracking-wide px-3 leading-loose">{{ product.description }}</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div v-else class="h-screen w-full flex items-center justify-center">
-        <i class="material-icons text-4xl animate-spin" v-show="isLoad"> autorenew </i>
-        <div class="text-4xl font-mono tracking-wide font-bold" v-show="!isLoad">Product Out</div>
     </div>
 </template>
 
 <script>
-import BaseItem from "@/components/BaseItem.vue";
-
 export default {
-    name: "Product",
-    components: {
-        BaseItem,
-    },
+    name: "Item",
+    components: {},
     props: {
         type: String,
+        productId: String,
+        itemImgTest: String,
+        productPassing: Object,
     },
     data() {
         return {
-            items: [],
-            brandsObjs: [],
-            isLoad: Boolean,
-            item: Object,
+            showItem: true,
+            url: `http://localhost:9091`,
+            showText: "",
+            product: [],
+            marginTop: false,
+            brandName: "",
+            image: "",
         };
     },
     methods: {
-        deleteItem(product) {
-            let brandDeleted = this.brandsObjs.findIndex((item) => {
-                return item.brand == product.brand.brandName;
+        close() {
+            this.showItem = false;
+            this.$router.push({
+                name: "ProductsListTypes",
+                params: { type: this.product.type.typeName },
             });
-            let itemDeleted = this.brandsObjs[brandDeleted].items.findIndex((item) => {
-                return item.productId === product.productId;
-            });
-            this.brandsObjs[brandDeleted].items.splice(itemDeleted, 1);
-            if (this.brandsObjs[brandDeleted].items.length == 0) {
-                this.brandsObjs.splice(brandDeleted, 1);
+            this.$emit("close-item", false);
+        },
+        showTextColor(color) {
+            this.showText = `${color}`;
+        },
+        deleteItem() {
+            let confirm = window.confirm("Are you sure?");
+            if (confirm) {
+                fetch(`${this.url}/product/delete/${this.product.productId}`, { method: "DELETE" })
+                    .then((response) => console.log(response + "ok"))
+                    .catch((error) => console.log(error));
+                fetch(`${this.url}/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
+                this.close();
+                this.$emit("deleted-item", this.product);
             }
         },
-        async getProducts() {
-            await fetch("http://137.116.145.41:9091/product/list")
-                .then((res) => {
-                    this.isLoad = true;
-                    return res.json();
-                })
+        editItem() {
+            this.$router.push({
+                name: "FormEdit",
+                params: { itemId: this.product.productId },
+            });
+        },
+        async getProduct() {
+            return fetch(`${this.url}/product/${this.productId}`)
+                .then((res) => res.json())
                 .then((data) => {
-                    this.items = data.sort((a, b) => {
-                        if (a.brand.brandName > b.brand.brandName) return 1;
-                        if (a.brand.brandName < b.brand.brandName) return -1;
-                        return 0;
-                    });
-                })
-                .then(() => {
-                    if (this.type) {
-                        this.items = this.items.filter((item) => {
-                            return item.type.typeName === this.type;
-                        });
-                    }
+                    this.product = data;
+                    this.brandName = data.brand.brandName;
                 })
                 .catch((error) => console.log(error));
-            this.isLoad = false;
-        },
-        sortProduct() {
-            let brandsShow = [];
-            let brands = this.items.map((item) => item.brand);
-            let brandsId = new Set(
-                this.items.map((item) => {
-                    return item.brand.brandId;
-                })
-            );
-            brandsId = Array.from(brandsId);
-            brandsId.forEach((brand) => {
-                brandsShow.push(brands.find((brandObj) => brandObj.brandId === brand));
-            });
-            brandsShow.forEach((brand) => {
-                this.brandsObjs.push({
-                    brand: brand.brandName,
-                    items: this.items.filter((item) => {
-                        return item.brand.brandId === brand.brandId;
-                    }),
-                });
-            });
-            this.isLoad = false;
-        },
-        passingData(obj) {
-            this.item = obj;
         },
     },
     async created() {
-        await this.getProducts();
-        this.sortProduct();
+        if (typeof this.productPassing == "function") {
+            await this.getProduct();
+            this.image = `${this.url}/image/get/${this.product.imageUrl}`;
+        } else {
+            this.product = this.productPassing;
+            this.brandName = this.product.brand.brandName;
+            this.image = `${this.url}/image/get/${this.productPassing.imageUrl}`;
+        }
     },
 };
 </script>

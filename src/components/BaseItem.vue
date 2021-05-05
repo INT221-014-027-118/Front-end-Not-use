@@ -9,22 +9,22 @@
             </div>
             <div>
                 <div
-                    class="material-icons items-center bg-gray-400 py-2 px-3 cursor-pointer absolute z-10 top-2 right-2 rounded-md text-white shadow-2xl"
+                    class="material-icons items-center bg-gray-500 py-2 px-3 cursor-pointer absolute z-10 top-2 right-2 rounded-md text-white shadow-2xl"
                     v-show="!btnEditer"
                     @click="btnEditer = !btnEditer"
                 >
                     more_horiz
                 </div>
                 <div
-                    class="material-icons items-center bg-gray-400 py-2 px-3 cursor-pointer absolute z-10 top-2 right-2 rounded-md text-white shadow-2xl"
+                    class="material-icons items-center bg-gray-600 py-2 px-3 cursor-pointer absolute z-10 top-2 right-2 rounded-md text-white shadow-2xl"
                     v-show="btnEditer"
                     @click="btnEditer = !btnEditer"
                 >
                     close
                 </div>
             </div>
-            <img :src="image" class="absolute h-full w-full object-cover object-center p-1 rounded-t-lg bg-white" alt="img product" :class="[btnEditer ? ' opacity-50' : '']" />
-            <div class="absolute -mt-4 w-full p-1 bottom-0 bg-gray-600 opacity-60 h-8" />
+            <img :src="image" class="absolute h-full w-full object-cover object-center  rounded-t-lg  bg-blue-200 dark:bg-gray-600 " alt="Product image" :class="[btnEditer ? ' opacity-50' : '']" />
+            <div class="absolute -mt-4 w-full p-1 bottom-0 bg-gray-700 opacity-60 h-8" />
             <div class="absolute -mt-4 w-full p-1 bottom-0">
                 <div class="flex flex-row-reverse">
                     <div
@@ -40,11 +40,10 @@
         </div>
         <router-link
             :to="{
-                name: 'Item',
+                name: 'Product',
                 params: {
                     type: product.type.typeName,
                     productId: product.productId,
-                    itemImgTest: image,
                 },
             }"
             class="hover:text-blue-600"
@@ -63,7 +62,7 @@
                         </div>
                         <div class="text-2xl text-red-500 font-bold">฿ {{ product.price }}</div>
                     </div>
-                    <div class="h-20 p-2 overflow-hidden text-black dark:text-white relative">
+                    <div class="h-20 p-2 overflow-hidden text-black dark:text-white relative leading-relaxed">
                         {{ product.description }}
                         <div class="absolute z-10 bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-200 dark:from-gray-600 pointer-events-none"></div>
                     </div>
@@ -97,6 +96,7 @@ export default {
             image: "",
             hoverEditer: false,
             btnEditer: false,
+            url:'http://localhost:9091'
         };
     },
     props: {
@@ -113,8 +113,8 @@ export default {
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
-                fetch(`http://137.116.145.41:9091/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
-                fetch(`http://137.116.145.41:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
+                fetch(`${this.url}/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
+                fetch(`${this.url}/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
                 this.$emit("deleted-item", this.product);
             }
         },
@@ -124,12 +124,7 @@ export default {
         },
     },
     created() {
-        this.image = `http://137.116.145.41:9091/image/get/${this.product.imageUrl}`
-        console.log(this.image);
-        //For test
-        // this.image = this.forTestImg.find((item) => {
-        //     return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();
-        // }).img;
+        this.image = `${this.url}/image/get/${this.product.imageUrl}`
     },
 };
 </script>

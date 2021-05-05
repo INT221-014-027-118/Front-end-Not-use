@@ -2,7 +2,7 @@
     <div class="md:w-1/3 p-3 md:p-3 lg:p-4 cursor-pointer transition duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-110">
         <router-link
             :to="{
-                name: 'ProductTypes',
+                name: 'ProductsListTypes',
                 params: { type: type.typeName},
             }"
         >
