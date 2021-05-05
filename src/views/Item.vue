@@ -15,8 +15,8 @@
             </div>
 
             <div class="mt-52 md:mt-0 p-2 md:px-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 md:w-full h-full lg:h-5/6">
-                <div class="flex justify-center md:justify-start md:flex-col bg-gray-200 m-2 md:my-5 ">
-                    <div class="flex justify-center items-center">
+                <div class="flex justify-center md:justify-start md:flex-col  m-2 md:my-5 ">
+                    <div class="flex justify-center items-center bg-gray-200">
                         <img :src="image" alt="" class="object-cover object-center md:max-h-96" />
                    </div>
                     <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400 relative">
@@ -41,7 +41,7 @@
                             <span class="text-md font-light">Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</span>
                             <span class="text-2xl text-red-500 font-bold">฿ {{ product.price }}</span>
                         </div>
-                        <p class="font-light tracking-wide">{{ product.description }}</p>
+                        <p class="font-light tracking-wide overflow-auto">{{ product.description }}</p>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@ export default {
     data() {
         return {
             showItem: true,
-            urlItem: "http://localhost:9091/product",
+            urlItem: "http://137.116.145.41:9091/product/",
             showText: "",
             product: [],
             marginTop: false,
@@ -112,11 +112,11 @@ export default {
     async created() {
         if (typeof this.productPassing == "function") {
             await this.getProduct();
-            this.image = `http://localhost:9091/image/get/${this.product.imageUrl}`
+            this.image = `http://137.116.145.41:9091/image/get/${this.product.imageUrl}`
         } else {
             this.product = this.productPassing;
             this.brandName = this.product.brand.brandName;
-            this.image = `http://localhost:9091/image/get/${this.productPassing.imageUrl}`
+            this.image = `http://137.116.145.41:9091/image/get/${this.productPassing.imageUrl}`
         }
     },
 };
