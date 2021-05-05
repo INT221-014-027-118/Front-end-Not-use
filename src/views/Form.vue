@@ -301,19 +301,21 @@ export default {
                     })
                     .then((data) => {
                         this.brandAdd = data.brand.brandName;
-                        this.type = data.type.typeName;
+                        this.typeAdd = data.type.typeName;
                         this.name = data.productName;
                         this.price = data.price;
                         this.description = data.description;
                         this.warranty = data.warranty;
                         this.launchDate = data.launchDate;
+                        this.previewImage = `http://localhost:9091/image/get/${data.imageUrl}`
                         for (let i = 0; i < this.colors.length; i++) {
                             if (
                                 data.colors.some((color) => {
                                     return color.colorId === this.colors[i].colorId;
                                 })
                             ) {
-                                this.active((this.colors[i].active = true), i);
+                                this.activeColor((this.colors[i].active = true), i);
+
                             }
                         }
                     })

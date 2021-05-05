@@ -4,8 +4,8 @@
             <div class="sm:w-1/3 p-4 w-full" v-for="member in teams" :key="member.studentId">
                 <div class="px-4 py-8 rounded-lg shadow-2xl text-center bg-blue-100 dark:bg-gray-700">
                     <div class="mb-5">
-                        <img class="w-auto mx-auto rounded-full mb-3 h-32" :src="member.img" alt="" />
-                        <div class="text-xl font-semibold sm:h-16 lg:h-10">{{ member.name }}</div>
+                        <img class="w-auto mx-auto rounded-full mb-4 h-32" :src="member.img" alt="" />
+                        <div class="text-xl font-semibold sm:h-16 md:h-16 lg:h-12">{{ member.name }}</div>
                         <p>{{ member.studentId }}</p>
                         <p class="my-2 pb-2 border-b-2 border-gray-400">ROLE</p>
                         <div class="">
