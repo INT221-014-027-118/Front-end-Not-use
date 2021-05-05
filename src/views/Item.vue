@@ -1,13 +1,21 @@
 <template>
     <div class="flex items-center" v-show="showItem">
         <div class="mx-auto w-full h-full md:h-auto lg:mt-0 md:w-full lg:w-5/6 rounded-md bg-blue-100 dark:bg-gray-700 shadow-lg overflow-scroll md:overflow-hidden">
-            <div class="fixed md:relative z-50 w-full mt-16 md:mt-0 bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center ">
+            <div
+                class="fixed md:relative z-50 w-full mt-16 md:mt-0 bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center "
+            >
                 <div>
-                    <p class="text-2xl font-bold text-center">{{ brandName }} </p><p class="text-xl"> {{ product.productName }}</p>
+                    <p class="text-2xl font-bold text-center">{{ brandName }}</p>
+                    <p class="text-xl">{{ product.productName }}</p>
                 </div>
                 <div class="flex mt-4 md: md:m-0 text-lg">
-                    <div class="flex items-center bg-green-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-green-700 cursor-pointer rounded-full text-white select-none" @click="editItem"><span class="material-icons">edit</span>Edit</div>
-                    <div class="flex items-center bg-red-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-red-700 md:mr-16 cursor-pointer rounded-full text-white select-none" @click="deleteItem">
+                    <div class="flex items-center bg-green-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-green-700 cursor-pointer rounded-full text-white select-none" @click="editItem">
+                        <span class="material-icons">edit</span>Edit
+                    </div>
+                    <div
+                        class="flex items-center bg-red-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-red-700 md:mr-16 cursor-pointer rounded-full text-white select-none"
+                        @click="deleteItem"
+                    >
                         <span class="material-icons">delete</span>Delete
                     </div>
                     <span class="material-icons p-2 bg-white hover:bg-gray-300 text-black rounded-full cursor-pointer absolute top-1/4 right-5 -translate-y-1/2 select-none" @click="close">close</span>
@@ -18,7 +26,7 @@
                 <div class="flex justify-center md:justify-start md:flex-col  m-2 md:my-5 ">
                     <div class="flex justify-center items-center bg-gray-200">
                         <img :src="image" alt="" class="object-cover object-center md:max-h-96" />
-                   </div>
+                    </div>
                     <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400 relative">
                         <div
                             class="w-7 h-7 m-2 text-center md:text-left rounded-md cursor-pointer flex items-center justify-center "
@@ -62,7 +70,7 @@ export default {
     data() {
         return {
             showItem: true,
-            urlItem: "http://137.116.145.41:9091/product/",
+            urlItem: "http://137.116.145.41:9091/product",
             showText: "",
             product: [],
             marginTop: false,
@@ -86,8 +94,9 @@ export default {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
                 fetch(`${this.urlItem}/delete/${this.product.productId}`, { method: "DELETE" })
-                    .catch((error) => console.log(error));
-                 fetch(`http://localhost:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" })
+                    .then(response => console.log(response + "ok") )
+                    .catch(error => console.log(error) );
+                fetch(`http://137.116.145.41:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" })
                     .catch((error) => console.log(error));
                 this.close()
                 this.$emit("deleted-item", this.product);

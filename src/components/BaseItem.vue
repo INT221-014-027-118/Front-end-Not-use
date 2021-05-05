@@ -113,8 +113,8 @@ export default {
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
-                fetch(`http://localhost:9091/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
-                fetch(`http://localhost:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
+                fetch(`http://137.116.145.41:9091/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
+                fetch(`http://137.116.145.41:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
                 this.$emit("deleted-item", this.product);
             }
         },
@@ -124,7 +124,7 @@ export default {
         },
     },
     created() {
-        this.image = `http://localhost:9091/image/get/${this.product.imageUrl}`
+        this.image = `http://137.116.145.41:9091/image/get/${this.product.imageUrl}`
         console.log(this.image);
         //For test
         // this.image = this.forTestImg.find((item) => {

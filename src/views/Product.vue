@@ -50,7 +50,7 @@ export default {
             }
         },
         async getProducts() {
-            await fetch("http://localhost:9091/product/list")
+            await fetch("http://137.116.145.41:9091/product/list")
                 .then((res) => {
                     this.isLoad = true;
                     return res.json();
