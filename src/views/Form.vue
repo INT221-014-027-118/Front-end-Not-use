@@ -137,6 +137,7 @@ export default {
             },
             isLoad: Boolean,
             imageFile: null,
+            oldImage:''
         };
     },
     props: {
@@ -242,6 +243,10 @@ export default {
                 },
                 body: body,
             }).catch((error) => console.log(error));
+            fetch("http://localhost:9091/image/add", {
+                method: "POST",
+                body: this.uploadImage(),
+            }).catch((error) => console.log(error));
         },
         editProduct(body) {
             fetch(`${this.url}/update`, {
@@ -250,6 +255,10 @@ export default {
                     "content-type": "application/json",
                 },
                 body: body,
+            }).catch((error) => console.log(error));
+            fetch(`http://localhost:9091/image/update/${this.oldImage}`, {
+                method: "PUT",
+                body: this.uploadImage(),
             }).catch((error) => console.log(error));
         },
         onFileChange(event) {
@@ -269,10 +278,7 @@ export default {
         uploadImage() {
             let data = new FormData();
             data.append("refun", this.imageFile);
-            fetch("http://localhost:9091/image/add", {
-                method: "POST",
-                body: data,
-            }).catch((error) => console.log(error));
+            return data
         },
         removeImage() {
             this.previewImage = null;
@@ -307,6 +313,7 @@ export default {
                         this.description = data.description;
                         this.warranty = data.warranty;
                         this.launchDate = data.launchDate;
+                        this.oldImage = data.imageUrl
                         this.previewImage = `http://localhost:9091/image/get/${data.imageUrl}`
                         for (let i = 0; i < this.colors.length; i++) {
                             if (
