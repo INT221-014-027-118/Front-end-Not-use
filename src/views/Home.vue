@@ -73,7 +73,7 @@ export default {
                 },
             ],
             types: [],
-            url:'http://137.116.145.41:9091'
+            url: "http://localhost:9091",
         };
     },
     methods: {

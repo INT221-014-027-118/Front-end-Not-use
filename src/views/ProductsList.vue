@@ -34,7 +34,7 @@ export default {
             brandsObjs: [],
             isLoad: Boolean,
             item: Object,
-            url:'http://137.116.145.41:9091'
+            url:'http://localhost:9091'
         };
     },
     methods: {
@@ -102,6 +102,7 @@ export default {
     async created() {
         await this.getProducts();
         this.sortProduct();
+        console.log(this.items[0])
     },
 };
 </script>

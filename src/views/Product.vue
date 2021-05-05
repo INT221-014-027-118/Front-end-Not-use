@@ -62,7 +62,7 @@ export default {
     data() {
         return {
             showItem: true,
-            url: `http://137.116.145.41:9091`,
+            url: `http://localhost:9091`,
             showText: "",
             product: [],
             marginTop: false,
@@ -74,7 +74,7 @@ export default {
         close() {
             this.showItem = false;
             this.$router.push({
-                name: "ProductTypes",
+                name: "ProductsListTypes",
                 params: { type: this.product.type.typeName },
             });
             this.$emit("close-item", false);
@@ -86,7 +86,6 @@ export default {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
                 fetch(`${this.url}/product/delete/${this.product.productId}`, { method: "DELETE" })
-                    .then(response => console.log(response + "ok") )
                     .catch(error => console.log(error) );
                  fetch(`${this.url}/image/delete/${this.product.imageUrl}`, { method: "DELETE" })
                     .catch((error) => console.log(error));
