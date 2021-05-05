@@ -22,30 +22,25 @@ const routes = [{
   {
     path: '/edit/:itemId',
     name: 'FormEdit',
-    component: () => import( /* webpackChunkName: "form" */ '../views/Form.vue'),
+    component: () => import( /* webpackChunkName: "edit" */ '../views/Form.vue'),
     props: true
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/products',
-    name: 'Products',
-    component: () => import( /* webpackChunkName: "products" */ '../views/Product.vue'),
+    name: 'ProductsList',
+    component: () => import( /* webpackChunkName: "productsList" */ '../views/ProductsList.vue'),
     props: true
   },
   {
     path: '/products/:type',
-    name: 'ProductTypes',
-    component: () => import( /* webpackChunkName: "productTypes" */ '../views/Product.vue'),
+    name: 'ProductsListTypes',
+    component: () => import( /* webpackChunkName: "productsListTypr" */ '../views/ProductsList.vue'),
     props: true,
     children: [{
       path: ':productId',
-      name: 'Item',
+      name: 'Product',
       props: true,
-      component: () => import( /* webpackChunkName: "item" */ '../views/Item.vue')
+      component: () => import( /* webpackChunkName: "product" */ '../views/Product.vue')
     }],
   },
 ]

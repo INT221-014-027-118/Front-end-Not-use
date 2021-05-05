@@ -122,7 +122,7 @@ export default {
             launchDate: "",
             typeAdd: "",
             description: "",
-            url: "http://137.116.145.41:9091/product",
+            url: "http://137.116.145.41:9091",
             previewImage: null,
             activeClose: true,
             productIds: [],
@@ -236,27 +236,27 @@ export default {
             this.activeClose = !this.activeClose;
         },
         addProduct(body) {
-            fetch(`${this.url}/add`, {
+            fetch(`${this.url}/product/add`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
                 },
                 body: body,
             }).catch((error) => console.log(error));
-            fetch("http://137.116.145.41:9091/image/add", {
+            fetch(`${this.url}/image/add`, {
                 method: "POST",
                 body: this.uploadImage(),
             }).catch((error) => console.log(error));
         },
         editProduct(body) {
-            fetch(`${this.url}/update`, {
+            fetch(`${this.url}/product/update`, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",
                 },
                 body: body,
             }).catch((error) => console.log(error));
-            fetch(`http://137.116.145.41:9091/image/update/${this.oldImage}`, {
+            fetch(`${this.url}/image/update/${this.oldImage}`, {
                 method: "PUT",
                 body: this.uploadImage(),
             }).catch((error) => console.log(error));
@@ -314,7 +314,7 @@ export default {
                         this.warranty = data.warranty;
                         this.launchDate = data.launchDate;
                         this.oldImage = data.imageUrl
-                        this.previewImage = `http://137.116.145.41:9091/image/get/${data.imageUrl}`
+                        this.previewImage = `${this.url}/image/get/${data.imageUrl}`
                         for (let i = 0; i < this.colors.length; i++) {
                             if (
                                 data.colors.some((color) => {
@@ -339,7 +339,7 @@ export default {
         },
     },
     async created() {
-        await fetch("http://137.116.145.41:9091/product/list")
+        await fetch(`${this.url}/product/list`)
             .then((res) => res.json())
             .then(
                 (data) =>
@@ -349,7 +349,7 @@ export default {
             )
             .catch((error) => console.log(error));
 
-        await fetch("http://137.116.145.41:9091/color/list")
+        await fetch(`${this.url}/color/list`)
             .then((res) => {
                 this.isLoad = true;
                 return res.json();
@@ -360,12 +360,12 @@ export default {
             })
             .catch((error) => console.log(error));
 
-        await fetch("http://137.116.145.41:9091/brand/list")
+        await fetch(`${this.url}/brand/list`)
             .then((res) => res.json())
             .then((data) => (this.brands = data))
             .catch((error) => console.log(error));
 
-        await fetch("http://137.116.145.41:9091/type/list")
+        await fetch(`${this.url}/type/list`)
             .then((res) => {
                 this.isLoad = false;
                 return res.json();

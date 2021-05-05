@@ -40,11 +40,10 @@
         </div>
         <router-link
             :to="{
-                name: 'Item',
+                name: 'Product',
                 params: {
                     type: product.type.typeName,
                     productId: product.productId,
-                    itemImgTest: image,
                 },
             }"
             class="hover:text-blue-600"
@@ -97,6 +96,7 @@ export default {
             image: "",
             hoverEditer: false,
             btnEditer: false,
+            url:'http://137.116.145.41:9091'
         };
     },
     props: {
@@ -113,8 +113,8 @@ export default {
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
-                fetch(`http://137.116.145.41:9091/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
-                fetch(`http://137.116.145.41:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
+                fetch(`${this.url}/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
+                fetch(`${this.url}/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
                 this.$emit("deleted-item", this.product);
             }
         },
@@ -124,12 +124,7 @@ export default {
         },
     },
     created() {
-        this.image = `http://137.116.145.41:9091/image/get/${this.product.imageUrl}`
-        console.log(this.image);
-        //For test
-        // this.image = this.forTestImg.find((item) => {
-        //     return this.product.type.typeName.toLowerCase() === item.type.toLowerCase();
-        // }).img;
+        this.image = `${this.url}/image/get/${this.product.imageUrl}`
     },
 };
 </script>

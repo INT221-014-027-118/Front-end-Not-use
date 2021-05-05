@@ -72,13 +72,13 @@ export default {
                     icon: "mouse",
                 },
             ],
-
             types: [],
+            url:'http://137.116.145.41:9091'
         };
     },
     methods: {
         async getType() {
-            await fetch("http://localhost:9091/type/list")
+            await fetch(`${this.url}/type/list`)
                 .then((res) => res.json())
                 .then((data) => {
                     this.types = data;
