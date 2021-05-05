@@ -84,10 +84,10 @@ export default {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
                 fetch(`${this.urlItem}/delete/${this.product.productId}`, { method: "DELETE" })
-                    .then(() => {
-                        this.close();
-                    })
                     .catch((error) => console.log(error));
+                 fetch(`http://localhost:9091/image/delete/${this.product.imageUrl}`, { method: "DELETE" })
+                    .catch((error) => console.log(error));
+                this.close()
                 this.$emit("deleted-item", this.product);
             }
         },
