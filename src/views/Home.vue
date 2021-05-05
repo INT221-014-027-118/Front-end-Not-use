@@ -73,7 +73,7 @@ export default {
                 },
             ],
             types: [],
-            url:'http://localhost:9091'
+            url: "http://localhost:9091",
         };
     },
     methods: {

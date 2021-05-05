@@ -94,9 +94,7 @@ export default {
         deleteItem() {
             let confirm = window.confirm("Are you sure?");
             if (confirm) {
-                fetch(`${this.url}/product/delete/${this.product.productId}`, { method: "DELETE" })
-                    .then((response) => console.log(response + "ok"))
-                    .catch((error) => console.log(error));
+                fetch(`${this.url}/product/delete/${this.product.productId}`, { method: "DELETE" }).catch((error) => console.log(error));
                 fetch(`${this.url}/image/delete/${this.product.imageUrl}`, { method: "DELETE" }).catch((error) => console.log(error));
                 this.close();
                 this.$emit("deleted-item", this.product);

@@ -137,7 +137,7 @@ export default {
             },
             isLoad: Boolean,
             imageFile: null,
-            oldImage:''
+            oldImage:{image:'',useThis:Boolean}
         };
     },
     props: {
@@ -188,11 +188,10 @@ export default {
         },
 
         submitForm() {
-            console.log(this.isValid);
             if (this.isValid) {
-                let Id = this.itemId ? this.itemId : this.generateNewId();
+                let id = this.itemId ? this.itemId : this.generateNewId();
                 let body = JSON.stringify({
-                    productId: Number(Id),
+                    productId: Number(id),
                     productName: this.name,
                     price: Number(this.price),
                     description: this.description,
@@ -204,7 +203,7 @@ export default {
                     }),
                     warranty: Number(this.warranty),
                     launchDate: this.launchDate,
-                    imageUrl: this.imageFile.name,
+                    imageUrl: this.oldImage.useThis?this.oldImage.image: this.imageFile.name,
                     colors: this.colorsAdd,
                 });
                 if (this.itemId) {
@@ -214,7 +213,6 @@ export default {
                     }, 1000);
                 } else {
                     this.addProduct(body);
-                    this.uploadImage();
                     setTimeout(() => {
                         this.restart();
                     }, 1000);
@@ -242,7 +240,8 @@ export default {
                     "content-type": "application/json",
                 },
                 body: body,
-            }).catch((error) => console.log(error));
+            })
+            .catch((error) => console.log(error));
             fetch(`${this.url}/image/add`, {
                 method: "POST",
                 body: this.uploadImage(),
@@ -256,10 +255,12 @@ export default {
                 },
                 body: body,
             }).catch((error) => console.log(error));
-            fetch(`${this.url}/image/update/${this.oldImage}`, {
+            if(this.oldImage.useThis != true){
+            fetch(`${this.url}/image/update/${this.oldImage.image}`, {
                 method: "PUT",
                 body: this.uploadImage(),
             }).catch((error) => console.log(error));
+            }
         },
         onFileChange(event) {
             this.imageFile = event.target.files[0];
@@ -282,6 +283,9 @@ export default {
         },
         removeImage() {
             this.previewImage = null;
+            if(this.itemId){
+                this.oldImage.useThis = false
+            }
             this.activeClose = !this.activeClose;
         },
         activeColor(isActive, index) {
@@ -301,7 +305,7 @@ export default {
 
         async getDataToEdit() {
             if (this.itemId != null) {
-                fetch(`${this.url}/${this.itemId}`)
+                fetch(`${this.url}/product/${this.itemId}`)
                     .then((res) => {
                         return res.json();
                     })
@@ -313,7 +317,7 @@ export default {
                         this.description = data.description;
                         this.warranty = data.warranty;
                         this.launchDate = data.launchDate;
-                        this.oldImage = data.imageUrl
+                        this.oldImage.image = data.imageUrl
                         this.previewImage = `${this.url}/image/get/${data.imageUrl}`
                         for (let i = 0; i < this.colors.length; i++) {
                             if (
@@ -339,6 +343,7 @@ export default {
         },
     },
     async created() {
+        this.oldImage.useThis = this.itemId?true:false
         await fetch(`${this.url}/product/list`)
             .then((res) => res.json())
             .then(
