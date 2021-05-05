@@ -1,11 +1,11 @@
 <template>
-    <div class="pt-0 md:py-2 lg:py-4 w-screen h-screen overflow-scroll" v-show="showItem">
-        <div class="items-center mx-auto max-w-6xl mb-20 rounded-md bg-blue-100 dark:bg-gray-700 shadow-lg">
-            <div class="fixed md:static	md:relative z-50 w-full bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center ">
+    <div class="flex items-center" v-show="showItem">
+        <div class="mx-auto w-full h-full md:h-auto lg:mt-0 md:w-full lg:w-5/6 rounded-md bg-blue-100 dark:bg-gray-700 shadow-lg overflow-scroll md:overflow-hidden">
+            <div class="fixed md:relative z-50 w-full mt-16 md:mt-0 bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center ">
                 <div>
                     <p class="text-2xl font-bold text-center">{{ brandName }} </p><p class="text-xl"> {{ product.productName }}</p>
                 </div>
-                <div class="flex mt-4 md: md:m-0 text-sm">
+                <div class="flex mt-4 md: md:m-0 text-lg">
                     <div class="flex items-center bg-green-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-green-700 cursor-pointer rounded-full text-white select-none" @click="editItem"><span class="material-icons">edit</span>Edit</div>
                     <div class="flex items-center bg-red-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-red-700 md:mr-16 cursor-pointer rounded-full text-white select-none" @click="deleteItem">
                         <span class="material-icons">delete</span>Delete
@@ -14,9 +14,11 @@
                 </div>
             </div>
 
-            <div class="pt-40 md:pt-0 px-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2">
-                <div class="flex justify-center md:justify-start md:flex-col my-3">
-                    <img :src="image" alt="" class=" sm:max-h-96 bg-white" />
+            <div class="mt-52 md:mt-0 p-2 md:px-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 md:w-full h-full lg:h-5/6">
+                <div class="flex justify-center md:justify-start md:flex-col bg-gray-200 m-2 md:my-5 ">
+                    <div class="flex justify-center items-center">
+                        <img :src="image" alt="" class="object-cover object-center md:max-h-96" />
+                   </div>
                     <div class="flex flex-col md:flex-row items-center justify-center bg-gray-400 relative">
                         <div
                             class="w-7 h-7 m-2 text-center md:text-left rounded-md cursor-pointer flex items-center justify-center "
