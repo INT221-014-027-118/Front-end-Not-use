@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col justify-center my-20 sm:my-20 md:my-0 md:h-screen select-none">
-        <div class="mx-auto max-w-5xl my-5">
+        <div class="mx-auto my-5 ">
             <router-link
                 to="/form"
                 class="px-9 py-4 ring-2 flex items-center ring-offset-2 ring-green-500 ring-offset-green-500 rounded-full shadow-2xl

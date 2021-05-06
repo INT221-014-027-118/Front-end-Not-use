@@ -40,7 +40,7 @@
 
                     <div class="relative px-3 mb-6 lg:w-full md:mb-0">
                         <label class="label-css" for="description">Description</label>
-                        <textarea class="input-css h-40" id="description" v-model="description" type="text" placeholder="" />
+                        <textarea class="input-css h-40" id="description" v-model="description" type="text" placeholder="Input 500 Characters" maxlength="500" />
                     </div>
 
                     <div class="relative px-3 mb-6 lg:w-full md:mb-0">
