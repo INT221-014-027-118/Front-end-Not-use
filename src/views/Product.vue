@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center" v-show="showItem">
+    <div class="md:py-3 lg:py-16 overflow-auto" v-show="showItem">
         <div class="mx-auto w-full h-full md:h-auto mt-0 md:mt-20 lg:mt-10 md:w-full lg:w-5/6 rounded-md bg-blue-100 dark:bg-gray-700 shadow-lg overflow-scroll md:overflow-hidden">
             <div
                 class="fixed md:relative text-center md:text-left z-50 w-full mt-16 md:mt-0 bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center"
