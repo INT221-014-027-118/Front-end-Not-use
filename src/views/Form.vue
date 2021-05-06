@@ -186,7 +186,6 @@ export default {
             }
             return 1;
         },
-
         submitForm() {
             if (this.isValid) {
                 let id = this.itemId ? this.itemId : this.generateNewId();
@@ -206,19 +205,51 @@ export default {
                     imageUrl: this.oldImage.useThis ? this.oldImage.image : this.imageFile.name,
                     colors: this.colorsAdd,
                 });
-                if (this.itemId) {
-                    this.editProduct(body);
-                    setTimeout(() => {
-                        this.restart();
-                    }, 1000);
-                } else {
-                    this.addProduct(body);
-                    setTimeout(() => {
-                        this.restart();
-                    }, 1000);
-                }
-                this.$router.push("/");
+                this.updateProduct(body);
             }
+        },
+        updateProduct(body) {
+            const pathProduct = this.itemId ? `${this.url}/product/update` : `${this.url}/product/add`;
+            const pathIamge = this.itemId ? `${this.url}/image/update/${this.oldImage.image}` : `${this.url}/image/add`;
+            const method = this.itemId ? "PUT" : "POST";
+            fetch(pathProduct, {
+                method: method,
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: body,
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        if (this.oldImage.useThis === false) {
+                            fetch(pathIamge, {
+                                method: method,
+                                body: this.uploadImage(),
+                            })
+                                .then((res) => {
+                                    if (res.ok) {
+                                        alert("Completed");
+                                        setTimeout(() => {
+                                            this.restart();
+                                        }, 1000);
+                                        this.$router.push("/");
+                                    } else {
+                                        res.text().then((data) => alert(data));
+                                    }
+                                })
+                                .catch((error) => console.log(error));
+                        } else {
+                            alert("Completed");
+                            setTimeout(() => {
+                                this.restart();
+                            }, 1000);
+                            this.$router.push("/");
+                        }
+                    } else {
+                        res.text().then((data) => alert(data));
+                    }
+                })
+                .catch((error) => console.log(error));
         },
 
         restart() {
@@ -232,44 +263,6 @@ export default {
             this.colors.forEach((color) => (color["active"] = false));
             this.previewImage = null;
             this.activeClose = !this.activeClose;
-        },
-        addProduct(body) {
-            fetch(`${this.url}/product/add`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: body,
-            })
-                .then((res) => {
-                    if (res.status == 200) {
-                        fetch(`${this.url}/image/add`, {
-                            method: "POST",
-                            body: this.uploadImage(),
-                        }).catch((error) => console.log(error));
-                    }
-                })
-                .catch((error) => console.log(error));
-        },
-        editProduct(body) {
-            fetch(`${this.url}/product/update`, {
-                method: "PUT",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: body,
-            })
-                .then((res) => {
-                    if (res.status == 200) {
-                        if (this.oldImage.useThis != true) {
-                            fetch(`${this.url}/image/update/${this.oldImage.image}`, {
-                                method: "PUT",
-                                body: this.uploadImage(),
-                            }).catch((error) => console.log(error));
-                        }
-                    }
-                })
-                .catch((error) => console.log(error));
         },
         onFileChange(event) {
             this.imageFile = event.target.files[0];
