@@ -141,7 +141,7 @@ export default {
         };
     },
     props: {
-        itemId: Number,
+        itemId: String,
     },
     methods: {
         validating() {
@@ -152,27 +152,11 @@ export default {
             this.invalid.Color = this.colorsAdd.length === 0 ? true : false;
             this.invalid.date = this.launchDate === "" ? true : false;
             this.invalid.img = this.previewImage === null ? true : false;
-            setTimeout(() => {
-                this.invalid.brand = false;
+            for(let prop in this.invalid){
+                setTimeout(() => {
+                this.invalid[`${prop}`] = false;
             }, 5000);
-            setTimeout(() => {
-                this.invalid.name = false;
-            }, 5000);
-            setTimeout(() => {
-                this.invalid.price = false;
-            }, 5000);
-            setTimeout(() => {
-                this.invalid.type = false;
-            }, 5000);
-            setTimeout(() => {
-                this.invalid.Color = false;
-            }, 5000);
-            setTimeout(() => {
-                this.invalid.date = false;
-            }, 5000);
-            setTimeout(() => {
-                this.invalid.img = false;
-            }, 5000);
+            }
         },
         generateNewId() {
             if (this.productIds.length > 0) {
@@ -221,7 +205,7 @@ export default {
             })
                 .then((res) => {
                     if (res.ok) {
-                        if (this.oldImage.useThis === false) {
+                        if (this.oldImage.useThis === false && (this.imageFile.name.length < 20)) {
                             fetch(pathIamge, {
                                 method: method,
                                 body: this.uploadImage(),
@@ -266,6 +250,9 @@ export default {
         },
         onFileChange(event) {
             this.imageFile = event.target.files[0];
+            if(this.imageFile.name.length > 20 ){
+                alert('The file name cannot exceed 20 characters.!!!')
+            }
             let files = event.target.files || event.dataTransfer.files;
             if (!files.length) return;
             this.createImage(files[0]);
@@ -340,7 +327,7 @@ export default {
     },
     computed: {
         isValid() {
-            return this.brandAdd !== "" && this.name !== "" && this.price !== 0 && this.typeAdd !== "" && this.colorsAdd.length !== 0 && this.launchDate !== "" && this.previewImage !== null;
+            return this.brandAdd !== "" && this.name !== "" && this.price !== 0 && this.typeAdd !== "" && this.colorsAdd.length !== 0 && this.launchDate !== "" && this.previewImage !== null && (this.imageFile.name.length > 20);
         },
     },
     async created() {

@@ -79,20 +79,6 @@
 export default {
     data() {
         return {
-            forTestImg: [
-                {
-                    type: "keyboard",
-                    img: require("@/assets/keyboard.svg"),
-                },
-                {
-                    type: "headset",
-                    img: require("@/assets/headset.svg"),
-                },
-                {
-                    type: "mouse",
-                    img: require("@/assets/mouse.svg"),
-                },
-            ],
             image: "",
             hoverEditer: false,
             btnEditer: false,

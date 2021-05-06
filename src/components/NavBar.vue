@@ -10,12 +10,9 @@
         <div>
           <div class="flex items-center absolute inset-y-0 right-0 invisible sm:visible">
               <div class="flex font-bold items-center">
-                  <!-- <router-link :to="{name: 'Product' ,params: { getAll:true }}" class="px-4 py-7 hover:text-indigo-500">Product</router-link> -->
-                  <!-- <router-link to="/" class="px-4 py-7 hover:text-indigo-500">Product</router-link> -->
                   <router-link to="/" class="px-4 py-7 hover:text-indigo-500">Home</router-link>
                   <router-link to="/form" v-if="this.$route.name !== 'FormEdit'" class="px-4 py-7 hover:text-indigo-500">Add</router-link>
                   <router-link to="/team" class="px-4 py-7 hover:text-indigo-500">Team</router-link>
-                  <!-- <router-link to="/about" class="px-4 py-7 hover:text-indigo-500">About</router-link> -->
                   <p class="border-r-2 dark:border-gray-300 border-indigo-900 h-5 w-1 my-auto mx-5"></p>
                   <div class="cursor-pointer">
                     <div :class="{ hidden: !change }" @click="switchMode" class="px-4 py-7 hover:text-indigo-500">
@@ -79,7 +76,8 @@ export default {
   data() {
     return {
       open: false,
-      menulist: false
+      menulist: false,
+      active: false
     }
   },
   methods: {
