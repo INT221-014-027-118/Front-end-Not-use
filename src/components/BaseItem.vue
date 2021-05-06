@@ -23,7 +23,7 @@
                     close
                 </div>
             </div>
-            <img :src="image" class="absolute h-full w-full object-cover object-center px-1 pt-1 select-none rounded-t-md dark:bg-gray-600 " alt="Product image" :class="[btnEditer ? ' opacity-50' : 'bg-white']"  />
+            <img :src="image" class="absolute h-full w-full object-cover object-center px-1 pt-1 select-none rounded-t-md dark:bg-gray-400 " alt="Product image" :class="[btnEditer ? ' opacity-50' : 'bg-white']"  />
             <div class="absolute -mt-4 w-full p-1 bottom-0 bg-gray-700 opacity-60 h-8" />
             <div class="absolute -mt-4 w-full p-1 bottom-0">
                 <div class="flex flex-row-reverse">
@@ -53,7 +53,7 @@
         >
             <div class="z-10 w-full relative">
                 <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
-                    <h1 class="font-bold text-lg underline sm:no-underline">
+                    <h1 class="font-bold text-lg underline sm:no-underline h-14">
                         {{ product.productName }}
                     </h1>
                     <div class="flex items-center justify-between">
