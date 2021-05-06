@@ -95,7 +95,7 @@
                     <div class="px-3 mb-6 lg:w-full md:mb-0" :class="{ hidden: !activeClose }">
                         <label class="label-css" for="previewImage">Preview</label>
                         <div class="relative input-css">
-                            <span class="absolute p-1 text-white bg-blue-700 rounded-full cursor-pointer material-icons top-2 right-2" @click="removeImage()">close</span>
+                            <span class="absolute p-1 text-white bg-blue-700 rounded-full cursor-pointer material-icons top-2 right-2 select-none" @click="removeImage()">close</span>
                             <img :src="previewImage" alt="Preview Image" class="max-h-80" />
                         </div>
                     </div>
