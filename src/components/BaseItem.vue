@@ -53,7 +53,7 @@
         >
             <div class="z-10 w-full relative">
                 <div class="pt-4 pb-8 px-5 bg-blue-200 dark:bg-gray-600 rounded-b-md">
-                    <h1 class="font-bold text-lg underline sm:no-underline">
+                    <h1 class="font-bold text-lg underline sm:no-underline h-14">
                         {{ product.productName }}
                     </h1>
                     <div class="flex items-center justify-between">
