@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col rounded-lg shadow-xl">
-        <div class="overflow-hidden w-full relative pb-72">
+        <div class="overflow-hidden w-full relative pb-72 select-none">
             <div v-show="btnEditer" class="flex space-x-2 sm:space-x-8 absolute z-10 top-1/4 right-1/2 transform translate-x-2/4 translate-y-1/2 font-mono">
                 <div class="bg-green-500 hover:bg-green-700  py-2 px-4 md:py-4 md:px-5 cursor-pointer rounded-full text-white shadow-2xl flex items-center" @click="editItem"><span class="material-icons text-4xl">edit</span>Edit</div>
                 <div class="bg-red-600 hover:bg-red-700 py-2 px-4 md:py-4 md:px-5 cursor-pointer rounded-full text-white shadow-2xl flex items-center" @click="deleteItem">
@@ -23,7 +23,7 @@
                     close
                 </div>
             </div>
-            <img :src="image" class="absolute h-full w-full object-cover object-center px-1 pt-1  rounded-t-md dark:bg-gray-600 " alt="Product image" :class="[btnEditer ? ' opacity-50' : 'bg-white']"  />
+            <img :src="image" class="absolute h-full w-full object-cover object-center px-1 pt-1 select-none rounded-t-md dark:bg-gray-600 " alt="Product image" :class="[btnEditer ? ' opacity-50' : 'bg-white']"  />
             <div class="absolute -mt-4 w-full p-1 bottom-0 bg-gray-700 opacity-60 h-8" />
             <div class="absolute -mt-4 w-full p-1 bottom-0">
                 <div class="flex flex-row-reverse">
