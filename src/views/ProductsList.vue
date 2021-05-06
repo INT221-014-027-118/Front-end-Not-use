@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div v-else class="h-screen w-full flex items-center justify-center">
+    <div v-else class="h-screen w-full flex items-center justify-center select-none">
         <i class="material-icons text-4xl animate-spin" v-show="isLoad"> autorenew </i>
         <div class="text-4xl font-mono tracking-wide font-bold" v-show="!isLoad">Product Out</div>
     </div>

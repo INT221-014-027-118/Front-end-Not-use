@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed w-full top-0 z-50 text-blue-900 bg-gray-200 dark:bg-gray-900 dark:text-gray-100">
+  <div class="fixed w-full top-0 z-50 text-blue-900 bg-gray-200 dark:bg-gray-900 dark:text-gray-100 select-none">
     <div class="flex relative items-center mx-auto max-w-6xl h-16 md:h-20 px-4">
           <div class="mx-auto sm:m-0">
               <router-link to="/"  class="flex items-center hover:text-indigo-500 cursor-pointer transform duration-200 p-2">

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col justify-center my-20 sm:my-20 md:my-0 md:h-screen">
+    <div class="flex flex-col justify-center my-20 sm:my-20 md:my-0 md:h-screen select-none">
         <div class="mx-auto max-w-5xl my-5">
             <router-link
                 to="/form"

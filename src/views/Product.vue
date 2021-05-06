@@ -1,13 +1,13 @@
 <template>
     <div class="flex items-center" v-show="showItem">
-        <div class="mx-auto w-full h-full md:h-auto lg:mt-0 md:w-full lg:w-5/6 rounded-md bg-blue-100 dark:bg-gray-700 shadow-lg overflow-scroll md:overflow-hidden">
+        <div class="mx-auto w-full h-full md:h-auto mt-0 md:mt-20 lg:mt-10 md:w-full lg:w-5/6 rounded-md bg-blue-100 dark:bg-gray-700 shadow-lg overflow-scroll md:overflow-hidden">
             <div
-                class="fixed md:relative z-50 w-full mt-16 md:mt-0 bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center"
+                class="fixed md:relative text-center md:text-left z-50 w-full mt-16 md:mt-0 bg-blue-300 dark:bg-blue-800 px-10 md:px-10 py-3 text-xl font-mono tracking-wider rounded-md flex flex-col md:flex-row justify-between items-center"
             >
                 <div>
-                    <span class="text-2xl font-bold text-center md:text-left">{{ brandName }} </span>
+                    <span class="text-2xl font-bold text-center ">{{ brandName }} </span>
                     <span class="hidden md:inline-flex tracking-wider">: </span>
-                    <span class="text-xl line">{{ product.productName }}</span>
+                    <p class="text-base md:text-xl line ">{{ product.productName }}</p>
                 </div>
                 <div class="flex mt-4 md: md:m-0 text-lg">
                     <div class="flex items-center bg-green-600 md:px-5 md:py-3 mx-1 sm:mx-4 md:mx-3 px-4 py-2 hover:bg-green-700 cursor-pointer rounded-full text-white select-none" @click="editItem">
@@ -19,13 +19,15 @@
                     >
                         <span class="material-icons">delete</span>Delete
                     </div>
-                    <span class="material-icons p-2 bg-white hover:bg-gray-300 text-black rounded-full cursor-pointer absolute top-1/4 right-5 -translate-y-1/2 select-none" @click="close">close</span>
+                    <span class="material-icons p-2 bg-white hover:bg-gray-300 text-black rounded-full cursor-pointer absolute top-3 md:top-1/4 right-5 -translate-y-1/2 select-none" @click="close"
+                        >close</span
+                    >
                 </div>
             </div>
 
-            <div class="mt-52 md:mt-0 p-2 md:px-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 md:w-full h-full lg:h-5/6">
+            <div class="mt-60 md:mt-0 p-2 md:px-10 lg:mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 md:w-full h-full lg:h-5/6">
                 <div class="flex justify-center md:justify-start md:flex-col m-2 md:my-5 ">
-                    <div class="flex justify-center items-center bg-gray-400">
+                    <div class="flex justify-center items-center bg-white">
                         <img :src="image" alt="" class="object-cover object-center md:max-h-96" />
                     </div>
                     <div class="flex flex-col md:flex-row items-center justify-center bg-gray-500 relative">
@@ -44,13 +46,17 @@
                 </div>
 
                 <div class="pb-8 sm:py-5 sm:px-5 ">
-                    <div class="pb-3 text-2xl border-b border-black dark:border-gray-100 mb-3">{{ product.productName }}</div>
+                    <p class="px-2 py-3 text-2xl border-b border-black dark:border-gray-100 mb-3">{{ product.productName }}</p>
                     <div class="px-0 sm:px-3">
+                        <div class="flex md:justify-between flex-col md:flex-row md:items-center py-2 text-left">
+                            <span class="text-sm font-light px-2">type : {{ typeName }}</span>
+                            <span class="text-sm font-light px-2">Launch Date : {{ product.launchDate }}</span>
+                        </div>
                         <div class="flex justify-between items-center mb-5">
                             <span class="text-md font-light px-2">Warranty : {{ product.warranty == 0 ? "none" : product.warranty + " year" }}</span>
-                            <span class="text-2xl text-red-500 font-bold">฿ {{ product.price }}</span>
+                            <span class="text-2xl text-red-500 font-bold px-2">฿ {{ product.price }}</span>
                         </div>
-                        <p class="font-light tracking-wide px-3 leading-loose">{{ product.description }}</p>
+                        <p class="font-light tracking-wide px-3">{{ product.description }}</p>
                     </div>
                 </div>
             </div>
@@ -77,6 +83,7 @@ export default {
             marginTop: false,
             brandName: "",
             image: "",
+            typeName: "",
         };
     },
     methods: {
@@ -112,6 +119,7 @@ export default {
                 .then((data) => {
                     this.product = data;
                     this.brandName = data.brand.brandName;
+                    this.typeName = data.type.typeName;
                 })
                 .catch((error) => console.log(error));
         },
@@ -123,6 +131,7 @@ export default {
         } else {
             this.product = this.productPassing;
             this.brandName = this.product.brand.brandName;
+            this.typeName = this.product.type.typeName;
             this.image = `${this.url}/image/get/${this.productPassing.imageUrl}`;
         }
     },
