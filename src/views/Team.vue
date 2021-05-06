@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full md:h-screen py-20 md:py-36 ">
+    <div class="h-full md:h-screen py-16 md:py-24 lg:py-36 ">
         <div class="flex flex-col justify-center items-center sm:flex-row lg:w-5/6 mx-auto my-auto">
             <div class="sm:w-1/3 p-4 w-full" v-for="member in teams" :key="member.studentId">
                 <div class="px-4 py-8 rounded-lg shadow-2xl text-center bg-blue-100 dark:bg-gray-700">

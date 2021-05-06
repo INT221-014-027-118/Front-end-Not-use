@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-20 lg:mt-24" v-show="!isLoad">
+    <div class="pb-5 pt-20 lg:pt-24" v-show="!isLoad">
         
         <form @submit.prevent="submitForm">
             <div class="relative grid max-w-6xl px-2 sm:px-8 pt-4 pb-10 mx-auto bg-white rounded shadow-md dark:bg-gray-700 sm:grid-cols-2">
