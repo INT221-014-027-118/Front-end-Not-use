@@ -137,7 +137,7 @@ export default {
             },
             isLoad: Boolean,
             imageFile: null,
-            oldImage:{image:'',useThis:Boolean}
+            oldImage: { image: "", useThis: Boolean },
         };
     },
     props: {
@@ -203,7 +203,7 @@ export default {
                     }),
                     warranty: Number(this.warranty),
                     launchDate: this.launchDate,
-                    imageUrl: this.oldImage.useThis?this.oldImage.image: this.imageFile.name,
+                    imageUrl: this.oldImage.useThis ? this.oldImage.image : this.imageFile.name,
                     colors: this.colorsAdd,
                 });
                 if (this.itemId) {
@@ -241,11 +241,15 @@ export default {
                 },
                 body: body,
             })
-            .catch((error) => console.log(error));
-            fetch(`${this.url}/image/add`, {
-                method: "POST",
-                body: this.uploadImage(),
-            }).catch((error) => console.log(error));
+                .then((res) => {
+                    if (res.status == 200) {
+                        fetch(`${this.url}/image/add`, {
+                            method: "POST",
+                            body: this.uploadImage(),
+                        }).catch((error) => console.log(error));
+                    }
+                })
+                .catch((error) => console.log(error));
         },
         editProduct(body) {
             fetch(`${this.url}/product/update`, {
@@ -254,13 +258,18 @@ export default {
                     "content-type": "application/json",
                 },
                 body: body,
-            }).catch((error) => console.log(error));
-            if(this.oldImage.useThis != true){
-            fetch(`${this.url}/image/update/${this.oldImage.image}`, {
-                method: "PUT",
-                body: this.uploadImage(),
-            }).catch((error) => console.log(error));
-            }
+            })
+                .then((res) => {
+                    if (res.status == 200) {
+                        if (this.oldImage.useThis != true) {
+                            fetch(`${this.url}/image/update/${this.oldImage.image}`, {
+                                method: "PUT",
+                                body: this.uploadImage(),
+                            }).catch((error) => console.log(error));
+                        }
+                    }
+                })
+                .catch((error) => console.log(error));
         },
         onFileChange(event) {
             this.imageFile = event.target.files[0];
@@ -279,12 +288,12 @@ export default {
         uploadImage() {
             let data = new FormData();
             data.append("refun", this.imageFile);
-            return data
+            return data;
         },
         removeImage() {
             this.previewImage = null;
-            if(this.itemId){
-                this.oldImage.useThis = false
+            if (this.itemId) {
+                this.oldImage.useThis = false;
             }
             this.activeClose = !this.activeClose;
         },
@@ -317,8 +326,8 @@ export default {
                         this.description = data.description;
                         this.warranty = data.warranty;
                         this.launchDate = data.launchDate;
-                        this.oldImage.image = data.imageUrl
-                        this.previewImage = `${this.url}/image/get/${data.imageUrl}`
+                        this.oldImage.image = data.imageUrl;
+                        this.previewImage = `${this.url}/image/get/${data.imageUrl}`;
                         for (let i = 0; i < this.colors.length; i++) {
                             if (
                                 data.colors.some((color) => {
@@ -326,7 +335,6 @@ export default {
                                 })
                             ) {
                                 this.activeColor((this.colors[i].active = true), i);
-
                             }
                         }
                     })
@@ -343,7 +351,7 @@ export default {
         },
     },
     async created() {
-        this.oldImage.useThis = this.itemId?true:false
+        this.oldImage.useThis = this.itemId ? true : false;
         await fetch(`${this.url}/product/list`)
             .then((res) => res.json())
             .then(
