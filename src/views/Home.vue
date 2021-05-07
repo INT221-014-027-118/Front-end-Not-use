@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col py-20 md:py-24 h-full md:h-screen select-none">
+    <div class="flex flex-col pt-20 md:py-32 h-full md:h-screen select-none">
         <div class="w-4/5 mx-auto my-0 md:my-1">
             <div class="flex flex-col items-stretch md:flex-row">
                 <item-type
@@ -33,7 +33,7 @@
                     class="px-9 py-4 ring-2 flex items-center ring-offset-2 ring-green-500 ring-offset-green-500 rounded-full shadow-2xl
                 bg-green-100 dark:bg-green-900 hover:bg-green-200 transition duration-200 transform dark:hover:bg-green-700"
                     ><div>
-                        <span class="material-icons pr-2 text-2xl">add </span>
+                        <span class="material-icons pr-2 text-2xl">add</span>
                     </div>
                     <span> Add Product</span>
                 </router-link>

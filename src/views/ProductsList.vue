@@ -1,6 +1,6 @@
 <template>
-    <div class="mt-16 mb-52 md:my-20" v-if="brandsObjs.length > 0">
-        <router-view class="z-40 fixed w-screen h-full backdrop-filter backdrop-blur-3xl -mt-16 md:-my-20" :productPassing="item" @deleted-item="deleteItem"></router-view>
+    <div class="py-16 md:py-20" v-if="brandsObjs.length > 0">
+        <router-view class="z-40 fixed w-screen h-full -mt-16 md:-my-20 bg-gray-800 bg-opacity-90" :productPassing="item" @deleted-item="deleteItem"></router-view>
         <div class="h-full items-center mx-auto max-w-6xl bg-blue-100 dark:bg-gray-700 rounded-md mb-8 relative" v-for="brand in brandsObjs" :key="brand.brand">
             <div class="text-center bg-blue-300 dark:bg-blue-800 px-2 py-3 text-xl font-mono tracking-wider rounded-md sticky top-16 md:top-20 z-30">
                 {{ brand.brand }}
