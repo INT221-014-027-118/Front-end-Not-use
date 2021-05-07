@@ -1,6 +1,5 @@
 <template>
     <div class="pb-5 pt-20 lg:pt-24" v-show="!isLoad">
-        
         <form @submit.prevent="submitForm">
             <div class="relative grid max-w-6xl px-2 sm:px-8 pt-4 pb-10 mx-auto bg-white rounded shadow-md dark:bg-gray-700 sm:grid-cols-2">
                 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ L ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -11,13 +10,26 @@
                             <option value="" disabled selected>[ Select Brand ]</option>
                             <option v-for="brand in brands" :key="brand.brandId" :value="brand.brandName" class="text-lg">{{ brand.brandName }}</option>
                         </select>
-                        <span v-if="invalid.brand" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm">Please select Brand</span>
+                        <span v-if="invalid.brand" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm"
+                            >Please select Brand</span
+                        >
                     </div>
 
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative">
                         <label class="label-css" for="">Product Name *</label>
-                        <input v-model.trim="name" class="input-css" id="" type="text" placeholder="Please input name 40 characters" maxlength="40" required :class="{ 'ring ring-red-400': invalid.name }" />
-                        <span v-if="invalid.name" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm">Please input product name</span>
+                        <input
+                            v-model.trim="name"
+                            class="input-css"
+                            id=""
+                            type="text"
+                            placeholder="Please input name 40 characters"
+                            maxlength="40"
+                            required
+                            :class="{ 'ring ring-red-400': invalid.name }"
+                        />
+                        <span v-if="invalid.name" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm"
+                            >Please input product name</span
+                        >
                     </div>
 
                     <div class="flex flex-col md:flex-row lg:w-full">
@@ -53,7 +65,9 @@
                                 </div>
                             </div>
                         </div>
-                        <span v-if="invalid.Color" class="absolute -bottom-6 left-3 sm:-bottom-1 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm">Please select product color</span>
+                        <span v-if="invalid.Color" class="absolute -bottom-6 left-3 sm:-bottom-1 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm"
+                            >Please select product color</span
+                        >
                     </div>
 
                     <input @click="validating" type="submit" value="Add Product" class="absolute z-10 rounded shadow-md cursor-pointer btn bottom-4 right-4" />
@@ -65,7 +79,9 @@
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative">
                         <label class="label-css" for="previewImage">Launch date *</label>
                         <input type="date" class="input-css" v-model="launchDate" required :class="{ 'ring ring-red-400': invalid.date }" />
-                        <span v-if="invalid.date" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm">Please input date</span>
+                        <span v-if="invalid.date" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm"
+                            >Please input date</span
+                        >
                     </div>
 
                     <div class="px-3 mb-6 lg:w-full md:mb-0">
@@ -89,7 +105,9 @@
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative" :class="{ hidden: activeClose }">
                         <label class="label-css" for="description">File *</label>
                         <input class="input-css" id="file" v-on:change="onFileChange($event)" type="file" :class="{ 'ring ring-red-400': invalid.img }" />
-                        <span v-if="invalid.img" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm">Please choose image</span>
+                        <span v-if="invalid.img" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm"
+                            >Please choose image</span
+                        >
                     </div>
 
                     <div class="px-3 mb-6 lg:w-full md:mb-0" :class="{ hidden: !activeClose }">
@@ -153,10 +171,10 @@ export default {
             this.invalid.Color = this.colorsAdd.length === 0 ? true : false;
             this.invalid.date = this.launchDate === "" ? true : false;
             this.invalid.img = this.previewImage === null ? true : false;
-            for(let prop in this.invalid){
+            for (let prop in this.invalid) {
                 setTimeout(() => {
-                this.invalid[`${prop}`] = false;
-            }, 5000);
+                    this.invalid[`${prop}`] = false;
+                }, 5000);
             }
         },
         generateNewId() {
@@ -206,7 +224,7 @@ export default {
             })
                 .then((res) => {
                     if (res.ok) {
-                        if (this.oldImage.useThis === false && (this.imageFile.name.length < 20)) {
+                        if (this.oldImage.useThis === false) {
                             fetch(pathIamge, {
                                 method: method,
                                 body: this.uploadImage(),
@@ -251,13 +269,14 @@ export default {
         },
         onFileChange(event) {
             this.imageFile = event.target.files[0];
-            if(this.imageFile.name.length > 20 ){
-                alert('The file name cannot exceed 20 characters.!!!')
+            if (this.imageFile.name.length > 20) {
+                alert("The file name cannot exceed 20 characters.!!!");
+            } else {
+                let files = event.target.files || event.dataTransfer.files;
+                if (!files.length) return;
+                this.createImage(files[0]);
+                this.activeClose = true;
             }
-            let files = event.target.files || event.dataTransfer.files;
-            if (!files.length) return;
-            this.createImage(files[0]);
-            this.activeClose = true;
         },
         createImage(file) {
             let reader = new FileReader();
@@ -328,7 +347,15 @@ export default {
     },
     computed: {
         isValid() {
-            return this.brandAdd !== "" && this.name !== "" && this.price !== 0 && this.typeAdd !== "" && this.colorsAdd.length !== 0 && this.launchDate !== "" && this.previewImage !== null && (this.imageFile.name.length > 20);
+            return (
+                this.brandAdd !== "" &&
+                this.name !== "" &&
+                this.price !== 0 &&
+                this.typeAdd !== "" &&
+                this.colorsAdd.length !== 0 &&
+                this.launchDate !== "" &&
+                this.previewImage !== null 
+            );
         },
     },
     async created() {
