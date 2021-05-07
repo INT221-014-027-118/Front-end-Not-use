@@ -5,7 +5,7 @@
                 <div class="mx-auto sm:m-0">
                     <router-link to="/" class="flex items-center hover:text-indigo-500 cursor-pointer transform duration-200 p-2">
                         <i class="material-icons text-5xl md:text-7xl">sports_esports</i>
-                        <span class="font-mono p-2 font-bold text-2xl tracking-tighter animate-pulse hidden md:inline-flex">Refun Guarntee</span>
+                        <span class="font-mono p-2 font-bold text-2xl tracking-tighter animate-pulse hidden md:inline-flex">Refun Garantee</span>
                     </router-link>
                 </div>
                 <div>
