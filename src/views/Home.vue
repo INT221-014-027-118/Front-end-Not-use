@@ -6,7 +6,7 @@
                     v-for="type in types"
                     :key="type.typeId"
                     :type="type"
-                    :forTest="
+                    :typeSymbol="
                         itemType[
                             itemType.findIndex((item) => {
                                 return item.itmeName === type.typeName;
