@@ -50,10 +50,9 @@
 
                         <div :class="[!menulist ? 'invisible' : 'w-screen absolute transform transition duration-500 ease-in-out top-0 translate-y-16']">
                             <div class="flex flex-col bg-gray-200 dark:bg-gray-900 w-full">
-                                <router-link to="/" class="px-4 py-7 hover:text-indigo-500 text-center" @click="menulist = !menulist">Home</router-link>
-                                <router-link to="/team" class="px-4 py-7 hover:text-indigo-500 text-center" @click="menulist = !menulist">Team</router-link>
-                                <!-- <router-link to="/about" class="px-4 py-7 hover:text-indigo-500 text-center"  @click="menulist =!menulist" >About</router-link> -->
-                                <router-link to="/form" v-if="this.$route.name !== 'FormEdit'" class="px-4 py-7 hover:text-indigo-500 text-center" @click="menulist = !menulist">Add</router-link>
+                                <router-link to="/" class="px-4 py-7 hover:text-indigo-500 text-center" @click="(menulist = !menulist),(open = !open)">Home</router-link>
+                                <router-link to="/team" class="px-4 py-7 hover:text-indigo-500 text-center" @click="(menulist = !menulist),(open = !open)">Team</router-link>
+                                <router-link to="/form" v-if="this.$route.name !== 'FormEdit'" class="px-4 py-7 hover:text-indigo-500 text-center" @click="(menulist = !menulist),(open = !open)">Add</router-link>
                             </div>
                         </div>
                     </div>
@@ -78,8 +77,8 @@
             v-if="this.$route.name == 'ProductsListTypes' || this.$route.name == 'ProductsList' || this.$route.name == 'Home'"
             :class="{ 'inline-flex md:hidden': this.$route.name == 'Home' }"
         >
-            <span class="material-icons px-2 py-1 md:px-3 md:py-2 ring  ring-green-400 bg-green-200 dark:bg-green-700 rounded-full text-4xl z-30"> add </span>
-            <span class="-ml-10 pl-12 pr-4 py-4 rounded-full bg-green-300 dark:bg-green-700  hidden md:inline-flex" v-show="showAdd">Add Product</span>
+            <span class="material-icons px-2 py-1 md:px-3 md:py-2 ring shadow-md ring-green-400 bg-green-200 dark:bg-green-700 rounded-full text-4xl z-30"> add </span>
+            <span class="-ml-10 pl-12 pr-4 py-4 rounded-full shadow-md bg-green-300 dark:bg-green-700  hidden md:inline-flex" v-show="showAdd">Add Product</span>
         </router-link>
     </div>
 </template>
