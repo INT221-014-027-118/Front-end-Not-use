@@ -9,7 +9,7 @@
                         <p>{{ member.studentId }}</p>
                         <p class="my-2 pb-2 border-b-2 border-gray-400">ROLE</p>
                         <div class="">
-                            <span class="text-blue-500 block" v-for="role in member.roles" :key="role">{{ role }}</span>
+                            <span class="text-blue-900 dark:text-blue-100 block" v-for="role in member.roles" :key="role">{{ role }}</span>
                         </div>
                     </div>
                     <button @click="openGitHib(member.github)" class="px-8 py-3 focus:outline-none cursor-pointer bg-blue-600 text-white rounded-full hover:bg-blue-700">Git Hub</button>
