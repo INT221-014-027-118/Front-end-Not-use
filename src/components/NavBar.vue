@@ -75,9 +75,10 @@
             class="fixed right-5 bottom-8  md:bottom-10 md:right-16 lg:bottom-20 lg:right-20 z-40 flex items-center cursor-pointer text-green-700 dark:text-green-100"
             @mouseenter="showAdd = true"
             @mouseleave="showAdd = false"
-            v-if="this.$route.name == 'ProductsListTypes' || this.$route.name == 'ProductsList'"
+            v-if="this.$route.name == 'ProductsListTypes' || this.$route.name == 'ProductsList' || this.$route.name == 'Home'"
+            :class="{ 'inline-flex md:hidden': this.$route.name == 'Home' }"
         >
-            <span class="material-icons px-2 py-1 md:px-3 md:py-2 ring  ring-green-400 bg-green-200 dark:bg-green-700 rounded-full text-4xl z-30"> add </span>
+            <span class="material-icons px-2 py-1 md:px-3 md:py-2 ring  ring-green-400 bg-green-200 dark:bg-green-700 rounded-full text-4xl z-30 shadow-md"> add </span>
             <span class="-ml-10 pl-12 pr-4 py-4 rounded-full bg-green-300 dark:bg-green-700  hidden md:inline-flex" v-show="showAdd">Add Product</span>
         </router-link>
     </div>

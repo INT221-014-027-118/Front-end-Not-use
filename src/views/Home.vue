@@ -27,7 +27,7 @@
                 <span>All Products</span>
             </router-link>
 
-            <div class="mx-auto my-10">
+            <div class="mx-auto my-10 hidden md:inline-flex">
                 <router-link
                     to="/form"
                     class="px-9 py-4 ring-2 flex items-center ring-offset-2 ring-green-500 ring-offset-green-500 rounded-full shadow-2xl
