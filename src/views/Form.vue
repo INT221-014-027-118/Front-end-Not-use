@@ -58,7 +58,7 @@
 
                     <div class="relative px-3 mb-6 lg:w-full md:mb-0">
                         <label class="label-css" for="previewImage">color *</label>
-                        <div class="input-css " :class="{ 'ring ring-red-400': invalid.Color }">
+                        <div class="input-css z" :class="{ 'ring ring-red-400': invalid.Color }">
                             <div class="flex flex-wrap">
                                 <div v-for="(color, index) in colors" :key="color.colorId">
                                     <base-color :color="color" @active-color="activeColor($event, index)" />
@@ -104,7 +104,7 @@
 
                     <div class="px-3 mb-6 lg:w-full md:mb-0 relative" :class="{ hidden: activeClose }">
                         <label class="label-css" for="description">File *</label>
-                        <input class="input-css" id="file" v-on:change="onFileChange($event)" type="file" :class="{ 'ring ring-red-400': invalid.img }" />
+                        <input class="input-css" id="file" v-on:change="onFileChange($event)" type="file" :class="{ 'ring ring-red-400': invalid.img }" accept="image/x-png,image/gif,image/jpeg" />
                         <span v-if="invalid.img" class="absolute -bottom-3 left-3 sm:bottom-2 sm:left-1/2 transform sm:-translate-x-1/2 font-mono text-red-500 select-none text-sm"
                             >Please choose image</span
                         >
@@ -141,7 +141,7 @@ export default {
             launchDate: "",
             typeAdd: "",
             description: "",
-            url: "http://137.116.145.41:9091",
+            url: "http://137.116.145.41/refun",
             previewImage: null,
             activeClose: true,
             productIds: [],
@@ -401,7 +401,7 @@ export default {
 
 <style scoped>
 .input-css {
-    @apply w-full border border-gray-500 focus:outline-none rounded focus:bg-gray-50 dark:focus:bg-gray-500 py-3 px-5 mb-3 bg-gray-100 dark:bg-gray-600;
+    @apply w-full border border-gray-500 focus:outline-none rounded focus:bg-gray-50 dark:focus:bg-gray-500 py-3 px-5 md:px-10 mb-3 bg-gray-100 dark:bg-gray-600;
 }
 
 .label-css {
